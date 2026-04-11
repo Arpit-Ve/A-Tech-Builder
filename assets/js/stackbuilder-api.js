@@ -14,10 +14,16 @@
     window.__SB_API_LOADED = true;
 
     // ===== Configuration =====
-    // Auto-detect: if served from backend, use same origin; otherwise use localhost:5000
-    const API_BASE = (window.location.port === '5000') 
-        ? '/api' 
-        : 'http://localhost:5000/api';
+    // Auto-detect environment: Use localhost for development, or a production URL when deployed
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    
+    // TODO: Once you deploy your backend (e.g., on Render), paste its URL here
+    const PRODUCTION_API_URL = 'https://your-backend-url.onrender.com/api'; 
+    
+    const API_BASE = isLocalhost 
+        ? (window.location.port === '5000' ? '/api' : 'http://localhost:5000/api')
+        : PRODUCTION_API_URL;
+
     let backendAvailable = false;
 
     // ===== Check Backend Availability =====
