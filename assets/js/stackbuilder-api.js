@@ -16,11 +16,11 @@
     // ===== Configuration =====
     // Auto-detect environment: Use localhost for development, or a production URL when deployed
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    
+
     // TODO: Once you deploy your backend (e.g., on Render), paste its URL here
-    const PRODUCTION_API_URL = 'https://your-backend-url.onrender.com/api'; 
-    
-    const API_BASE = isLocalhost 
+    const PRODUCTION_API_URL = 'https://a-tech-builder.onrender.com/api';
+
+    const API_BASE = isLocalhost
         ? (window.location.port === '5000' ? '/api' : 'http://localhost:5000/api')
         : PRODUCTION_API_URL;
 
@@ -29,9 +29,9 @@
     // ===== Check Backend Availability =====
     async function checkBackend() {
         try {
-            const res = await fetch(`${API_BASE}/health`, { 
+            const res = await fetch(`${API_BASE}/health`, {
                 method: 'GET',
-                signal: AbortSignal.timeout(3000) 
+                signal: AbortSignal.timeout(3000)
             });
             if (res.ok) {
                 backendAvailable = true;

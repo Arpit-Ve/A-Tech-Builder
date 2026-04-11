@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
@@ -23,7 +23,7 @@ function AdminRoute({ children }) {
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Toaster position="top-right" toastOptions={{
           style: { background:'#12122a', color:'#f0f0ff', border:'1px solid rgba(139,92,246,0.25)', fontFamily:"'DM Sans',sans-serif" },
           success: { iconTheme:{ primary:'#10b981', secondary:'#12122a' } },
@@ -36,7 +36,7 @@ export default function App() {
           <Route path="/admin/dashboard/*" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
           <Route path="*"                 element={<Navigate to="/login" replace />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </AuthProvider>
   );
 }
