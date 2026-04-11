@@ -37,26 +37,19 @@ const allowedOrigins = [
     'http://localhost:5501',
     'http://127.0.0.1:3000',
     'http://localhost:3000',
+    'https://a-tech-builder-git-main-arpit-ves-projects.vercel.app',
     'https://a-tech-builder.vercel.app',
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (mobile apps, curl, Postman, etc.)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.warn(`⚠️  CORS blocked request from origin: ${origin}`);
-            callback(null, true); // Allow all origins in development
-        }
-    },
+    origin: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization'],
     credentials: true
 }));
 
+app.options('*', cors());
 // ===== Rate Limiting =====
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -97,6 +90,7 @@ app.use(express.static(path.join(__dirname, '..'), {
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     }
 }));
+app.options('*', cors()); // Handle preflight requests
 
 // ===== API Routes =====
 app.use('/api/contact', formLimiter, contactRoutes);
