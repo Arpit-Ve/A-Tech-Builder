@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-// Automatically use localhost during development, and the Render backend in production
-const isDevelopment = process.env.NODE_ENV === 'development';
-const API_URL = isDevelopment 
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const API_URL = isLocalhost 
     ? 'http://localhost:5000' 
     : (process.env.REACT_APP_API_URL || 'https://a-tech-builder.onrender.com');
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight, Loader2, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -114,7 +114,7 @@ export default function Login() {
 
           <p style={{textAlign:'center',marginTop:'1.25rem',fontSize:'0.82rem',color:'var(--text-3)'}}>
             Admin?{' '}
-            <a href="/admin" style={{color:'var(--purple-light)',textDecoration:'none',fontWeight:600}}>Admin login →</a>
+            <Link to="/admin" style={{color:'var(--purple-light)',textDecoration:'none',fontWeight:600}}>Admin login →</Link>
           </p>
         </div>
       </div>

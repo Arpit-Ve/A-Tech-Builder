@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Key, Eye, EyeOff, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -76,7 +76,7 @@ export default function AdminLogin() {
 
         <p style={{textAlign:'center',marginTop:'1.25rem',fontSize:'0.82rem',color:'var(--text-3)'}}>
           Not admin?{' '}
-          <a href="/login" style={{color:'var(--purple-light)',textDecoration:'none',fontWeight:600}}>User Login →</a>
+          <Link to="/login" style={{color:'var(--purple-light)',textDecoration:'none',fontWeight:600}}>User Login →</Link>
         </p>
       </div>
     </div>
