@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A'tech Builder — A dynamic duo of developers building AI, ML, and Web solutions. Portfolio of Arpit Verma & Ansh Singh.">
+    <meta name="keywords"
+        content="portfolio, developer, AI, ML, web development, data science, Arpit Verma, Ansh Singh">
+    <meta name="author" content="Arpit Verma, Ansh Singh">
+    <title>A'tech Builder — AI & Web Development Portfolio</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="assets/js/A'tech Builder-api.js"></script>
+</head>
+
+<body>
+
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
+
+    <!-- ====== NAVBAR ====== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#home" class="nav-logo">
+                <img src="assets/images/logo.png" alt="A'tech Builder Logo">
+                <span>A'tech Builder</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#contact" class="nav-cta">Contact</a>
+                <a href="http://localhost:3000" target="_blank" class="nav-cta" style="background: var(--purple, #8b5cf6); margin-left: 0.5rem; border-color: var(--purple-light, #a78bfa);">Dashboard</a>
+            </div>
+            <div class="nav-hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ====== HERO SECTION ====== -->
+    <section class="hero section" id="home">
+        <div class="bg-glow bg-glow--blue"></div>
+        <div class="bg-glow bg-glow--purple"></div>
+        <div class="particles-container" id="particles"></div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Available for Projects & Collaborations
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="line">We Are</span>
+                    <span class="line highlight">A'tech Builder</span>
+                    <span class="line" style="font-size:0.6em; color: var(--text-secondary); font-weight:400;">Turning
+                        ideas into intelligent solutions</span>
+                </h1>
+
+                <p class="hero-description">
+                    A duo of passionate developers specializing in <strong>AI/ML</strong>,
+                    <strong>Data Science</strong>, and <strong>Web Development</strong>.
+                    We craft real-world solutions powered by cutting-edge technology.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i data-lucide="rocket" style="width:18px;height:18px;"></i>
+                        View Our Work
+                    </a>
+                    <button class="btn btn-order" id="orderProjectBtn">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        Order Project
+                    </button>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                        Get In Touch
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="number" data-count="12">0</div>
+                        <div class="label">Projects Built</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number" data-count="8">0</div>
+                        <div class="label">Technologies</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number" data-count="5">0</div>
+                        <div class="label">Internships</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number" data-count="10">0</div>
+                        <div class="label">Certifications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== ABOUT / TEAM SECTION ====== -->
+    <section class="section" id="about">
+        <div class="bg-glow bg-glow--purple" style="top: 50%; right: -250px;"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">👥 Our Team</span>
+                <h2 class="section-title">Meet the Builders</h2>
+                <p class="section-subtitle">Two driven BCA students combining our skills to build innovative solutions
+                    in AI, ML, and Web Development.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Arpit Card -->
+                <div class="team-card reveal reveal-delay-1">
+                    <div class="team-card-header">
+                        <div class="team-avatar">
+                            <img src="assets/images/arpit.png" alt="Arpit Verma">
+                        </div>
+                        <div class="team-info">
+                            <h3>Arpit Verma</h3>
+                            <p class="team-role">Full-Stack Developer & AI/ML Engineer</p>
+                        </div>
+                    </div>
+                    <p class="team-bio">
+                        Motivated BCA student with strong skills in Python, Java, Web Development, and AI/ML.
+                        Experienced in building real-world projects in data analysis and machine learning.
+                        Quick learner with strong problem-solving abilities, seeking opportunities to apply
+                        technical skills in practical and innovative environments.
+                    </p>
+                    <div class="team-links">
+                        <a href="mailto:atechbuilderss@gmail.com" class="team-link" title="Email">
+                            <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/arpit-verma" class="team-link" target="_blank"
+                            title="LinkedIn">
+                            <i data-lucide="linkedin" style="width:18px;height:18px;"></i>
+                        </a>
+                        <a href="https://github.com/Arpit-Ve" class="team-link" target="_blank" title="GitHub">
+                            <i data-lucide="github" style="width:18px;height:18px;"></i>
+                        </a>
+                        <a href="tel:+917932392220" class="team-link" title="Phone">
+                            <i data-lucide="phone" style="width:18px;height:18px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ansh Card -->
+                <div class="team-card reveal reveal-delay-2">
+                    <div class="team-card-header">
+                        <div class="team-avatar">
+                            <img src="assets/images/ansh.png" alt="Ansh Singh">
+                        </div>
+                        <div class="team-info">
+                            <h3>Ansh Singh</h3>
+                            <p class="team-role">AI Engineer & Data Scientist</p>
+                        </div>
+                    </div>
+                    <p class="team-bio">
+                        Aspiring AI Engineer and final-year BCA student with hands-on experience in
+                        machine learning model development, deep learning, and data science. Proficient in Python,
+                        Scikit-learn, TensorFlow, NumPy, Pandas, and OpenCV. Passionate about NLP,
+                        predictive analytics, and AI-driven product development.
+                    </p>
+                    <div class="team-links">
+                        <a href="mailto:atechbuilderss@gmail.com" class="team-link" title="Email">
+                            <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/ansh-singh" class="team-link" target="_blank" title="LinkedIn">
+                            <i data-lucide="linkedin" style="width:18px;height:18px;"></i>
+                        </a>
+                        <a href="https://github.com/anshsingh" class="team-link" target="_blank" title="GitHub">
+                            <i data-lucide="github" style="width:18px;height:18px;"></i>
+                        </a>
+                        <a href="tel:+917065571331" class="team-link" title="Phone">
+                            <i data-lucide="phone" style="width:18px;height:18px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== SKILLS SECTION ====== -->
+    <section class="section" id="skills">
+        <div class="bg-glow bg-glow--blue" style="bottom: -200px; left: -200px;"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">⚡ Tech Arsenal</span>
+                <h2 class="section-title">Skills & Technologies</h2>
+                <p class="section-subtitle">Our combined expertise across programming languages, frameworks, and
+                    cutting-edge technologies.</p>
+            </div>
+
+            <div class="skills-tabs" id="skillsTabs">
+                <button class="skills-tab active" data-category="all">All</button>
+                <button class="skills-tab" data-category="languages">Languages</button>
+                <button class="skills-tab" data-category="web">Web Dev</button>
+                <button class="skills-tab" data-category="aiml">AI / ML</button>
+                <button class="skills-tab" data-category="data">Data & Tools</button>
+            </div>
+
+            <div class="skills-grid" id="skillsGrid">
+                <!-- Languages -->
+                <div class="skill-card reveal" data-category="languages" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(59,130,246,0.15);color:var(--accent-blue);">🐍
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">Python</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:92%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="languages" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(236,72,153,0.15);color:var(--accent-pink);">☕
+                        </div>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="skill-name">Java</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:70%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="languages" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(6,182,212,0.15);color:var(--accent-cyan);">⚙️
+                        </div>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="skill-name">C / C++</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:75%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="languages" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(245,158,11,0.15);color:var(--accent-amber);">🌐
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">JavaScript</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:85%"></div>
+                    </div>
+                </div>
+
+                <!-- Web Dev -->
+                <div class="skill-card reveal" data-category="web" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(239,68,68,0.15);color:var(--accent-red);">📄
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">HTML5 & CSS3</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="web" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(139,92,246,0.15);color:var(--accent-purple);">🎨
+                        </div>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="skill-name">Bootstrap</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:78%"></div>
+                    </div>
+                </div>
+
+                <!-- AI/ML -->
+                <div class="skill-card reveal" data-category="aiml" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(239,68,68,0.15);color:var(--accent-red);">🧠
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">TensorFlow & Keras</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:85%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="aiml" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(16,185,129,0.15);color:var(--accent-emerald);">🤖
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">Scikit-learn</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:88%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="aiml" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(59,130,246,0.15);color:var(--accent-blue);">👁️
+                        </div>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="skill-name">OpenCV</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:80%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="aiml" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(236,72,153,0.15);color:var(--accent-pink);">💬
+                        </div>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="skill-name">NLP & Deep Learning</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:75%"></div>
+                    </div>
+                </div>
+
+                <!-- Data & Tools -->
+                <div class="skill-card reveal" data-category="data" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(6,182,212,0.15);color:var(--accent-cyan);">🐼
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">Pandas & NumPy</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="data" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(245,158,11,0.15);color:var(--accent-amber);">📊
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">Matplotlib & EDA</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:85%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="data" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(139,92,246,0.15);color:var(--accent-purple);">🔧
+                        </div>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-name">Git & GitHub</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:82%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal" data-category="data" data-visible="false">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" style="background:rgba(16,185,129,0.15);color:var(--accent-emerald);">💻
+                        </div>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="skill-name">VS Code & Jupyter</div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="--fill:88%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== COMPETENCIES SECTION ====== -->
+    <section class="section" id="competencies">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">🎯 Core Strengths</span>
+                <h2 class="section-title">Core Competencies</h2>
+                <p class="section-subtitle">Beyond technical skills — the superpowers we bring to every project.</p>
+            </div>
+
+            <div class="competencies-grid">
+                <div class="competency-item reveal">
+                    <span class="competency-icon">🤖</span>
+                    <span class="competency-text">Machine Learning</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-1">
+                    <span class="competency-icon">🧠</span>
+                    <span class="competency-text">Deep Learning</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-2">
+                    <span class="competency-icon">💬</span>
+                    <span class="competency-text">NLP</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-1">
+                    <span class="competency-icon">👁️</span>
+                    <span class="competency-text">Computer Vision</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-2">
+                    <span class="competency-icon">📊</span>
+                    <span class="competency-text">Data Science</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-3">
+                    <span class="competency-icon">📈</span>
+                    <span class="competency-text">Predictive Analytics</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-1">
+                    <span class="competency-icon">🔍</span>
+                    <span class="competency-text">Problem Solving</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-2">
+                    <span class="competency-icon">📢</span>
+                    <span class="competency-text">Digital Marketing</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-3">
+                    <span class="competency-icon">🎨</span>
+                    <span class="competency-text">Graphic Design</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-4">
+                    <span class="competency-icon">🎬</span>
+                    <span class="competency-text">Video Editing</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-3">
+                    <span class="competency-icon">⏱️</span>
+                    <span class="competency-text">Time Series Analysis</span>
+                </div>
+                <div class="competency-item reveal reveal-delay-4">
+                    <span class="competency-icon">🧪</span>
+                    <span class="competency-text">Feature Engineering</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== EXPERIENCE SECTION ====== -->
+    <section class="section" id="experience">
+        <div class="bg-glow bg-glow--pink" style="top: 30%; left: -250px;"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">💼 Career Path</span>
+                <h2 class="section-title">Work Experience</h2>
+                <p class="section-subtitle">Our combined professional journey across AI, ML, Data Science, and Web
+                    Development internships.</p>
+            </div>
+
+            <div class="timeline">
+                <!-- Ansh - Elevate Labs -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-card">
+                            <span class="timeline-person-badge badge-ansh">Ansh Singh</span>
+                            <div class="timeline-date">May 2025 — June 2025</div>
+                            <h3 class="timeline-title">AI/ML Engineer Intern</h3>
+                            <p class="timeline-company">Elevate Labs</p>
+                            <p class="timeline-desc">
+                                Developed production-ready ML models on real-world datasets using Python and
+                                Scikit-learn.
+                                Applied feature engineering and data preprocessing pipelines to improve input quality.
+                                Implemented end-to-end model evaluation workflows including cross-validation and
+                                hyperparameter tuning.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ansh - Unified Mentor -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-card">
+                            <span class="timeline-person-badge badge-ansh">Ansh Singh</span>
+                            <div class="timeline-date">June 2025 — August 2025</div>
+                            <h3 class="timeline-title">Data Science Intern</h3>
+                            <p class="timeline-company">Unified Mentor Pvt Ltd</p>
+                            <p class="timeline-desc">
+                                Built data pipelines using Pandas and NumPy, conducting EDA and predictive modelling on
+                                structured datasets.
+                                Developed data visualizations using Matplotlib to communicate trends and model outputs.
+                                Applied statistical analysis and feature selection techniques to improve model
+                                performance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arpit - AI/ML Intern -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-card">
+                            <span class="timeline-person-badge badge-arpit">Arpit Verma</span>
+                            <div class="timeline-date">2024</div>
+                            <h3 class="timeline-title">AI & ML Intern</h3>
+                            <p class="timeline-company">Remote</p>
+                            <p class="timeline-desc">
+                                Worked on EDA and supervised learning projects.
+                                Used Python, Pandas, NumPy, and Matplotlib for data analysis
+                                and machine learning model development.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arpit - CipherByte -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-card">
+                            <span class="timeline-person-badge badge-arpit">Arpit Verma</span>
+                            <div class="timeline-date">2024</div>
+                            <h3 class="timeline-title">Web Development Intern</h3>
+                            <p class="timeline-company">CipherByte Technologies</p>
+                            <p class="timeline-desc">
+                                Built a shoe e-commerce website, focusing on UI design and clean code architecture.
+                                Implemented responsive design patterns and modern web development best practices.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arpit - OctaNet -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-card">
+                            <span class="timeline-person-badge badge-arpit">Arpit Verma</span>
+                            <div class="timeline-date">2024</div>
+                            <h3 class="timeline-title">Web Development Intern</h3>
+                            <p class="timeline-company">OctaNet</p>
+                            <p class="timeline-desc">
+                                Developed responsive landing pages following corporate design standards.
+                                Designed and implemented responsive web pages using HTML & CSS.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PROJECTS SECTION ====== -->
+    <section class="section" id="projects">
+        <div class="bg-glow bg-glow--blue" style="top: 20%; right: -200px;"></div>
+        <div class="bg-glow bg-glow--purple" style="bottom: 10%; left: -200px;"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">🚀 Our Work</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">Real-world applications we've built using AI, ML, Data Science, and Web
+                    Technologies.</p>
+            </div>
+
+            <div class="projects-filter" id="projectsFilter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="ai">AI / ML</button>
+                <button class="filter-btn" data-filter="web">Web Dev</button>
+                <button class="filter-btn" data-filter="data">Data Science</button>
+                <button class="filter-btn" data-filter="arpit">By Arpit</button>
+                <button class="filter-btn" data-filter="ansh">By Ansh</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+
+                <!-- Project 1: Face Mask Detection (Both) -->
+                <div class="project-card reveal" data-tags="ai arpit ansh">
+                    <div class="project-image">
+                        <img src="assets/images/project_facemask.png" alt="Face Mask Detection System">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-arpit">Arpit</span>
+                            <span class="project-person-badge badge-ansh">Ansh</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Face Mask Detection System</h3>
+                        <p class="project-desc">
+                            Built a real-time face mask detection system using TensorFlow, Keras, MobileNetV2 & OpenCV.
+                            Implements CNN for binary image classification with high accuracy, deployable in
+                            surveillance systems.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Keras</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">MobileNetV2</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Biblio AI (Arpit) -->
+                <div class="project-card reveal" data-tags="ai web arpit">
+                    <div class="project-image">
+                        <img src="assets/images/project_biblioai.png" alt="Biblio AI">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-arpit">Arpit</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Biblio AI</h3>
+                        <p class="project-desc">
+                            An AI-based book platform with recommendation features and planned API integration.
+                            Features an intelligent chatbot agent for user guidance, library management, and AI-powered
+                            tools.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">AI/API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: AI Career Counsellor (Ansh) -->
+                <div class="project-card reveal" data-tags="ai ansh">
+                    <div class="project-image">
+                        <img src="assets/images/project_career.png" alt="AI Career Counsellor">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-ansh">Ansh</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">AI Career Counsellor</h3>
+                        <p class="project-desc">
+                            An AI-powered career counselling application using Python and NLP techniques,
+                            integrating rule-based decision logic and language model prompting to analyse user profiles
+                            and produce personalised career path recommendations.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">Rule-Based AI</span>
+                            <span class="tech-tag">LLM</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Smart City Dashboard (Arpit) -->
+                <div class="project-card reveal" data-tags="data arpit">
+                    <div class="project-image">
+                        <img src="assets/images/project_smartcity.png" alt="Smart City Dashboard">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-arpit">Arpit</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Smart City Dashboard</h3>
+                        <p class="project-desc">
+                            A Power BI dashboard with real-time API data for weather and accident analysis.
+                            Features interactive visualizations, KPI tracking, and dynamic data filtering
+                            for city-wide infrastructure monitoring.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Power BI</span>
+                            <span class="tech-tag">API</span>
+                            <span class="tech-tag">Data Analysis</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> View Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: AI Predictive Maintenance (Ansh) -->
+                <div class="project-card reveal" data-tags="ai data ansh">
+                    <div class="project-image">
+                        <img src="assets/images/project_predictive.png" alt="AI Predictive Maintenance System">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-ansh">Ansh</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">AI Predictive Maintenance System</h3>
+                        <p class="project-desc">
+                            Built a predictive maintenance model using time series sensor data, applying feature
+                            engineering
+                            and anomaly detection algorithms to flag failure patterns early.
+                            Enabled proactive maintenance scheduling, reducing predicted equipment downtime risk.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Time Series</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">Anomaly Detection</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Cricket DRS (Ansh) -->
+                <div class="project-card reveal" data-tags="ai ansh">
+                    <div class="project-image">
+                        <img src="assets/images/project_drs.png" alt="Cricket Decision Review System">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-ansh">Ansh</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Cricket Decision Review System</h3>
+                        <p class="project-desc">
+                            A simulation-based Python application replicating cricket's DRS workflow with multimedia
+                            integration and logical decision-tree operations. Demonstrates software design and
+                            problem-solving skills.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Multimedia</span>
+                            <span class="tech-tag">Decision Trees</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7: Titanic EDA (Arpit) -->
+                <div class="project-card reveal" data-tags="data arpit">
+                    <div class="project-image">
+                        <img src="assets/images/project_smartcity.png" alt="Titanic Dataset EDA">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-arpit">Arpit</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">Titanic Dataset EDA</h3>
+                        <p class="project-desc">
+                            Performed comprehensive data cleaning, visualization, and feature engineering
+                            using Pandas & Matplotlib on the famous Titanic dataset. Extracted meaningful insights
+                            from survival patterns and passenger demographics.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Matplotlib</span>
+                            <span class="tech-tag">EDA</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 8: AI Classification Website (Arpit) -->
+                <div class="project-card reveal" data-tags="ai web arpit">
+                    <div class="project-image">
+                        <img src="assets/images/project_facemask.png" alt="AI Classification Website">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-arpit">Arpit</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">AI Classification Website</h3>
+                        <p class="project-desc">
+                            Classified cattle & buffalo images using a low-code AI tool and deployed on web.
+                            Combines computer vision with web deployment for a practical agricultural AI solution.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">AI</span>
+                            <span class="tech-tag">Low-Code</span>
+                            <span class="tech-tag">Web Deploy</span>
+                            <span class="tech-tag">Classification</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 9: Landing Page OctaNet (Arpit) -->
+                <div class="project-card reveal" data-tags="web arpit">
+                    <div class="project-image">
+                        <img src="assets/images/project_biblioai.png" alt="OctaNet Landing Page">
+                        <div class="project-image-overlay"></div>
+                        <div class="project-badges">
+                            <span class="project-person-badge badge-arpit">Arpit</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="project-title">OctaNet Landing Page</h3>
+                        <p class="project-desc">
+                            Designed a fully responsive landing page using HTML & CSS following corporate design
+                            standards.
+                            Focused on clean UI, responsive layout, and modern web design principles.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">Responsive</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== EDUCATION SECTION ====== -->
+    <section class="section" id="education">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">🎓 Academic Background</span>
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">Our academic foundation building the skills for tomorrow's challenges.</p>
+            </div>
+
+            <div class="education-grid">
+                <div class="education-card reveal">
+                    <div class="education-icon">🎓</div>
+                    <div class="education-degree">Bachelor of Computer Applications (BCA)</div>
+                    <div class="education-institution">IMS Ghaziabad – Group of Institutions</div>
+                    <div class="education-year">Currently Pursuing (Both Arpit & Ansh)</div>
+                </div>
+
+                <div class="education-card reveal reveal-delay-1">
+                    <div class="education-icon">🏫</div>
+                    <div class="education-degree">12th Grade — CBSE</div>
+                    <div class="education-institution">Completed in 2023</div>
+                    <div class="education-year">Both Arpit & Ansh</div>
+                </div>
+
+                <div class="education-card reveal reveal-delay-2">
+                    <div class="education-icon">📚</div>
+                    <div class="education-degree">10th Grade — CBSE</div>
+                    <div class="education-institution">Completed in 2021</div>
+                    <div class="education-year">Both Arpit & Ansh</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CERTIFICATES SECTION ====== -->
+    <section class="section" id="certificates">
+        <div class="bg-glow bg-glow--purple" style="bottom: -200px; right: -200px;"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">🏆 Achievements</span>
+                <h2 class="section-title">Certifications</h2>
+                <p class="section-subtitle">Verified credentials demonstrating our commitment to continuous learning.
+                </p>
+            </div>
+
+            <div class="certs-grid">
+                <!-- Arpit Certs -->
+                <div class="cert-card reveal">
+                    <div class="cert-icon">🏅</div>
+                    <div class="cert-info">
+                        <h4>Python for Data Science Basic</h4>
+                        <p>Arpit Verma</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal reveal-delay-1">
+                    <div class="cert-icon">🏅</div>
+                    <div class="cert-info">
+                        <h4>DSA using C++</h4>
+                        <p>Arpit Verma</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal reveal-delay-2">
+                    <div class="cert-icon">🏅</div>
+                    <div class="cert-info">
+                        <h4>Web Development (HTML/CSS/JS)</h4>
+                        <p>Arpit Verma</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal reveal-delay-3">
+                    <div class="cert-icon">🏅</div>
+                    <div class="cert-info">
+                        <h4>AI/ML Internship Certificate</h4>
+                        <p>Arpit Verma</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-icon">🏅</div>
+                    <div class="cert-info">
+                        <h4>Python for Data Science and AI</h4>
+                        <p>Arpit Verma</p>
+                    </div>
+                </div>
+
+                <!-- Ansh Certs -->
+                <div class="cert-card reveal reveal-delay-1">
+                    <div class="cert-icon">🥇</div>
+                    <div class="cert-info">
+                        <h4>Python for Data Science and AI</h4>
+                        <p>Ansh Singh — Coursera</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal reveal-delay-2">
+                    <div class="cert-icon">🥇</div>
+                    <div class="cert-info">
+                        <h4>The Machine Learning Course</h4>
+                        <p>Ansh Singh — Udemy</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal reveal-delay-3">
+                    <div class="cert-icon">🥇</div>
+                    <div class="cert-info">
+                        <h4>Basics of Python</h4>
+                        <p>Ansh Singh — Udemy</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal">
+                    <div class="cert-icon">🥇</div>
+                    <div class="cert-info">
+                        <h4>Windows Command Line Basics</h4>
+                        <p>Ansh Singh — Udemy</p>
+                    </div>
+                </div>
+                <div class="cert-card reveal reveal-delay-1">
+                    <div class="cert-icon">🥇</div>
+                    <div class="cert-info">
+                        <h4>Digital Marketing</h4>
+                        <p>Ansh Singh — Google Digital Unlocked (2022)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CONTACT SECTION ====== -->
+    <section class="section" id="contact">
+        <div class="bg-glow bg-glow--blue" style="top: -200px; left: 50%; transform: translateX(-50%);"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-badge">📬 Let's Connect</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Have a project idea or want to collaborate? We'd love to hear from you.</p>
+            </div>
+
+            <div class="contact-wrapper">
+                <div class="contact-info reveal">
+                    <h3>Contact Information</h3>
+                    <p>
+                        We're always open to exciting opportunities, freelance projects, and collaboration.
+                        Drop us a message and let's build something amazing together!
+                    </p>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
+                                <i data-lucide="mail" style="width:20px;height:20px;color:white;"></i>
+                            </div>
+                            <div class="contact-method-text">
+                                <strong>Team Email</strong>
+                                <span>atechbuilderss@gmail.com</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+
+                            <div class="contact-method-text">
+                                <strong>Location</strong>
+                                <span>Delhi NCR, India</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form reveal reveal-delay-1" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Project Collaboration">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" placeholder="Tell us about your project..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">
+                        <i data-lucide="send"
+                            style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:8px;"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/logo.png" alt="A'tech Builder">
+                    <span class="gradient-text">A'tech Builder</span>
+                </div>
+                <p class="footer-text">© 2026 A'tech Builder. Built with ❤️ by Arpit Verma & Ansh Singh</p>
+                <div class="footer-socials">
+                    <a href="https://github.com/Arpit-Ve" class="footer-social" target="_blank" title="Arpit's GitHub">
+                        <i data-lucide="github" style="width:16px;height:16px;"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/arpit-verma" class="footer-social" target="_blank"
+                        title="Arpit's LinkedIn">
+                        <i data-lucide="linkedin" style="width:16px;height:16px;"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/ansh-singh" class="footer-social" target="_blank"
+                        title="Ansh's LinkedIn">
+                        <i data-lucide="linkedin" style="width:16px;height:16px;"></i>
+                    </a>
+                    <a href="mailto: atechbuilderss@gmail.com" class="footer-social" title="Email">
+                        <i data-lucide="mail" style="width:16px;height:16px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ====== ORDER PROJECT MODAL ====== -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-container">
+            <div class="modal-glow modal-glow--1"></div>
+            <div class="modal-glow modal-glow--2"></div>
+            <button class="modal-close" id="modalClose">
+                <i data-lucide="x" style="width:22px;height:22px;"></i>
+            </button>
+
+            <div class="modal-header">
+                <span class="modal-badge">
+                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+                    Start Your Project
+                </span>
+                <h2 class="modal-title">Order a Project</h2>
+                <p class="modal-subtitle">Tell us what you need and we'll bring your vision to life.</p>
+            </div>
+
+            <form class="order-form" id="orderForm">
+                <!-- Step indicator -->
+                <div class="form-steps">
+                    <div class="form-step active" data-step="1">
+                        <span class="step-num">1</span>
+                        <span class="step-label">Service</span>
+                    </div>
+                    <div class="form-step-line"></div>
+                    <div class="form-step" data-step="2">
+                        <span class="step-num">2</span>
+                        <span class="step-label">Details</span>
+                    </div>
+                    <div class="form-step-line"></div>
+                    <div class="form-step" data-step="3">
+                        <span class="step-num">3</span>
+                        <span class="step-label">Contact</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Service Selection -->
+                <div class="order-step" id="orderStep1">
+                    <label class="order-label">What do you need?</label>
+                    <p class="order-hint">Select one or more services</p>
+                    <div class="service-chips" id="serviceChips">
+                        <button type="button" class="service-chip" data-service="Website Development">
+                            <span class="chip-icon">🌐</span>
+                            <span class="chip-text">Website Development</span>
+                        </button>
+                        <button type="button" class="service-chip" data-service="Automations">
+                            <span class="chip-icon">⚙️</span>
+                            <span class="chip-text">Automations</span>
+                        </button>
+                        <button type="button" class="service-chip" data-service="Graphic Design">
+                            <span class="chip-icon">🎨</span>
+                            <span class="chip-text">Graphic Design</span>
+                        </button>
+                        <button type="button" class="service-chip" data-service="Video Editing">
+                            <span class="chip-icon">🎬</span>
+                            <span class="chip-text">Video Editing</span>
+                        </button>
+                        <button type="button" class="service-chip" data-service="AI / ML Solution">
+                            <span class="chip-icon">🤖</span>
+                            <span class="chip-text">AI / ML Solution</span>
+                        </button>
+                        <button type="button" class="service-chip" data-service="Data Analysis">
+                            <span class="chip-icon">📊</span>
+                            <span class="chip-text">Data Analysis</span>
+                        </button>
+                        <button type="button" class="service-chip" data-service="Mobile App">
+                            <span class="chip-icon">📱</span>
+                            <span class="chip-text">Mobile App</span>
+                        </button>
+                        <button type="button" class="service-chip" data-service="Other">
+                            <span class="chip-icon">✨</span>
+                            <span class="chip-text">Other</span>
+                        </button>
+                    </div>
+                    <div class="order-nav">
+                        <div></div>
+                        <button type="button" class="order-next-btn" id="toStep2">
+                            Next Step
+                            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Project Details -->
+                <div class="order-step hidden" id="orderStep2">
+                    <div class="form-group">
+                        <label for="orderProjectName" class="order-label">Project Name</label>
+                        <input type="text" class="form-control" id="orderProjectName"
+                            placeholder="e.g. My Portfolio Redesign" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderDescription" class="order-label">Describe Your Project</label>
+                        <textarea class="form-control" id="orderDescription"
+                            placeholder="What exactly do you need? Include features, style preferences, reference links..."
+                            required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orderBudget" class="order-label">Budget Range</label>
+                            <select class="form-control" id="orderBudget">
+                                <option value="" disabled selected>Select budget</option>
+                                <option value="Under ₹5,000">Under ₹5,000</option>
+                                <option value="₹5,000 - ₹15,000">₹5,000 – ₹15,000</option>
+                                <option value="₹15,000 - ₹50,000">₹15,000 – ₹50,000</option>
+                                <option value="₹50,000+">₹50,000+</option>
+                                <option value="Let's Discuss">Let's Discuss</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderTimeline" class="order-label">Timeline</label>
+                            <select class="form-control" id="orderTimeline">
+                                <option value="" disabled selected>Select timeline</option>
+                                <option value="ASAP">ASAP</option>
+                                <option value="1-2 Weeks">1–2 Weeks</option>
+                                <option value="2-4 Weeks">2–4 Weeks</option>
+                                <option value="1-2 Months">1–2 Months</option>
+                                <option value="Flexible">Flexible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="order-nav">
+                        <button type="button" class="order-back-btn" id="backToStep1">
+                            <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+                            Back
+                        </button>
+                        <button type="button" class="order-next-btn" id="toStep3">
+                            Next Step
+                            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Contact Info -->
+                <div class="order-step hidden" id="orderStep3">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orderName" class="order-label">Your Name</label>
+                            <input type="text" class="form-control" id="orderName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderEmail" class="order-label">Your Email</label>
+                            <input type="email" class="form-control" id="orderEmail" placeholder="john@example.com"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderPhone" class="order-label">Phone Number <span
+                                class="optional-tag">(optional)</span></label>
+                        <input type="tel" class="form-control" id="orderPhone" placeholder="+91 XXXXX XXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="orderExtra" class="order-label">Anything Else? <span
+                                class="optional-tag">(optional)</span></label>
+                        <textarea class="form-control" id="orderExtra"
+                            placeholder="References, links, files to share..."></textarea>
+                    </div>
+                    <div class="order-nav">
+                        <button type="button" class="order-back-btn" id="backToStep2">
+                            <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
+                            Back
+                        </button>
+                        <button type="submit" class="order-submit-btn" id="orderSubmitBtn">
+                            <i data-lucide="send" style="width:18px;height:18px;"></i>
+                            Submit Order
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ====== JAVASCRIPT ====== -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Disable old form handlers — API handled by A'tech Builder-api.js
+        HTMLFormElement.prototype._addEventListener = HTMLFormElement.prototype.addEventListener;
+        // ===== Navbar Scroll Effect =====
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Active nav link
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===== Mobile Navigation =====
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('open');
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('open');
+            });
+        });
+
+        // ===== Scroll Reveal Animation =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Trigger skill bar animation
+                    if (entry.target.classList.contains('skill-card')) {
+                        entry.target.setAttribute('data-visible', 'true');
+                    }
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== Counter Animation =====
+        const counters = document.querySelectorAll('.hero-stat .number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-count'));
+                    let count = 0;
+                    const increment = target / 40;
+                    const timer = setInterval(() => {
+                        count += increment;
+                        if (count >= target) {
+                            entry.target.textContent = target + '+';
+                            clearInterval(timer);
+                        } else {
+                            entry.target.textContent = Math.floor(count) + '+';
+                        }
+                    }, 50);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // ===== Particle Effect =====
+        const particlesContainer = document.getElementById('particles');
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+
+                const colors = ['var(--accent-blue)', 'var(--accent-purple)', 'var(--accent-pink)', 'var(--accent-cyan)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ===== Skills Tab Filter =====
+        const skillsTabs = document.querySelectorAll('.skills-tab');
+        const skillCards = document.querySelectorAll('#skillsGrid .skill-card');
+
+        skillsTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                skillsTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const category = tab.getAttribute('data-category');
+
+                skillCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = '';
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                            card.setAttribute('data-visible', 'true');
+                        }, 100);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // ===== Projects Filter =====
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('#projectsGrid .project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const tags = card.getAttribute('data-tags');
+                    if (filter === 'all' || tags.includes(filter)) {
+                        card.style.display = '';
+                        card.style.animation = 'scaleIn 0.5s var(--ease-out) forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // ===== Contact Form =====
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Create mailto link
+            const mailtoLink = `mailto: atechbuilderss@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+
+            // Show confirmation
+            const btn = contactForm.querySelector('.form-submit');
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Message Sent!';
+            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.style.background = '';
+                contactForm.reset();
+                lucide.createIcons();
+            }, 3000);
+        });
+
+        // ===== Smooth Parallax on Mouse Move =====
+        document.addEventListener('mousemove', (e) => {
+            const glows = document.querySelectorAll('.bg-glow');
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+            glows.forEach(glow => {
+                glow.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // ===== Order Project Modal =====
+        const orderModal = document.getElementById('orderModal');
+        const orderProjectBtn = document.getElementById('orderProjectBtn');
+        const modalClose = document.getElementById('modalClose');
+        const orderForm = document.getElementById('orderForm');
+        const selectedServices = new Set();
+
+        // Open modal
+        orderProjectBtn.addEventListener('click', () => {
+            orderModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        });
+
+        // Close modal
+        function closeModal() {
+            orderModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        modalClose.addEventListener('click', closeModal);
+        orderModal.addEventListener('click', (e) => {
+            if (e.target === orderModal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Service chip selection
+        document.querySelectorAll('.service-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                chip.classList.toggle('selected');
+                const service = chip.getAttribute('data-service');
+                if (selectedServices.has(service)) {
+                    selectedServices.delete(service);
+                } else {
+                    selectedServices.add(service);
+                }
+            });
+        });
+
+        // Step navigation
+        const steps = {
+            1: document.getElementById('orderStep1'),
+            2: document.getElementById('orderStep2'),
+            3: document.getElementById('orderStep3'),
+        };
+        const stepIndicators = document.querySelectorAll('.form-step');
+        const stepLines = document.querySelectorAll('.form-step-line');
+
+        function goToStep(n) {
+            Object.values(steps).forEach(s => s.classList.add('hidden'));
+            steps[n].classList.remove('hidden');
+
+            stepIndicators.forEach((si, i) => {
+                if (i + 1 <= n) {
+                    si.classList.add('active');
+                } else {
+                    si.classList.remove('active');
+                }
+            });
+            stepLines.forEach((sl, i) => {
+                if (i + 1 < n) {
+                    sl.classList.add('active');
+                } else {
+                    sl.classList.remove('active');
+                }
+            });
+
+            lucide.createIcons();
+        }
+
+        document.getElementById('toStep2').addEventListener('click', () => {
+            if (selectedServices.size === 0) {
+                // Shake the chips container
+                const chips = document.getElementById('serviceChips');
+                chips.style.animation = 'shake 0.4s ease';
+                setTimeout(() => chips.style.animation = '', 400);
+                return;
+            }
+            goToStep(2);
+        });
+        document.getElementById('toStep3').addEventListener('click', () => goToStep(3));
+        document.getElementById('backToStep1').addEventListener('click', () => goToStep(1));
+        document.getElementById('backToStep2').addEventListener('click', () => goToStep(2));
+
+        // Submit order
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const services = [...selectedServices].join(', ');
+            const projectName = document.getElementById('orderProjectName').value;
+            const description = document.getElementById('orderDescription').value;
+            const budget = document.getElementById('orderBudget').value;
+            const timeline = document.getElementById('orderTimeline').value;
+            const name = document.getElementById('orderName').value;
+            const email = document.getElementById('orderEmail').value;
+            const phone = document.getElementById('orderPhone').value;
+            const extra = document.getElementById('orderExtra').value;
+
+            const body = `
+--- PROJECT ORDER ---
+
+Services Needed: ${services}
+Project Name: ${projectName}
+Description: ${description}
+Budget: ${budget || 'Not specified'}
+Timeline: ${timeline || 'Not specified'}
+
+--- CLIENT INFO ---
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+
+Additional Notes: ${extra || 'None'}
+            `.trim();
+
+            const mailtoLink = `mailto:atechbuilderss@gmail.com?subject=${encodeURIComponent('Project Order: ' + projectName)}&body=${encodeURIComponent(body)}`;
+
+
+            // Success feedback
+            const btn = document.getElementById('orderSubmitBtn');
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Order Submitted!';
+            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.style.background = '';
+                orderForm.reset();
+                selectedServices.clear();
+                document.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
+                goToStep(1);
+                closeModal();
+                lucide.createIcons();
+            }, 2500);
+        });
+        // Disable old mailto handlers — replaced by A'tech Builder.js
+        document.getElementById('contactForm').onsubmit = null;
+        document.getElementById('orderForm').onsubmit = null;
+    </script>
+    <script src="assets/js/stackbuilder-api.js"></script>
+</body>
+
+</html>
