@@ -37,6 +37,7 @@ const allowedOrigins = [
     'http://localhost:5501',
     'http://127.0.0.1:3000',
     'http://localhost:3000',
+    'https://a-tech-builder.vercel.app',
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
