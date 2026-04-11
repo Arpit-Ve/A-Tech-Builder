@@ -19,6 +19,16 @@ const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/auth');
 
 const app = express();
+// Nuclear CORS fix
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key');
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    next();
+});
 const PORT = process.env.PORT || 5000;
 
 // ===== Security Middleware =====
