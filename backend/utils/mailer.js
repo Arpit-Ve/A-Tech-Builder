@@ -12,19 +12,19 @@ async function initMailer() {
     return;
   }
 
+  // Using Port 465 (SSL) - Sometimes more stable on Render for Gmail
   transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, 
+    port: 465,
+    secure: true, // Use SSL
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,
     },
     tls: {
-      rejectUnauthorized: false,
-      minVersion: 'TLSv1.2'
+      rejectUnauthorized: false
     },
-    connectionTimeout: 15000,
+    connectionTimeout: 20000, // Even longer timeout
   });
 
   console.log('✅ Mailer initialized (waiting for first send)');
