@@ -96,33 +96,35 @@ async function sendContactNotification({ name, email, subject, message }) {
       <div class="foot">A'tech Builder Portfolio — Contact Notification</div>
     </div></body></html>`;
 
-  await sendMail({
-    to: RECIPIENTS,
-    subject: `📬 Portfolio Contact: ${subject || 'New Message'} — from ${name}`,
-    html,
-    replyTo: email,
-  });
+  try {
+    await sendMail({
+      to: RECIPIENTS,
+      subject: `📬 Portfolio Contact: ${subject || 'New Message'} — from ${name}`,
+      html,
+      replyTo: email,
+    });
+    console.log(`📧 Notification sent to admin: ${RECIPIENTS}`);
+  } catch (err) {
+    console.error('❌ Failed to send admin notification:', err.message);
+  }
 
-  const autoHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
-    <div class="wrap">
-      <div class="hdr" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
-        <h1>✅ Message Received!</h1>
-      </div>
-      <div class="body">
-        <p>Hey <strong>${esc(name)}</strong>,</p>
-        <p>Thanks for reaching out! We have received your message and will get back to you within <strong>24-48 hours</strong>.</p>
-        <p>Best,<br><strong style="color:#a78bfa;">Arpit Verma &amp; Ansh Singh</strong><br><em>A'tech Builder</em></p>
-      </div>
-      <div class="foot">A'tech Builder — AI &amp; Web Development Portfolio</div>
-    </div></body></html>`;
+  // --- AUTO-REPLY (Disabled for Resend Free Tier) ---
+  // Resend free tier only allows sending to your own verified email.
+  // To enable this, you must verify a domain at resend.com/domains.
+  /*
+  try {
+    await sendMail({
+      to: email,
+      subject: '✅ We received your message — A tech Builder',
+      html: autoHtml,
+    });
+    console.log(`📧 Auto-reply sent to user: ${email}`);
+  } catch (err) {
+    console.warn('⚠️ Auto-reply failed (Normal for Resend Free Tier):', err.message);
+  }
+  */
 
-  await sendMail({
-    to: email,
-    subject: '✅ We received your message — A tech Builder',
-    html: autoHtml,
-  });
-
-  console.log(`📧 Contact emails sent: ${name} <${email}>`);
+  console.log(`📧 Contact process complete for: ${name} <${email}>`);
 }
 
 // ─── ORDER notification ───────────────────────────────────────────────────────
@@ -165,6 +167,7 @@ async function sendOrderNotification({ services, projectName, description, budge
     replyTo: clientEmail,
   });
 
+  /*
   const autoHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
     <div class="wrap">
       <div class="hdr" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">
@@ -185,6 +188,7 @@ async function sendOrderNotification({ services, projectName, description, budge
     subject: `🚀 Order Confirmed: "${projectName}" — A'tech Builder`,
     html: autoHtml,
   });
+  */
 
   console.log(`📧 Order emails sent: "${projectName}" from ${clientName} <${clientEmail}>`);
 }
