@@ -145,8 +145,8 @@ const startServer = async () => {
         // Connect to MongoDB
         await connectDB();
 
-        // Initialize email transporter
-        await initMailer();
+        // Initialize email transporter (don't block server start)
+        initMailer();
 
         // Start listening
         app.listen(PORT, () => {
