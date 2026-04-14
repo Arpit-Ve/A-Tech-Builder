@@ -178,30 +178,4 @@ async function sendOrderNotification(data) {
   }
 }
 
-  /*
-  const autoHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
-    <div class="wrap">
-      <div class="hdr" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">
-        <h1>🚀 Order Confirmed!</h1>
-      </div>
-      <div class="body">
-        <p>Hey <strong>${esc(clientName)}</strong>,</p>
-        <p>We have received your project order for <strong style="color:#f59e0b;">"${esc(projectName)}"</strong>. 🎉</p>
-        <p>Services: <strong style="color:#f59e0b;">${(services || []).map(esc).join(', ')}</strong></p>
-        <p>We will review and get back to you within <strong>24 hours</strong> with a proposal and quote.</p>
-        <p>Best,<br><strong style="color:#a78bfa;">Arpit Verma &amp; Ansh Singh</strong><br><em>A'tech Builder</em></p>
-      </div>
-      <div class="foot">A'tech Builder — AI &amp; Web Development Portfolio</div>
-    </div></body></html>`;
-
-  await sendMail({
-    to: clientEmail,
-    subject: `🚀 Order Confirmed: "${projectName}" — A'tech Builder`,
-    html: autoHtml,
-  });
-  */
-
-  console.log(`📧 Order emails sent: "${projectName}" from ${clientName} <${clientEmail}>`);
-}
-
 module.exports = { initMailer, sendMail, sendContactNotification, sendOrderNotification };
