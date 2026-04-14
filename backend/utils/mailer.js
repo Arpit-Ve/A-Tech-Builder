@@ -76,7 +76,7 @@ const baseStyle = `
 
 // ─── CONTACT notification ─────────────────────────────────────────────────────
 async function sendContactNotification({ name, email, subject, message }) {
-  const RECIPIENTS = process.env.NOTIFY_EMAILS || 'atechbuilderss@gmail.com';
+  const RECIPIENTS = process.env.NOTIFY_EMAILS || 'vermaarpit627@gmail.com';
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
     <div class="wrap">
@@ -127,7 +127,7 @@ async function sendContactNotification({ name, email, subject, message }) {
 
 // ─── ORDER notification ───────────────────────────────────────────────────────
 async function sendOrderNotification({ services, projectName, description, budget, timeline, clientName, clientEmail, clientPhone, extraNotes }) {
-  const RECIPIENTS = process.env.NOTIFY_EMAILS || 'atechbuilderss@gmail.com';
+  const RECIPIENTS = process.env.NOTIFY_EMAILS || 'vermaarpit627@gmail.com';
   const tagsHtml = (services || []).map(s => `<span class="tag">${esc(s)}</span>`).join('');
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
