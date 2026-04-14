@@ -32,14 +32,25 @@ async function initMailer() {
 
 // ─── Send helper ─────────────────────────────────────────────────────────────
 async function sendMail({ to, subject, html, replyTo }) {
-  if (!transporter) throw new Error('Mailer not initialised. Call initMailer() first.');
-  return transporter.sendMail({
-    from: `"A'tech Builder Portfolio" <${process.env.SMTP_EMAIL}>`,
-    to,
-    subject,
-    html,
-    ...(replyTo && { replyTo }),
-  });
+  if (!transporter) {
+    console.error('❌ Mailer Error: Transporter not initialized.');
+    return;
+  }
+  
+  try {
+    const info = await transporter.sendMail({
+      from: `"A'tech Builder Portfolio" <${process.env.SMTP_EMAIL}>`,
+      to,
+      subject,
+      html,
+      ...(replyTo && { replyTo }),
+    });
+    console.log(`📧 Email sent successfully to ${to}. ID: ${info.messageId}`);
+    return info;
+  } catch (err) {
+    console.error(`❌ Mailer Failed to send to ${to}:`, err.message);
+    throw err; // Re-throw so the caller can log it too
+  }
 }
 
 // ─── Escape HTML ─────────────────────────────────────────────────────────────
