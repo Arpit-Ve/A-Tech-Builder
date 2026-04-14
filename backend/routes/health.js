@@ -14,7 +14,7 @@ router.get('/test-mail', async (req, res) => {
     try {
         const { sendMail } = require('../utils/mailer');
         await sendMail({
-            to: 'vermaarpit627@gmail.com', // Use verified email for testing
+            to: 'atechbuilderss@gmail.com',
             subject: '🔍 A\'tech Builder Test Email',
             html: '<h1>It works!</h1><p>If you see this, your Render mail server is correctly configured using Resend API.</p>'
         });

@@ -78,7 +78,7 @@ const baseStyle = `
 async function sendContactNotification({ name, email, subject, message }) {
   // IMPORTANT: Resend free tier only allows sending to the signup email.
   // Change this once you verify a domain at resend.com/domains.
-  const RECIPIENTS = 'vermaarpit627@gmail.com';
+  const RECIPIENTS = 'atechbuilderss@gmail.com';
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
     <div class="wrap">
@@ -135,7 +135,7 @@ async function sendOrderNotification(data) {
   console.log(`📦 Attempting to send Order Notification for: ${projectName}`);
   
   // IMPORTANT: Resend free tier only allows sending to the signup email.
-  const RECIPIENTS = 'vermaarpit627@gmail.com';
+  const RECIPIENTS = 'atechbuilderss@gmail.com';
   const tagsHtml = (services || []).map(s => `<span class="tag">${esc(s)}</span>`).join('');
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
