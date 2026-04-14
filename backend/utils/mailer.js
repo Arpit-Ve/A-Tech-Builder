@@ -5,20 +5,38 @@ let transporter = null;
 
 // ─── Init ────────────────────────────────────────────────────────────────────
 async function initMailer() {
+  console.log('📨 Initializing mailer...');
+  
+  if (!process.env.SMTP_EMAIL || !process.env.SMTP_PASSWORD) {
+    console.error('❌ Mailer error: SMTP_EMAIL or SMTP_PASSWORD is missing in environment variables!');
+    return;
+  }
+
+  // Using Port 587 with STARTTLS (usually more reliable on Render/Cloud hosts)
   transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // use STARTTLS
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,
     },
+    tls: {
+      // Helps with timeout issues on some cloud providers
+      rejectUnauthorized: false,
+      minVersion: 'TLSv1.2'
+    },
+    connectionTimeout: 15000, // Increased timeout
   });
 
   try {
     await transporter.verify();
-    console.log('✅ Mailer ready:', process.env.SMTP_EMAIL);
+    console.log('✅ Mailer ready: Authorized as', process.env.SMTP_EMAIL);
   } catch (err) {
-    console.error('❌ Mailer init failed:', err.message);
-    console.error('   Check SMTP_EMAIL and SMTP_PASSWORD in your .env');
+    console.error('❌ Mailer verify failed:', err.message);
+    if (err.message.includes('EAUTH')) {
+      console.error('   👉 This is likely an authentication error. Check if your GMAIL APP PASSWORD is correct.');
+    }
   }
 }
 
@@ -62,7 +80,7 @@ const baseStyle = `
 
 // ─── CONTACT notification ─────────────────────────────────────────────────────
 async function sendContactNotification({ name, email, subject, message }) {
-  const RECIPIENTS = process.env.NOTIFY_EMAILS || ' atechbuilderss@gmail.com, atechbuilderss@gmail.com';
+  const RECIPIENTS = process.env.NOTIFY_EMAILS || 'atechbuilderss@gmail.com';
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
     <div class="wrap">
@@ -113,7 +131,7 @@ async function sendContactNotification({ name, email, subject, message }) {
 
 // ─── ORDER notification ───────────────────────────────────────────────────────
 async function sendOrderNotification({ services, projectName, description, budget, timeline, clientName, clientEmail, clientPhone, extraNotes }) {
-  const RECIPIENTS = process.env.NOTIFY_EMAILS || ' atechbuilderss@gmail.com, atechbuilderss@gmail.com';
+  const RECIPIENTS = process.env.NOTIFY_EMAILS || 'atechbuilderss@gmail.com';
   const tagsHtml = (services || []).map(s => `<span class="tag">${esc(s)}</span>`).join('');
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>

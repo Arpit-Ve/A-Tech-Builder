@@ -5,7 +5,7 @@
 
 (function () {
     const API_BASE = 'http://localhost:5000';
-
+    
     // ─── Button helpers ───────────────────────────────────────────────────────
     function setBtnState(btn, text, bg, disabled) {
         btn.innerHTML = text;

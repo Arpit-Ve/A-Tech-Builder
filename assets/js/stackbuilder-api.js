@@ -18,7 +18,7 @@
     const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
     // TODO: Once you deploy your backend (e.g., on Render), paste its URL here
-    const PRODUCTION_API_URL = 'https://a-tech-builder.onrender.com/api';
+    const PRODUCTION_API_URL = 'https://a-tech-builder-1.onrender.com/api';
 
     const API_BASE = isLocalhost
         ? (window.location.port === '5000' ? '/api' : 'http://localhost:5000/api')
