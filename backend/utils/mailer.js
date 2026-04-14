@@ -194,4 +194,4 @@ async function sendOrderNotification({ services, projectName, description, budge
   console.log(`📧 Order emails sent: "${projectName}" from ${clientName} <${clientEmail}>`);
 }
 
-module.exports = { initMailer, sendContactNotification, sendOrderNotification };
+module.exports = { initMailer, sendMail, sendContactNotification, sendOrderNotification };
