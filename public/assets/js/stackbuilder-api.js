@@ -1,173 +1,360 @@
 /**
- * stackbuilder-api.js
- * Portfolio/assets/js/stackbuilder-api.js
+ * StackBuilder API Connector
+ * Overrides form handlers to send data to the backend API.
+ * Falls back to mailto: if backend is unreachable.
+ * 
+ * This file does NOT modify any HTML or CSS.
  */
 
 (function () {
-    const API_BASE = 'http://localhost:5000';
-    
-    // ─── Button helpers ───────────────────────────────────────────────────────
-    function setBtnState(btn, text, bg, disabled) {
-        btn.innerHTML = text;
-        btn.style.background = bg;
-        btn.disabled = disabled;
-        if (window.lucide) lucide.createIcons();
-    }
+    'use strict';
 
-    function resetBtn(btn, originalHTML) {
-        btn.innerHTML = originalHTML;
-        btn.style.background = '';
-        btn.disabled = false;
-        if (window.lucide) lucide.createIcons();
-    }
+    // Guard against double-load (script is in both <head> and end of <body>)
+    if (window.__SB_API_LOADED) return;
+    window.__SB_API_LOADED = true;
 
-    // ─── CONTACT FORM ─────────────────────────────────────────────────────────
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        const fresh = contactForm.cloneNode(true);
-        contactForm.parentNode.replaceChild(fresh, contactForm);
+    // ===== Configuration =====
+    // Auto-detect environment: Use localhost for development, or a production URL when deployed
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
-        fresh.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    // TODO: Once you deploy your backend (e.g., on Render), paste its URL here
+    const PRODUCTION_API_URL = 'https://a-tech-builder-1.onrender.com/api';
 
-            const btn = fresh.querySelector('.form-submit');
-            const originalHTML = btn.innerHTML;
+    const API_BASE = isLocalhost
+        ? (window.location.port === '5000' ? '/api' : 'http://localhost:5000/api')
+        : PRODUCTION_API_URL;
 
-            setBtnState(btn, '⏳ Sending...', 'linear-gradient(135deg,#6366f1,#8b5cf6)', true);
+    let backendAvailable = false;
 
-            const payload = {
-                name: fresh.querySelector('#name').value.trim(),
-                email: fresh.querySelector('#email').value.trim(),
-                subject: fresh.querySelector('#subject').value.trim(),
-                message: fresh.querySelector('#message').value.trim(),
-            };
-
-            try {
-                const res = await fetch(`${API_BASE}/api/contact`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload),
-                });
-                const data = await res.json();
-
-                if (data.success) {
-                    setBtnState(btn, '✅ Message Sent!', 'linear-gradient(135deg,#10b981,#059669)', true);
-                    setTimeout(() => { resetBtn(btn, originalHTML); fresh.reset(); }, 3000);
-                } else {
-                    const msg = data.message || data.error || 'Something went wrong.';
-                    setBtnState(btn, '❌ Failed. Try again.', 'linear-gradient(135deg,#ef4444,#dc2626)', false);
-                    alert('Could not send message:\n\n' + msg);
-                    setTimeout(() => resetBtn(btn, originalHTML), 3000);
-                }
-            } catch (err) {
-                console.error('[Contact API]', err);
-                setBtnState(btn, '❌ Network Error', 'linear-gradient(135deg,#ef4444,#dc2626)', false);
-                alert('Network error. Please check your connection.');
-                setTimeout(() => resetBtn(btn, originalHTML), 3000);
+    // ===== Check Backend Availability =====
+    async function checkBackend() {
+        try {
+            const res = await fetch(`${API_BASE}/health`, {
+                method: 'GET',
+                signal: AbortSignal.timeout(3000)
+            });
+            if (res.ok) {
+                backendAvailable = true;
+                console.log('✅ StackBuilder API connected');
             }
+        } catch {
+            backendAvailable = false;
+            console.warn('⚠️  StackBuilder API not available — using mailto fallback');
+        }
+    }
+
+    // ===== Toast Notification System =====
+    function showToast(message, type = 'success') {
+        // Remove existing toast
+        const existing = document.getElementById('sb-toast');
+        if (existing) existing.remove();
+
+        const toast = document.createElement('div');
+        toast.id = 'sb-toast';
+
+        const colors = {
+            success: { bg: 'linear-gradient(135deg, #10b981, #059669)', icon: '✅' },
+            error: { bg: 'linear-gradient(135deg, #ef4444, #dc2626)', icon: '❌' },
+            loading: { bg: 'linear-gradient(135deg, #3b82f6, #2563eb)', icon: '⏳' }
+        };
+        const c = colors[type] || colors.success;
+
+        toast.innerHTML = `<span style="margin-right:8px;font-size:16px;">${c.icon}</span>${message}`;
+        Object.assign(toast.style, {
+            position: 'fixed',
+            bottom: '30px',
+            right: '30px',
+            padding: '14px 24px',
+            background: c.bg,
+            color: 'white',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+            zIndex: '99999',
+            fontFamily: "'Inter', 'Segoe UI', sans-serif",
+            fontSize: '14px',
+            fontWeight: '500',
+            display: 'flex',
+            alignItems: 'center',
+            transform: 'translateY(100px)',
+            opacity: '0',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            maxWidth: '400px',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255,255,255,0.1)'
         });
 
-        console.log('[StackBuilder API] ✅ Contact form wired');
+        document.body.appendChild(toast);
+        // Animate in
+        requestAnimationFrame(() => {
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+        });
+
+        // Auto-dismiss after 5 seconds (except loading)
+        if (type !== 'loading') {
+            setTimeout(() => {
+                toast.style.transform = 'translateY(100px)';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 400);
+            }, 5000);
+        }
+
+        return toast;
     }
 
-    // ─── ORDER FORM ───────────────────────────────────────────────────────────
-    // Use event delegation on document so it works even when modal is hidden
-    document.addEventListener('click', async (e) => {
-        const btn = e.target.closest('#orderSubmitBtn');
-        if (!btn) return;
+    // ===== Override Contact Form =====
+    function overrideContactForm() {
+        const form = document.getElementById('contactForm');
+        if (!form) return;
 
-        e.preventDefault();
-        e.stopPropagation();
+        // Remove existing event listeners by cloning
+        const newForm = form.cloneNode(true);
+        form.parentNode.replaceChild(newForm, form);
 
-        // Validate services selected
-        const selectedChips = document.querySelectorAll('.service-chip.selected');
-        const services = Array.from(selectedChips).map(c => c.getAttribute('data-service'));
+        newForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        if (services.length === 0) {
-            alert('Please select at least one service.');
-            return;
-        }
+            const name = newForm.querySelector('#name').value.trim();
+            const email = newForm.querySelector('#email').value.trim();
+            const subject = newForm.querySelector('#subject').value.trim();
+            const message = newForm.querySelector('#message').value.trim();
 
-        // Collect all fields
-        const projectName = (document.getElementById('orderProjectName')?.value || '').trim();
-        const description = (document.getElementById('orderDescription')?.value || '').trim();
-        const budget = document.getElementById('orderBudget')?.value || '';
-        const timeline = document.getElementById('orderTimeline')?.value || '';
-        const clientName = (document.getElementById('orderName')?.value || '').trim();
-        const clientEmail = (document.getElementById('orderEmail')?.value || '').trim();
-        const clientPhone = (document.getElementById('orderPhone')?.value || '').trim();
-        const extraNotes = (document.getElementById('orderExtra')?.value || '').trim();
+            if (!name || !email || !message) {
+                showToast('Please fill in all required fields.', 'error');
+                return;
+            }
 
-        // Basic frontend validation
-        if (!projectName) { alert('Please enter a project name.'); return; }
-        if (!description) { alert('Please enter a project description.'); return; }
-        if (!clientName) { alert('Please enter your name.'); return; }
-        if (!clientEmail) { alert('Please enter your email.'); return; }
+            // If backend is not available, fallback to mailto
+            if (!backendAvailable) {
+                const mailtoLink = `mailto:vermaarpit627@gmail.com,anshbnsingh28@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+                window.open(mailtoLink);
+                showToast('Opening email client (backend offline)', 'success');
+                return;
+            }
 
-        const originalHTML = btn.innerHTML;
-        setBtnState(btn, '⏳ Submitting...', 'linear-gradient(135deg,#6366f1,#8b5cf6)', true);
+            // Show loading state
+            const btn = newForm.querySelector('.form-submit');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">⏳ Sending...</span>';
+            btn.disabled = true;
+            showToast('Sending your message...', 'loading');
 
-        const payload = {
-            services,
-            projectName,
-            description,
-            budget,
-            timeline,
-            clientName,
-            clientEmail,
-            clientPhone,
-            extraNotes,
+            try {
+                const res = await fetch(`${API_BASE}/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, subject, message })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    showToast(data.message || 'Message sent successfully!', 'success');
+                    btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">✅ Sent!</span>';
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    newForm.reset();
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                    }, 3000);
+                } else {
+                    throw new Error(data.message || 'Failed to send message');
+                }
+
+            } catch (err) {
+                showToast(err.message || 'Failed to send. Please try again.', 'error');
+                btn.innerHTML = originalHTML;
+                btn.style.background = '';
+                btn.disabled = false;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        });
+    }
+
+    // ===== Override Order Form =====
+    function overrideOrderForm() {
+        const form = document.getElementById('orderForm');
+        if (!form) return;
+
+        // We need to intercept the submit event without breaking step navigation
+        // The step navigation buttons use type="button", so they won't trigger submit
+        // Only the final submit button triggers form submit
+
+        // Remove existing submit listener by cloning
+        const newForm = form.cloneNode(true);
+        form.parentNode.replaceChild(newForm, form);
+
+        // Re-attach service chip selection logic
+        const selectedServices = new Set();
+        newForm.querySelectorAll('.service-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                chip.classList.toggle('selected');
+                const service = chip.getAttribute('data-service');
+                if (selectedServices.has(service)) {
+                    selectedServices.delete(service);
+                } else {
+                    selectedServices.add(service);
+                }
+            });
+        });
+
+        // Re-attach step navigation
+        const steps = {
+            1: newForm.querySelector('#orderStep1'),
+            2: newForm.querySelector('#orderStep2'),
+            3: newForm.querySelector('#orderStep3'),
         };
 
-        console.log('[Order API] Sending payload:', payload);
+        // Get step indicators from the modal (they're inside the form)
+        const stepIndicators = newForm.querySelectorAll('.form-step');
+        const stepLines = newForm.querySelectorAll('.form-step-line');
 
-        try {
-            const res = await fetch(`${API_BASE}/api/orders`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+        function goToStep(n) {
+            Object.values(steps).forEach(s => { if (s) s.classList.add('hidden'); });
+            if (steps[n]) steps[n].classList.remove('hidden');
+
+            stepIndicators.forEach((si, i) => {
+                if (i + 1 <= n) si.classList.add('active');
+                else si.classList.remove('active');
             });
-            const data = await res.json();
+            stepLines.forEach((sl, i) => {
+                if (i + 1 < n) sl.classList.add('active');
+                else sl.classList.remove('active');
+            });
 
-            console.log('[Order API] Response:', data);
-
-            if (data.success) {
-                setBtnState(btn, '✅ Order Submitted!', 'linear-gradient(135deg,#10b981,#059669)', true);
-                setTimeout(() => {
-                    resetBtn(btn, originalHTML);
-                    // Reset form fields
-                    document.getElementById('orderProjectName').value = '';
-                    document.getElementById('orderDescription').value = '';
-                    document.getElementById('orderBudget').value = '';
-                    document.getElementById('orderTimeline').value = '';
-                    document.getElementById('orderName').value = '';
-                    document.getElementById('orderEmail').value = '';
-                    document.getElementById('orderPhone').value = '';
-                    document.getElementById('orderExtra').value = '';
-                    // Deselect chips
-                    document.querySelectorAll('.service-chip.selected')
-                        .forEach(c => c.classList.remove('selected'));
-                    // Close modal
-                    const modal = document.getElementById('orderModal');
-                    if (modal) {
-                        modal.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                }, 3000);
-            } else {
-                const msg = data.message || data.error || 'Something went wrong.';
-                setBtnState(btn, '❌ Failed. Try again.', 'linear-gradient(135deg,#ef4444,#dc2626)', false);
-                alert('Could not submit order:\n\n' + msg);
-                setTimeout(() => resetBtn(btn, originalHTML), 3000);
-            }
-        } catch (err) {
-            console.error('[Order API] Error:', err);
-            setBtnState(btn, '❌ Network Error', 'linear-gradient(135deg,#ef4444,#dc2626)', false);
-            alert('Network error. Please email us directly at vermaarpit627@gmail.com');
-            setTimeout(() => resetBtn(btn, originalHTML), 3000);
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
-    });
 
-    console.log('[StackBuilder API] ✅ Order button wired via delegation');
+        const toStep2Btn = newForm.querySelector('#toStep2');
+        const toStep3Btn = newForm.querySelector('#toStep3');
+        const backToStep1Btn = newForm.querySelector('#backToStep1');
+        const backToStep2Btn = newForm.querySelector('#backToStep2');
+
+        if (toStep2Btn) {
+            toStep2Btn.addEventListener('click', () => {
+                if (selectedServices.size === 0) {
+                    const chips = newForm.querySelector('#serviceChips');
+                    if (chips) {
+                        chips.style.animation = 'shake 0.4s ease';
+                        setTimeout(() => chips.style.animation = '', 400);
+                    }
+                    showToast('Please select at least one service.', 'error');
+                    return;
+                }
+                goToStep(2);
+            });
+        }
+
+        if (toStep3Btn) toStep3Btn.addEventListener('click', () => goToStep(3));
+        if (backToStep1Btn) backToStep1Btn.addEventListener('click', () => goToStep(1));
+        if (backToStep2Btn) backToStep2Btn.addEventListener('click', () => goToStep(2));
+
+        // Handle form submission
+        newForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const orderData = {
+                services: [...selectedServices],
+                projectName: (newForm.querySelector('#orderProjectName')?.value || '').trim(),
+                description: (newForm.querySelector('#orderDescription')?.value || '').trim(),
+                budget: newForm.querySelector('#orderBudget')?.value || '',
+                timeline: newForm.querySelector('#orderTimeline')?.value || '',
+                clientName: (newForm.querySelector('#orderName')?.value || '').trim(),
+                clientEmail: (newForm.querySelector('#orderEmail')?.value || '').trim(),
+                clientPhone: (newForm.querySelector('#orderPhone')?.value || '').trim(),
+                extraNotes: (newForm.querySelector('#orderExtra')?.value || '').trim()
+            };
+
+            // Basic validation
+            if (orderData.services.length === 0) {
+                showToast('Please select at least one service.', 'error');
+                return;
+            }
+            if (!orderData.clientName || !orderData.clientEmail) {
+                showToast('Please fill in your name and email.', 'error');
+                return;
+            }
+
+            // If backend is not available, fallback to mailto
+            if (!backendAvailable) {
+                const body = `--- PROJECT ORDER ---\n\nServices Needed: ${orderData.services.join(', ')}\nProject Name: ${orderData.projectName}\nDescription: ${orderData.description}\nBudget: ${orderData.budget || 'Not specified'}\nTimeline: ${orderData.timeline || 'Not specified'}\n\n--- CLIENT INFO ---\n\nName: ${orderData.clientName}\nEmail: ${orderData.clientEmail}\nPhone: ${orderData.clientPhone || 'Not provided'}\n\nAdditional Notes: ${orderData.extraNotes || 'None'}`;
+                const mailtoLink = `mailto:vermaarpit627@gmail.com,anshbnsingh28@gmail.com?subject=${encodeURIComponent('Project Order: ' + orderData.projectName)}&body=${encodeURIComponent(body)}`;
+                window.open(mailtoLink);
+                showToast('Opening email client (backend offline)', 'success');
+                return;
+            }
+
+            // Show loading
+            const btn = newForm.querySelector('#orderSubmitBtn');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">⏳ Submitting...</span>';
+            btn.disabled = true;
+            showToast('Submitting your order...', 'loading');
+
+            try {
+                const res = await fetch(`${API_BASE}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    showToast(data.message || 'Order submitted successfully!', 'success');
+                    btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">✅ Submitted!</span>';
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        newForm.reset();
+                        selectedServices.clear();
+                        newForm.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
+                        goToStep(1);
+
+                        // Close modal
+                        const modal = document.getElementById('orderModal');
+                        if (modal) {
+                            modal.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                    }, 2500);
+                } else {
+                    throw new Error(data.message || 'Failed to submit order');
+                }
+
+            } catch (err) {
+                showToast(err.message || 'Failed to submit. Please try again.', 'error');
+                btn.innerHTML = originalHTML;
+                btn.style.background = '';
+                btn.disabled = false;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        });
+    }
+
+    // ===== Initialize =====
+    async function init() {
+        // Wait for DOM to be fully ready
+        await checkBackend();
+        overrideContactForm();
+        overrideOrderForm();
+    }
+
+    // Run when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Delay slightly so original inline script runs first
+            setTimeout(init, 100);
+        });
+    } else {
+        setTimeout(init, 100);
+    }
 
 })();

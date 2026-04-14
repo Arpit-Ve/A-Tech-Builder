@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="assets/js/A'tech Builder-api.js"></script>
+    <script src="assets/js/stackbuilder-api.js"></script>
 </head>
 
 <body>
@@ -1411,31 +1411,9 @@
         });
 
         // ===== Contact Form =====
+        // (Handled by assets/js/stackbuilder-api.js)
         const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-
-            // Create mailto link
-            const mailtoLink = `mailto: atechbuilderss@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-
-            // Show confirmation
-            const btn = contactForm.querySelector('.form-submit');
-            const original = btn.innerHTML;
-            btn.innerHTML = '✅ Message Sent!';
-            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-
-            setTimeout(() => {
-                btn.innerHTML = original;
-                btn.style.background = '';
-                contactForm.reset();
-                lucide.createIcons();
-            }, 3000);
-        });
 
         // ===== Smooth Parallax on Mouse Move =====
         document.addEventListener('mousemove', (e) => {
@@ -1533,61 +1511,8 @@
         document.getElementById('backToStep1').addEventListener('click', () => goToStep(1));
         document.getElementById('backToStep2').addEventListener('click', () => goToStep(2));
 
-        // Submit order
-        orderForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const services = [...selectedServices].join(', ');
-            const projectName = document.getElementById('orderProjectName').value;
-            const description = document.getElementById('orderDescription').value;
-            const budget = document.getElementById('orderBudget').value;
-            const timeline = document.getElementById('orderTimeline').value;
-            const name = document.getElementById('orderName').value;
-            const email = document.getElementById('orderEmail').value;
-            const phone = document.getElementById('orderPhone').value;
-            const extra = document.getElementById('orderExtra').value;
-
-            const body = `
---- PROJECT ORDER ---
-
-Services Needed: ${services}
-Project Name: ${projectName}
-Description: ${description}
-Budget: ${budget || 'Not specified'}
-Timeline: ${timeline || 'Not specified'}
-
---- CLIENT INFO ---
-
-Name: ${name}
-Email: ${email}
-Phone: ${phone || 'Not provided'}
-
-Additional Notes: ${extra || 'None'}
-            `.trim();
-
-            const mailtoLink = `mailto:atechbuilderss@gmail.com?subject=${encodeURIComponent('Project Order: ' + projectName)}&body=${encodeURIComponent(body)}`;
-
-
-            // Success feedback
-            const btn = document.getElementById('orderSubmitBtn');
-            const original = btn.innerHTML;
-            btn.innerHTML = '✅ Order Submitted!';
-            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-
-            setTimeout(() => {
-                btn.innerHTML = original;
-                btn.style.background = '';
-                orderForm.reset();
-                selectedServices.clear();
-                document.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
-                goToStep(1);
-                closeModal();
-                lucide.createIcons();
-            }, 2500);
-        });
-        // Disable old mailto handlers — replaced by A'tech Builder.js
-        document.getElementById('contactForm').onsubmit = null;
-        document.getElementById('orderForm').onsubmit = null;
+        // ===== Order Project Submit =====
+        // (Handled by assets/js/stackbuilder-api.js)
     </script>
     <script src="assets/js/stackbuilder-api.js"></script>
 </body>
