@@ -12,32 +12,22 @@ async function initMailer() {
     return;
   }
 
-  // Using Port 587 with STARTTLS (usually more reliable on Render/Cloud hosts)
   transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
-    secure: false, // use STARTTLS
+    secure: false, 
     auth: {
       user: process.env.SMTP_EMAIL,
       pass: process.env.SMTP_PASSWORD,
     },
     tls: {
-      // Helps with timeout issues on some cloud providers
       rejectUnauthorized: false,
       minVersion: 'TLSv1.2'
     },
-    connectionTimeout: 15000, // Increased timeout
+    connectionTimeout: 15000,
   });
 
-  try {
-    await transporter.verify();
-    console.log('✅ Mailer ready: Authorized as', process.env.SMTP_EMAIL);
-  } catch (err) {
-    console.error('❌ Mailer verify failed:', err.message);
-    if (err.message.includes('EAUTH')) {
-      console.error('   👉 This is likely an authentication error. Check if your GMAIL APP PASSWORD is correct.');
-    }
-  }
+  console.log('✅ Mailer initialized (waiting for first send)');
 }
 
 // ─── Send helper ─────────────────────────────────────────────────────────────
