@@ -1,55 +1,50 @@
 // utils/mailer.js
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-let transporter = null;
+let resendClient = null;
 
 // ─── Init ────────────────────────────────────────────────────────────────────
 async function initMailer() {
-  console.log('📨 Initializing mailer...');
+  console.log('📨 Initializing mailer (Resend API)...');
   
-  if (!process.env.SMTP_EMAIL || !process.env.SMTP_PASSWORD) {
-    console.error('❌ Mailer error: SMTP_EMAIL or SMTP_PASSWORD is missing in environment variables!');
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('⚠️  RESEND_API_KEY is missing. Emails will not be sent.');
     return;
   }
 
-  // Using Port 465 (SSL) - Sometimes more stable on Render for Gmail
-  transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // Use SSL
-    auth: {
-      user: process.env.SMTP_EMAIL,
-      pass: process.env.SMTP_PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false
-    },
-    connectionTimeout: 20000, // Even longer timeout
-  });
-
-  console.log('✅ Mailer initialized (waiting for first send)');
+  resendClient = new Resend(process.env.RESEND_API_KEY);
+  console.log('✅ Mailer ready (Resend API)');
 }
 
 // ─── Send helper ─────────────────────────────────────────────────────────────
 async function sendMail({ to, subject, html, replyTo }) {
-  if (!transporter) {
-    console.error('❌ Mailer Error: Transporter not initialized.');
+  if (!resendClient) {
+    console.error('❌ Mailer Error: Resend client not initialized.');
     return;
   }
   
   try {
-    const info = await transporter.sendMail({
-      from: `"A'tech Builder Portfolio" <${process.env.SMTP_EMAIL}>`,
-      to,
+    // Note: Resend requires a verified domain or 'onboarding@resend.dev' for free tier
+    const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    
+    const { data, error } = await resendClient.emails.send({
+      from: `A'tech Builder Portfolio <${fromAddress}>`,
+      to: [to],
       subject,
       html,
-      ...(replyTo && { replyTo }),
+      ...(replyTo && { reply_to: replyTo }), // Resend uses snake_case for reply_to
     });
-    console.log(`📧 Email sent successfully to ${to}. ID: ${info.messageId}`);
-    return info;
+
+    if (error) {
+      console.error(`❌ Resend Error while sending to ${to}:`, error.message);
+      throw error;
+    }
+
+    console.log(`📧 Email sent successfully to ${to}. ID: ${data.id}`);
+    return data;
   } catch (err) {
     console.error(`❌ Mailer Failed to send to ${to}:`, err.message);
-    throw err; // Re-throw so the caller can log it too
+    throw err;
   }
 }
 
