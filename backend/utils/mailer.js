@@ -128,7 +128,10 @@ async function sendContactNotification({ name, email, subject, message }) {
 }
 
 // ─── ORDER notification ───────────────────────────────────────────────────────
-async function sendOrderNotification({ services, projectName, description, budget, timeline, clientName, clientEmail, clientPhone, extraNotes }) {
+async function sendOrderNotification(data) {
+  const { services, projectName, description, budget, timeline, clientName, clientEmail, clientPhone, extraNotes } = data;
+  console.log(`📦 Attempting to send Order Notification for: ${projectName}`);
+  
   const RECIPIENTS = process.env.NOTIFY_EMAILS || 'vermaarpit627@gmail.com';
   const tagsHtml = (services || []).map(s => `<span class="tag">${esc(s)}</span>`).join('');
 
@@ -160,12 +163,20 @@ async function sendOrderNotification({ services, projectName, description, budge
       <div class="foot">A'tech Builder Portfolio — Order Notification</div>
     </div></body></html>`;
 
-  await sendMail({
-    to: RECIPIENTS,
-    subject: `🛒 New Order: "${projectName}" — from ${clientName}`,
-    html,
-    replyTo: clientEmail,
-  });
+  try {
+    const result = await sendMail({
+      to: RECIPIENTS,
+      subject: `New Order: ${projectName} - from ${clientName}`,
+      html,
+      replyTo: clientEmail,
+    });
+    console.log(`✅ Order notification result:`, result ? 'Sent' : 'Failed');
+    return result;
+  } catch (err) {
+    console.error(`❌ Order notification error:`, err.message);
+    throw err;
+  }
+}
 
   /*
   const autoHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
