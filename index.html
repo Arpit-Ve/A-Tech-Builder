@@ -19,8 +19,26 @@
 
 <body>
 
+    <!-- ====== PRELOADER ====== -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <img src="assets/images/logo.png" alt="Loading" class="preloader-logo">
+            <div class="preloader-bar">
+                <div class="preloader-fill"></div>
+            </div>
+            <div class="preloader-text">ASCENDING</div>
+        </div>
+        <div class="preloader-shutter"></div>
+    </div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow"></div>
+
     <!-- Grid Background -->
     <div class="grid-bg"></div>
+
+    <!-- Light Streak (White Shades Animation) -->
+    <div class="light-streak"></div>
 
     <!-- ====== NAVBAR ====== -->
     <nav class="navbar" id="navbar">
@@ -39,7 +57,7 @@
                 <a href="#certificates">Certificates</a>
                 <a href="#contact" class="nav-cta">Contact</a>
                 <a href="/dashboard/" class="nav-cta"
-                    style="background: var(--purple, #8b5cf6); margin-left: 0.5rem; border-color: var(--purple-light, #a78bfa);">Dashboard</a>
+                    style="margin-left: 0.25rem;">Dashboard</a>
             </div>
             <div class="nav-hamburger" id="hamburger">
                 <span></span>
@@ -54,6 +72,14 @@
         <div class="bg-glow bg-glow--blue"></div>
         <div class="bg-glow bg-glow--purple"></div>
         <div class="particles-container" id="particles"></div>
+        <!-- Neural Network Canvas -->
+        <canvas id="neuralCanvas"></canvas>
+        <!-- Hero Orbital Rings -->
+        <div class="hero-orbitals">
+            <div class="orbital-ring"></div>
+            <div class="orbital-ring"></div>
+            <div class="orbital-ring"></div>
+        </div>
 
         <div class="container">
             <div class="hero-content">
@@ -70,9 +96,7 @@
                 </h1>
 
                 <p class="hero-description">
-                    A duo of passionate developers specializing in <strong>AI/ML</strong>,
-                    <strong>Data Science</strong>, and <strong>Web Development</strong>.
-                    We craft real-world solutions powered by cutting-edge technology.
+                    A duo of passionate developers specializing in <strong>AI/ML</strong>, <strong>Data Science</strong>, and <strong>Web Development</strong>. We craft real-world solutions powered by cutting-edge technology.
                 </p>
 
                 <div class="hero-buttons">
@@ -111,6 +135,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider"></div>
 
     <!-- ====== ABOUT / TEAM SECTION ====== -->
     <section class="section" id="about">
@@ -193,6 +219,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider"></div>
 
     <!-- ====== SKILLS SECTION ====== -->
     <section class="section" id="skills">
@@ -389,8 +417,11 @@
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- ====== COMPETENCIES SECTION ====== -->
-    <section class="section" id="competencies">
+    <section class="section section--shade" id="competencies">
+        <div class="bg-glow bg-glow--purple" style="top: 0; right: 0;"></div>
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-badge">🎯 Core Strengths</span>
@@ -450,6 +481,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider"></div>
 
     <!-- ====== EXPERIENCE SECTION ====== -->
     <section class="section" id="experience">
@@ -557,6 +590,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider"></div>
 
     <!-- ====== PROJECTS SECTION ====== -->
     <section class="section" id="projects">
@@ -859,8 +894,11 @@
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- ====== EDUCATION SECTION ====== -->
-    <section class="section" id="education">
+    <section class="section section--shade" id="education">
+        <div class="bg-glow bg-glow--blue" style="bottom: 0; left: 0;"></div>
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-badge">🎓 Academic Background</span>
@@ -893,8 +931,10 @@
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- ====== CERTIFICATES SECTION ====== -->
-    <section class="section" id="certificates">
+    <section class="section section--shade" id="certificates">
         <div class="bg-glow bg-glow--purple" style="bottom: -200px; right: -200px;"></div>
         <div class="container">
             <div class="section-header reveal">
@@ -982,8 +1022,10 @@
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- ====== CONTACT SECTION ====== -->
-    <section class="section" id="contact">
+    <section class="section section--shade" id="contact">
         <div class="bg-glow bg-glow--blue" style="top: -200px; left: 50%; transform: translateX(-50%);"></div>
         <div class="container">
             <div class="section-header reveal">
@@ -1416,15 +1458,7 @@
 
 
         // ===== Smooth Parallax on Mouse Move =====
-        document.addEventListener('mousemove', (e) => {
-            const glows = document.querySelectorAll('.bg-glow');
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-
-            glows.forEach(glow => {
-                glow.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        });
+        // (Handled by assets/js/3d-effects.js with throttled rAF)
 
         // ===== Order Project Modal =====
         const orderModal = document.getElementById('orderModal');
@@ -1515,6 +1549,7 @@
         // (Handled by assets/js/stackbuilder-api.js)
     </script>
     <script src="assets/js/stackbuilder-api.js"></script>
+    <script src="assets/js/3d-effects.js"></script>
 </body>
 
 </html>

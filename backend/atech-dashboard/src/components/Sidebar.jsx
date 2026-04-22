@@ -20,8 +20,8 @@ export default function Sidebar({ links, active, setActive, isAdmin, isOpen, set
     : 'U';
 
   const gradBg = isAdmin
-    ? 'linear-gradient(135deg,#f59e0b,#ef4444)'
-    : 'linear-gradient(135deg,#6366f1,#8b5cf6)';
+    ? 'linear-gradient(135deg,#fff,rgba(255,255,255,0.7))'
+    : '#fff';
 
   return (
     <>

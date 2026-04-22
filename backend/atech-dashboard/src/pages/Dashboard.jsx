@@ -184,9 +184,9 @@ export default function Dashboard() {
   }));
 
   const pieData = [
-    { name:'New',         value: allOrders.filter(o=>o.status==='new').length || 1,         fill:'#60a5fa' },
-    { name:'In Progress', value: allOrders.filter(o=>o.status==='in-progress').length || 1,  fill:'#fbbf24' },
-    { name:'Completed',   value: allOrders.filter(o=>o.status==='completed').length || 1,    fill:'#34d399' },
+    { name:'New',         value: allOrders.filter(o=>o.status==='new').length || 1,         fill:'#6899e8' },
+    { name:'In Progress', value: allOrders.filter(o=>o.status==='in-progress').length || 1,  fill:'#f0b440' },
+    { name:'Completed',   value: allOrders.filter(o=>o.status==='completed').length || 1,    fill:'#4ade80' },
     { name:'Rejected',    value: allOrders.filter(o=>o.status==='rejected').length || 1,     fill:'#f87171' },
   ];
 
@@ -237,10 +237,10 @@ export default function Dashboard() {
               </div>
 
               <div className="stats-row">
-                <StatCard label="My Orders"     value={orders.length}                                          icon={ShoppingBag}   color="var(--purple)"  bg="rgba(139,92,246,0.12)"  variant="purple"/>
-                <StatCard label="In Progress"   value={orders.filter(o=>o.status==='in-progress').length}      icon={TrendingUp}    color="var(--amber)"   bg="rgba(245,158,11,0.12)"  variant="amber"/>
-                <StatCard label="Completed"     value={orders.filter(o=>o.status==='completed').length}        icon={CheckCircle}   color="var(--emerald)" bg="rgba(16,185,129,0.12)"  variant="green"/>
-                <StatCard label="Total Projects" value={allOrders.length}                                       icon={Package}       color="var(--cyan)"    bg="rgba(6,182,212,0.12)"   variant="cyan"/>
+                <StatCard label="My Orders"     value={orders.length}                                          icon={ShoppingBag}   color="var(--accent)"  bg="rgba(200,184,138,0.08)"  variant="purple"/>
+                <StatCard label="In Progress"   value={orders.filter(o=>o.status==='in-progress').length}      icon={TrendingUp}    color="var(--amber)"   bg="rgba(240,180,64,0.08)"   variant="amber"/>
+                <StatCard label="Completed"     value={orders.filter(o=>o.status==='completed').length}        icon={CheckCircle}   color="var(--emerald)" bg="rgba(74,222,128,0.08)"   variant="green"/>
+                <StatCard label="Total Projects" value={allOrders.length}                                       icon={Package}       color="var(--cyan)"    bg="rgba(94,196,212,0.08)"   variant="cyan"/>
               </div>
 
               {/* Charts row */}
@@ -258,15 +258,15 @@ export default function Dashboard() {
                       <AreaChart data={chartData}>
                         <defs>
                           <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3}/>
-                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                            <stop offset="5%" stopColor="#fff" stopOpacity={0.1}/>
+                            <stop offset="95%" stopColor="#fff" stopOpacity={0}/>
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3"/>
                         <XAxis dataKey="month" tick={{fontSize:11,fill:'var(--text-3)'}}/>
                         <YAxis tick={{fontSize:11,fill:'var(--text-3)'}} allowDecimals={false}/>
                         <Tooltip/>
-                        <Area type="monotone" dataKey="orders" stroke="#8b5cf6" strokeWidth={2} fill="url(#grad)"/>
+                        <Area type="monotone" dataKey="orders" stroke="rgba(255,255,255,0.5)" strokeWidth={1.5} fill="url(#grad)"/>
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
@@ -306,7 +306,7 @@ export default function Dashboard() {
                   </button>
                 </div>
                 {loading ? (
-                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--purple)'}}/></div>
+                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--accent)'}}/></div>
                 ) : orders.length === 0 ? (
                   <div className="empty"><div className="empty-icon">📦</div><p>No orders yet.</p><button className="btn btn-primary btn-sm" onClick={()=>setPage('new-order')}>Place First Order</button></div>
                 ) : (
@@ -341,7 +341,7 @@ export default function Dashboard() {
                   <button className="btn btn-ghost btn-sm" onClick={fetchOrders}><RefreshCw size={13}/> Refresh</button>
                 </div>
                 {loading ? (
-                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--purple)'}}/></div>
+                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--accent)'}}/></div>
                 ) : orders.length === 0 ? (
                   <div className="empty"><div className="empty-icon">📦</div><p>No orders yet.</p></div>
                 ) : (
@@ -368,7 +368,7 @@ export default function Dashboard() {
                   <div><div className="card-title">All Orders</div><div className="card-sub">{allOrders.length} total projects</div></div>
                 </div>
                 {loading ? (
-                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--purple)'}}/></div>
+                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--accent)'}}/></div>
                 ) : allOrders.length === 0 ? (
                   <div className="empty"><div className="empty-icon">🌍</div><p>No orders yet.</p></div>
                 ) : (

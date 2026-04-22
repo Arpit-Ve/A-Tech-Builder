@@ -25,9 +25,9 @@ export default function App() {
     <AuthProvider>
       <HashRouter>
         <Toaster position="top-right" toastOptions={{
-          style: { background:'#12122a', color:'#f0f0ff', border:'1px solid rgba(139,92,246,0.25)', fontFamily:"'DM Sans',sans-serif" },
-          success: { iconTheme:{ primary:'#10b981', secondary:'#12122a' } },
-          error:   { iconTheme:{ primary:'#ef4444', secondary:'#12122a' } },
+          style: { background:'#0a0a0a', color:'#fff', border:'1px solid rgba(255,255,255,0.06)', fontFamily:"'Inter',sans-serif", fontWeight:300 },
+          success: { iconTheme:{ primary:'#4ade80', secondary:'#0a0a0a' } },
+          error:   { iconTheme:{ primary:'#ef4444', secondary:'#0a0a0a' } },
         }}/>
         <Routes>
           <Route path="/login"            element={<Login />} />

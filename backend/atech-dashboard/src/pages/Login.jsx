@@ -47,8 +47,8 @@ export default function Login() {
     <div className="auth-wrap">
       {/* Background */}
       <div className="auth-bg">
-        <div className="auth-orb" style={{ width:500, height:500, background:'radial-gradient(circle,#6366f1,transparent)', top:-200, left:-200 }}/>
-        <div className="auth-orb" style={{ width:300, height:300, background:'radial-gradient(circle,#8b5cf6,transparent)', bottom:-100, right:300 }}/>
+        <div className="auth-orb" style={{ width:500, height:500, background:'radial-gradient(circle,rgba(200,184,138,0.06),transparent)', top:-200, left:-200 }}/>
+        <div className="auth-orb" style={{ width:300, height:300, background:'radial-gradient(circle,rgba(242,240,235,0.04),transparent)', bottom:-100, right:300 }}/>
       </div>
 
       {/* Left — form */}
@@ -60,7 +60,7 @@ export default function Login() {
           </div>
 
           <h1 className="auth-heading">
-            {tab === 'login' ? 'Welcome back 👋' : 'Get started 🚀'}
+            {tab === 'login' ? 'Welcome back' : 'Get started'}
           </h1>
           <p className="auth-sub">
             {tab === 'login'
@@ -114,7 +114,7 @@ export default function Login() {
 
           <p style={{textAlign:'center',marginTop:'1.25rem',fontSize:'0.82rem',color:'var(--text-3)'}}>
             Admin?{' '}
-            <Link to="/admin" style={{color:'var(--purple-light)',textDecoration:'none',fontWeight:600}}>Admin login →</Link>
+            <Link to="/admin" style={{color:'var(--accent)',textDecoration:'none',fontWeight:600}}>Admin login →</Link>
           </p>
         </div>
       </div>
@@ -122,15 +122,15 @@ export default function Login() {
       {/* Right — illustration */}
       <div className="auth-right">
         <div style={{position:'absolute',inset:0,overflow:'hidden',pointerEvents:'none'}}>
-          <div style={{position:'absolute',width:300,height:300,background:'radial-gradient(circle,rgba(139,92,246,0.08),transparent)',borderRadius:'50%',top:'20%',right:'10%'}}/>
+          <div style={{position:'absolute',width:300,height:300,background:'radial-gradient(circle,rgba(200,184,138,0.04),transparent)',borderRadius:'50%',top:'20%',right:'10%'}}/>
         </div>
         <div className="auth-illustration">
           <div style={{textAlign:'center',marginBottom:'0.5rem'}}>
-            <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(139,92,246,0.1)',border:'1px solid rgba(139,92,246,0.2)',borderRadius:20,padding:'6px 16px',marginBottom:'1rem'}}>
-              <Sparkles size={14} color="var(--purple-light)"/>
-              <span style={{fontSize:'0.78rem',color:'var(--purple-light)',fontWeight:600}}>Live Project Tracking</span>
+            <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:20,padding:'6px 16px',marginBottom:'1rem'}}>
+              <Sparkles size={14} color="var(--accent)"/>
+              <span style={{fontSize:'0.78rem',color:'var(--accent)',fontWeight:600}}>Live Project Tracking</span>
             </div>
-            <h2 style={{fontFamily:'var(--font-display)',fontSize:'1.5rem',fontWeight:800,marginBottom:8,color:'var(--text-1)'}}>Track every project,<br/>every step of the way.</h2>
+            <h2 style={{fontFamily:'var(--font-display)',fontSize:'1.5rem',fontWeight:600,marginBottom:8,color:'var(--text-1)'}}>Track every project,<br/>every step of the way.</h2>
             <p style={{color:'var(--text-2)',fontSize:'0.88rem',lineHeight:1.6}}>See real-time status updates, communicate directly, and never lose track of your builds.</p>
           </div>
 
@@ -138,14 +138,14 @@ export default function Login() {
           <div className="auth-illustration-card">
             <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'1rem'}}>
               <div>
-                <div style={{fontWeight:700,fontSize:'0.9rem',color:'var(--text-1)'}}>Biblio AI Website</div>
+                <div style={{fontWeight:600,fontSize:'0.9rem',color:'var(--text-1)'}}>Biblio AI Website</div>
                 <div style={{fontSize:'0.75rem',color:'var(--text-3)',marginTop:2}}>Website Development · AI / ML</div>
               </div>
               <span className="badge badge-progress">In Progress</span>
             </div>
             <div style={{marginBottom:8}}>
               <div style={{display:'flex',justifyContent:'space-between',fontSize:'0.75rem',color:'var(--text-3)',marginBottom:6}}>
-                <span>Progress</span><span style={{color:'var(--purple-light)',fontWeight:600}}>65%</span>
+                <span>Progress</span><span style={{color:'var(--accent)',fontWeight:600}}>65%</span>
               </div>
               <div className="progress-wrap">
                 <div className="progress-bar" style={{width:'65%',background:'var(--grad-1)'}}/>
@@ -153,7 +153,7 @@ export default function Login() {
             </div>
             <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
               {['React','Node.js','MongoDB','AI API'].map(t=>(
-                <span key={t} style={{background:'rgba(139,92,246,0.1)',border:'1px solid rgba(139,92,246,0.2)',borderRadius:20,padding:'2px 10px',fontSize:'0.7rem',color:'var(--purple-light)'}}>
+                <span key={t} style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.06)',borderRadius:20,padding:'2px 10px',fontSize:'0.7rem',color:'var(--accent)'}}>
                   {t}
                 </span>
               ))}
@@ -162,9 +162,9 @@ export default function Login() {
 
           {/* Mock stats */}
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:12,width:'100%'}}>
-            {[{l:'Orders',v:'12',c:'var(--purple)'},{l:'Completed',v:'8',c:'var(--emerald)'},{l:'In Progress',v:'3',c:'var(--amber)'}].map(s=>(
+            {[{l:'Orders',v:'12',c:'var(--accent)'},{l:'Completed',v:'8',c:'var(--emerald)'},{l:'In Progress',v:'3',c:'var(--amber)'}].map(s=>(
               <div key={s.l} style={{background:'var(--bg-2)',border:'1px solid var(--border)',borderRadius:12,padding:'0.875rem',textAlign:'center'}}>
-                <div style={{fontFamily:'var(--font-display)',fontSize:'1.4rem',fontWeight:800,color:s.c}}>{s.v}</div>
+                <div style={{fontFamily:'var(--font-display)',fontSize:'1.4rem',fontWeight:600,color:s.c}}>{s.v}</div>
                 <div style={{fontSize:'0.7rem',color:'var(--text-3)',marginTop:2}}>{s.l}</div>
               </div>
             ))}

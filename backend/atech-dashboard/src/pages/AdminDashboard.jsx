@@ -92,9 +92,9 @@ export default function AdminDashboard() {
   }));
 
   const pieData = [
-    { name:'New',         value:orders.filter(o=>o.status==='new').length||1,         fill:'#60a5fa' },
-    { name:'In Progress', value:orders.filter(o=>o.status==='in-progress').length||1, fill:'#fbbf24' },
-    { name:'Completed',   value:orders.filter(o=>o.status==='completed').length||1,   fill:'#34d399' },
+    { name:'New',         value:orders.filter(o=>o.status==='new').length||1,         fill:'#6899e8' },
+    { name:'In Progress', value:orders.filter(o=>o.status==='in-progress').length||1, fill:'#f0b440' },
+    { name:'Completed',   value:orders.filter(o=>o.status==='completed').length||1,   fill:'#4ade80' },
     { name:'Rejected',    value:orders.filter(o=>o.status==='rejected').length||1,    fill:'#f87171' },
   ];
 
@@ -110,7 +110,7 @@ export default function AdminDashboard() {
       <div className="main">
         {/* Topbar */}
         <div className="topbar">
-          <span className="topbar-title" style={{color:'var(--amber)'}}>🛡️ Admin Dashboard</span>
+          <span className="topbar-title" style={{color:'var(--accent)'}}>🛡️ Admin Dashboard</span>
           <div className="topbar-right">
             <button className="notif-btn" onClick={fetchOrders}>
               <RefreshCw size={15}/>
@@ -119,7 +119,7 @@ export default function AdminDashboard() {
               <Bell size={16}/>
               {(unreadCount + newOrders) > 0 && <span className="notif-dot"/>}
             </button>
-            <div className="user-avatar" style={{width:32,height:32,fontSize:11,background:'linear-gradient(135deg,#f59e0b,#ef4444)'}}>AD</div>
+            <div className="user-avatar" style={{width:32,height:32,fontSize:11,background:'linear-gradient(135deg,#c8b88a,#a89868)'}}>AD</div>
           </div>
         </div>
 
@@ -134,12 +134,12 @@ export default function AdminDashboard() {
               </div>
 
               <div className="stats-row">
-                <StatCard label="Total Orders"  value={orders.length}                                         icon={ShoppingBag}   color="var(--purple)"  bg="rgba(139,92,246,0.12)"  variant="purple"/>
-                <StatCard label="New Orders"    value={newOrders}                                             icon={Clock}         color="var(--cyan)"    bg="rgba(6,182,212,0.12)"   variant="cyan"/>
-                <StatCard label="In Progress"   value={orders.filter(o=>o.status==='in-progress').length}     icon={TrendingUp}    color="var(--amber)"   bg="rgba(245,158,11,0.12)"  variant="amber"/>
-                <StatCard label="Completed"     value={orders.filter(o=>o.status==='completed').length}       icon={CheckCircle}   color="var(--emerald)" bg="rgba(16,185,129,0.12)"  variant="green"/>
-                <StatCard label="Messages"      value={messages.length}                                       icon={MessageSquare} color="var(--pink)"    bg="rgba(236,72,153,0.12)"  variant="pink"/>
-                <StatCard label="Unread"        value={unreadCount}                                           icon={Mail}          color="var(--blue)"    bg="rgba(59,130,246,0.12)"  variant="blue"/>
+                <StatCard label="Total Orders"  value={orders.length}                                         icon={ShoppingBag}   color="var(--accent)"  bg="rgba(200,184,138,0.08)"  variant="purple"/>
+                <StatCard label="New Orders"    value={newOrders}                                             icon={Clock}         color="var(--cyan)"    bg="rgba(94,196,212,0.08)"   variant="cyan"/>
+                <StatCard label="In Progress"   value={orders.filter(o=>o.status==='in-progress').length}     icon={TrendingUp}    color="var(--amber)"   bg="rgba(240,180,64,0.08)"   variant="amber"/>
+                <StatCard label="Completed"     value={orders.filter(o=>o.status==='completed').length}       icon={CheckCircle}   color="var(--emerald)" bg="rgba(74,222,128,0.08)"   variant="green"/>
+                <StatCard label="Messages"      value={messages.length}                                       icon={MessageSquare} color="var(--pink)"    bg="rgba(232,112,160,0.08)"  variant="pink"/>
+                <StatCard label="Unread"        value={unreadCount}                                           icon={Mail}          color="var(--blue)"    bg="rgba(104,153,232,0.08)"  variant="blue"/>
               </div>
 
               {/* Charts */}
@@ -154,20 +154,20 @@ export default function AdminDashboard() {
                       <AreaChart data={chartData}>
                         <defs>
                           <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3}/>
-                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                            <stop offset="5%" stopColor="#fff" stopOpacity={0.1}/>
+                            <stop offset="95%" stopColor="#fff" stopOpacity={0}/>
                           </linearGradient>
                           <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                            <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                            <stop offset="5%" stopColor="#4ade80" stopOpacity={0.2}/>
+                            <stop offset="95%" stopColor="#4ade80" stopOpacity={0}/>
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3"/>
                         <XAxis dataKey="month" tick={{fontSize:11,fill:'var(--text-3)'}}/>
                         <YAxis tick={{fontSize:11,fill:'var(--text-3)'}} allowDecimals={false}/>
                         <Tooltip/>
-                        <Area type="monotone" dataKey="orders"    name="Total"     stroke="#8b5cf6" strokeWidth={2} fill="url(#g1)"/>
-                        <Area type="monotone" dataKey="completed" name="Completed" stroke="#10b981" strokeWidth={2} fill="url(#g2)"/>
+                        <Area type="monotone" dataKey="orders"    name="Total"     stroke="rgba(255,255,255,0.5)" strokeWidth={1.5} fill="url(#g1)"/>
+                        <Area type="monotone" dataKey="completed" name="Completed" stroke="#4ade80" strokeWidth={2} fill="url(#g2)"/>
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
@@ -205,7 +205,7 @@ export default function AdminDashboard() {
                         <XAxis type="number" tick={{fontSize:11,fill:'var(--text-3)'}} allowDecimals={false}/>
                         <YAxis type="category" dataKey="name" tick={{fontSize:10,fill:'var(--text-3)'}} width={120}/>
                         <Tooltip/>
-                        <Bar dataKey="value" name="Orders" fill="#8b5cf6" radius={[0,4,4,0]}/>
+                        <Bar dataKey="value" name="Orders" fill="rgba(255,255,255,0.15)" radius={[0,4,4,0]}/>
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -219,7 +219,7 @@ export default function AdminDashboard() {
                   <button className="btn btn-ghost btn-sm" onClick={()=>setPage('orders')}>View All</button>
                 </div>
                 {loading ? (
-                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--purple)'}}/></div>
+                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--accent)'}}/></div>
                 ) : orders.length === 0 ? (
                   <div className="empty"><div className="empty-icon">📦</div><p>No orders yet.</p></div>
                 ) : (
@@ -272,7 +272,7 @@ export default function AdminDashboard() {
                   <button className="btn btn-ghost btn-sm" onClick={fetchAll}><RefreshCw size={13}/> Refresh</button>
                 </div>
                 {loading ? (
-                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--purple)'}}/></div>
+                  <div className="empty"><Loader2 size={24} style={{animation:'spin 0.8s linear infinite',color:'var(--accent)'}}/></div>
                 ) : orders.length === 0 ? (
                   <div className="empty"><div className="empty-icon">📦</div><p>No orders yet.</p></div>
                 ) : (
@@ -284,7 +284,7 @@ export default function AdminDashboard() {
                           <tr key={o._id}>
                             <td style={{fontWeight:600,maxWidth:150}}>{o.projectName}</td>
                             <td style={{color:'var(--text-2)'}}>{o.clientName}</td>
-                            <td style={{color:'var(--purple-light)',fontSize:'0.78rem'}}>{o.clientEmail}</td>
+                            <td style={{color:'var(--accent)',fontSize:'0.78rem'}}>{o.clientEmail}</td>
                             <td style={{color:'var(--text-3)',fontSize:'0.78rem',maxWidth:140}}>{o.services?.join(', ')}</td>
                             <td style={{color:'var(--text-3)'}}>{o.budget||'—'}</td>
                             <td style={{color:'var(--text-3)'}}>{o.timeline||'—'}</td>
@@ -312,7 +312,7 @@ export default function AdminDashboard() {
                 <p className="page-sub">{unreadCount} unread · {messages.length} total</p>
               </div>
               {loading ? (
-                <div className="empty" style={{padding:'4rem'}}><Loader2 size={28} style={{animation:'spin 0.8s linear infinite',color:'var(--purple)'}}/></div>
+                <div className="empty" style={{padding:'4rem'}}><Loader2 size={28} style={{animation:'spin 0.8s linear infinite',color:'var(--accent)'}}/></div>
               ) : messages.length === 0 ? (
                 <div className="empty" style={{padding:'4rem'}}><div className="empty-icon">💬</div><p>No messages yet.</p></div>
               ) : (
@@ -364,7 +364,7 @@ export default function AdminDashboard() {
                       ).map(c=>(
                         <tr key={c.email}>
                           <td style={{fontWeight:600}}>{c.name}</td>
-                          <td style={{color:'var(--purple-light)',fontSize:'0.82rem'}}>{c.email}</td>
+                          <td style={{color:'var(--accent)',fontSize:'0.82rem'}}>{c.email}</td>
                           <td style={{color:'var(--text-3)'}}>{c.phone||'—'}</td>
                           <td><span className="badge badge-new">{c.orders}</span></td>
                           <td style={{color:'var(--text-3)',fontSize:'0.78rem'}}>{new Date(c.last).toLocaleDateString('en-IN')}</td>
