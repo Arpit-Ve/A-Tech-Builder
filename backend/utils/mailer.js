@@ -1,51 +1,106 @@
 // utils/mailer.js
 const { Resend } = require('resend');
+const nodemailer = require('nodemailer');
 
 let resendClient = null;
+let smtpTransporter = null;
 
 // ─── Init ────────────────────────────────────────────────────────────────────
 async function initMailer() {
-  console.log('📨 Initializing mailer (Resend API)...');
+  console.log('📨 Initializing mailer services...');
   
-  if (!process.env.RESEND_API_KEY) {
-    console.warn('⚠️  RESEND_API_KEY is missing. Emails will not be sent.');
-    return;
+  // 1. Initialize Resend if API key is present and NOT a placeholder
+  const resendKey = process.env.RESEND_API_KEY;
+  if (resendKey && resendKey !== 're_your_key_here' && resendKey.trim() !== '') {
+    try {
+      resendClient = new Resend(resendKey);
+      console.log('✅ Resend API initialized');
+    } catch (err) {
+      console.warn('⚠️  Failed to initialize Resend:', err.message);
+    }
+  } else {
+    console.warn('ℹ️  Resend API key missing or placeholder. Skipping Resend.');
   }
 
-  resendClient = new Resend(process.env.RESEND_API_KEY);
-  console.log('✅ Mailer ready (Resend API)');
+  // 2. Initialize Nodemailer (SMTP) as fallback/alternative
+  const smtpEmail = process.env.SMTP_EMAIL;
+  const smtpPass = process.env.SMTP_PASSWORD;
+  
+  if (smtpEmail && smtpPass) {
+    try {
+      smtpTransporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: smtpEmail,
+          pass: smtpPass
+        }
+      });
+      // Verify connection
+      await smtpTransporter.verify();
+      console.log('✅ SMTP (Gmail) Transporter ready');
+    } catch (err) {
+      console.warn('⚠️  SMTP Transporter failed to initialize:', err.message);
+    }
+  } else {
+    console.warn('ℹ️  SMTP credentials missing. Skipping SMTP.');
+  }
+
+  if (!resendClient && !smtpTransporter) {
+    console.error('❌ CRITICAL: No mailer services available. Emails will NOT be sent.');
+  }
 }
 
 // ─── Send helper ─────────────────────────────────────────────────────────────
 async function sendMail({ to, subject, html, replyTo }) {
-  if (!resendClient) {
-    console.error('❌ Mailer Error: Resend client not initialized.');
-    return;
-  }
-  
-  try {
-    // Note: Resend requires a verified domain or 'onboarding@resend.dev' for free tier
-    const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    
-    const { data, error } = await resendClient.emails.send({
-      from: `A'tech Builder Portfolio <${fromAddress}>`,
-      to: [to],
-      subject,
-      html,
-      ...(replyTo && { reply_to: replyTo }), // Resend uses snake_case for reply_to
-    });
+  // Try Resend first if available
+  if (resendClient) {
+    try {
+      console.log(`📧 Attempting to send via Resend to: ${to}`);
+      const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+      
+      const { data, error } = await resendClient.emails.send({
+        from: `A'tech Builder Portfolio <${fromAddress}>`,
+        to: Array.isArray(to) ? to : [to],
+        subject,
+        html,
+        ...(replyTo && { reply_to: replyTo }),
+      });
 
-    if (error) {
-      console.error(`❌ Resend Error while sending to ${to}:`, error.message);
-      throw error;
+      if (error) {
+        console.error('❌ Resend API Error:', error.message);
+        // Fall through to SMTP if Resend fails
+      } else {
+        console.log(`✅ Email sent via Resend. ID: ${data.id}`);
+        return data;
+      }
+    } catch (err) {
+      console.error('❌ Resend catch error:', err.message);
+      // Fall through to SMTP
     }
-
-    console.log(`📧 Email sent successfully to ${to}. ID: ${data.id}`);
-    return data;
-  } catch (err) {
-    console.error(`❌ Mailer Failed to send to ${to}:`, err.message);
-    throw err;
   }
+
+  // Try SMTP if Resend skipped or failed
+  if (smtpTransporter) {
+    try {
+      console.log(`📧 Attempting to send via SMTP to: ${to}`);
+      const mailOptions = {
+        from: `"A'tech Builder Portfolio" <${process.env.SMTP_EMAIL}>`,
+        to,
+        subject,
+        html,
+        replyTo: replyTo || process.env.SMTP_EMAIL
+      };
+
+      const info = await smtpTransporter.sendMail(mailOptions);
+      console.log(`✅ Email sent via SMTP. MessageId: ${info.messageId}`);
+      return info;
+    } catch (err) {
+      console.error('❌ SMTP Failed to send:', err.message);
+      throw err;
+    }
+  }
+
+  throw new Error('No mailer services available to send email.');
 }
 
 // ─── Escape HTML ─────────────────────────────────────────────────────────────
@@ -74,11 +129,18 @@ const baseStyle = `
   .sec{color:#f59e0b;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin:24px 0 10px;border-bottom:1px solid #1e1e3a;padding-bottom:6px;}
 `;
 
+// ─── Get Recipients ───────────────────────────────────────────────────────────
+function getRecipients() {
+  const envEmails = process.env.NOTIFY_EMAILS;
+  if (envEmails) {
+    return envEmails.split(',').map(e => e.trim()).filter(Boolean);
+  }
+  return ['atechbuilderss@gmail.com']; // Fallback
+}
+
 // ─── CONTACT notification ─────────────────────────────────────────────────────
 async function sendContactNotification({ name, email, subject, message }) {
-  // IMPORTANT: Resend free tier only allows sending to the signup email.
-  // Change this once you verify a domain at resend.com/domains.
-  const RECIPIENTS = 'atechbuilderss@gmail.com';
+  const RECIPIENTS = getRecipients();
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
     <div class="wrap">
@@ -105,37 +167,16 @@ async function sendContactNotification({ name, email, subject, message }) {
       html,
       replyTo: email,
     });
-    console.log(`📧 Notification sent to admin: ${RECIPIENTS}`);
+    console.log(`📧 Contact notification processed for: ${name}`);
   } catch (err) {
-    console.error('❌ Failed to send admin notification:', err.message);
+    console.error('❌ Failed to process contact notification:', err.message);
   }
-
-  // --- AUTO-REPLY (Disabled for Resend Free Tier) ---
-  // Resend free tier only allows sending to your own verified email.
-  // To enable this, you must verify a domain at resend.com/domains.
-  /*
-  try {
-    await sendMail({
-      to: email,
-      subject: '✅ We received your message — A tech Builder',
-      html: autoHtml,
-    });
-    console.log(`📧 Auto-reply sent to user: ${email}`);
-  } catch (err) {
-    console.warn('⚠️ Auto-reply failed (Normal for Resend Free Tier):', err.message);
-  }
-  */
-
-  console.log(`📧 Contact process complete for: ${name} <${email}>`);
 }
 
 // ─── ORDER notification ───────────────────────────────────────────────────────
 async function sendOrderNotification(data) {
   const { services, projectName, description, budget, timeline, clientName, clientEmail, clientPhone, extraNotes } = data;
-  console.log(`📦 Attempting to send Order Notification for: ${projectName}`);
-  
-  // IMPORTANT: Resend free tier only allows sending to the signup email.
-  const RECIPIENTS = 'atechbuilderss@gmail.com';
+  const RECIPIENTS = getRecipients();
   const tagsHtml = (services || []).map(s => `<span class="tag">${esc(s)}</span>`).join('');
 
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${baseStyle}</style></head><body>
@@ -167,16 +208,14 @@ async function sendOrderNotification(data) {
     </div></body></html>`;
 
   try {
-    const result = await sendMail({
+    return await sendMail({
       to: RECIPIENTS,
       subject: `New Order: ${projectName} - from ${clientName}`,
       html,
       replyTo: clientEmail,
     });
-    console.log(`✅ Order notification result:`, result ? 'Sent' : 'Failed');
-    return result;
   } catch (err) {
-    console.error(`❌ Order notification error:`, err.message);
+    console.error(`❌ Failed to process order notification:`, err.message);
     throw err;
   }
 }

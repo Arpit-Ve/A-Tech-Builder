@@ -107,17 +107,18 @@
         const form = document.getElementById('contactForm');
         if (!form) return;
 
-        // Remove existing event listeners by cloning
-        const newForm = form.cloneNode(true);
-        form.parentNode.replaceChild(newForm, form);
+        // Prevent duplicate event listeners
+        if (form.dataset.apiBound) return;
+        form.dataset.apiBound = 'true';
 
-        newForm.addEventListener('submit', async (e) => {
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const name = newForm.querySelector('#name').value.trim();
-            const email = newForm.querySelector('#email').value.trim();
-            const subject = newForm.querySelector('#subject').value.trim();
-            const message = newForm.querySelector('#message').value.trim();
+            const name = form.querySelector('#name').value.trim();
+            const email = form.querySelector('#email').value.trim();
+            const subject = form.querySelector('#subject').value.trim();
+            const message = form.querySelector('#message').value.trim();
 
             if (!name || !email || !message) {
                 showToast('Please fill in all required fields.', 'error');
@@ -133,7 +134,7 @@
             }
 
             // Show loading state
-            const btn = newForm.querySelector('.form-submit');
+            const btn = form.querySelector('.form-submit');
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">⏳ Sending...</span>';
             btn.disabled = true;
@@ -152,7 +153,7 @@
                     showToast(data.message || 'Message sent successfully!', 'success');
                     btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">✅ Sent!</span>';
                     btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                    newForm.reset();
+                    form.reset();
 
                     setTimeout(() => {
                         btn.innerHTML = originalHTML;
@@ -183,13 +184,13 @@
         // The step navigation buttons use type="button", so they won't trigger submit
         // Only the final submit button triggers form submit
 
-        // Remove existing submit listener by cloning
-        const newForm = form.cloneNode(true);
-        form.parentNode.replaceChild(newForm, form);
+        // Prevent duplicate event listeners
+        if (form.dataset.apiBound) return;
+        form.dataset.apiBound = 'true';
 
         // Re-attach service chip selection logic
         const selectedServices = new Set();
-        newForm.querySelectorAll('.service-chip').forEach(chip => {
+        form.querySelectorAll('.service-chip').forEach(chip => {
             chip.addEventListener('click', () => {
                 chip.classList.toggle('selected');
                 const service = chip.getAttribute('data-service');
@@ -203,14 +204,14 @@
 
         // Re-attach step navigation
         const steps = {
-            1: newForm.querySelector('#orderStep1'),
-            2: newForm.querySelector('#orderStep2'),
-            3: newForm.querySelector('#orderStep3'),
+            1: form.querySelector('#orderStep1'),
+            2: form.querySelector('#orderStep2'),
+            3: form.querySelector('#orderStep3'),
         };
 
         // Get step indicators from the modal (they're inside the form)
-        const stepIndicators = newForm.querySelectorAll('.form-step');
-        const stepLines = newForm.querySelectorAll('.form-step-line');
+        const stepIndicators = form.querySelectorAll('.form-step');
+        const stepLines = form.querySelectorAll('.form-step-line');
 
         function goToStep(n) {
             Object.values(steps).forEach(s => { if (s) s.classList.add('hidden'); });
@@ -228,15 +229,15 @@
             if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
-        const toStep2Btn = newForm.querySelector('#toStep2');
-        const toStep3Btn = newForm.querySelector('#toStep3');
-        const backToStep1Btn = newForm.querySelector('#backToStep1');
-        const backToStep2Btn = newForm.querySelector('#backToStep2');
+        const toStep2Btn = form.querySelector('#toStep2');
+        const toStep3Btn = form.querySelector('#toStep3');
+        const backToStep1Btn = form.querySelector('#backToStep1');
+        const backToStep2Btn = form.querySelector('#backToStep2');
 
         if (toStep2Btn) {
             toStep2Btn.addEventListener('click', () => {
                 if (selectedServices.size === 0) {
-                    const chips = newForm.querySelector('#serviceChips');
+                    const chips = form.querySelector('#serviceChips');
                     if (chips) {
                         chips.style.animation = 'shake 0.4s ease';
                         setTimeout(() => chips.style.animation = '', 400);
@@ -253,19 +254,19 @@
         if (backToStep2Btn) backToStep2Btn.addEventListener('click', () => goToStep(2));
 
         // Handle form submission
-        newForm.addEventListener('submit', async (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const orderData = {
                 services: [...selectedServices],
-                projectName: (newForm.querySelector('#orderProjectName')?.value || '').trim(),
-                description: (newForm.querySelector('#orderDescription')?.value || '').trim(),
-                budget: newForm.querySelector('#orderBudget')?.value || '',
-                timeline: newForm.querySelector('#orderTimeline')?.value || '',
-                clientName: (newForm.querySelector('#orderName')?.value || '').trim(),
-                clientEmail: (newForm.querySelector('#orderEmail')?.value || '').trim(),
-                clientPhone: (newForm.querySelector('#orderPhone')?.value || '').trim(),
-                extraNotes: (newForm.querySelector('#orderExtra')?.value || '').trim()
+                projectName: (form.querySelector('#orderProjectName')?.value || '').trim(),
+                description: (form.querySelector('#orderDescription')?.value || '').trim(),
+                budget: form.querySelector('#orderBudget')?.value || '',
+                timeline: form.querySelector('#orderTimeline')?.value || '',
+                clientName: (form.querySelector('#orderName')?.value || '').trim(),
+                clientEmail: (form.querySelector('#orderEmail')?.value || '').trim(),
+                clientPhone: (form.querySelector('#orderPhone')?.value || '').trim(),
+                extraNotes: (form.querySelector('#orderExtra')?.value || '').trim()
             };
 
             // Basic validation
@@ -288,7 +289,7 @@
             }
 
             // Show loading
-            const btn = newForm.querySelector('#orderSubmitBtn');
+            const btn = form.querySelector('#orderSubmitBtn');
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;">⏳ Submitting...</span>';
             btn.disabled = true;
@@ -312,9 +313,9 @@
                         btn.innerHTML = originalHTML;
                         btn.style.background = '';
                         btn.disabled = false;
-                        newForm.reset();
+                        form.reset();
                         selectedServices.clear();
-                        newForm.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
+                        form.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
                         goToStep(1);
 
                         // Close modal
