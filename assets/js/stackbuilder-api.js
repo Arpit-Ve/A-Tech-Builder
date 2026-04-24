@@ -31,7 +31,7 @@
         try {
             const res = await fetch(`${API_BASE}/health`, {
                 method: 'GET',
-                signal: AbortSignal.timeout(3000)
+                signal: AbortSignal.timeout(8000)
             });
             if (res.ok) {
                 backendAvailable = true;
@@ -125,7 +125,11 @@
                 return;
             }
 
-            // If backend is not available, fallback to mailto
+            // If backend is not available, try one last quick check
+            if (!backendAvailable) {
+                await checkBackend();
+            }
+
             if (!backendAvailable) {
                 const mailtoLink = `mailto:atechbuilderss@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
                 window.open(mailtoLink);
@@ -279,7 +283,11 @@
                 return;
             }
 
-            // If backend is not available, fallback to mailto
+            // If backend is not available, try one last quick check
+            if (!backendAvailable) {
+                await checkBackend();
+            }
+
             if (!backendAvailable) {
                 const body = `--- PROJECT ORDER ---\n\nServices Needed: ${orderData.services.join(', ')}\nProject Name: ${orderData.projectName}\nDescription: ${orderData.description}\nBudget: ${orderData.budget || 'Not specified'}\nTimeline: ${orderData.timeline || 'Not specified'}\n\n--- CLIENT INFO ---\n\nName: ${orderData.clientName}\nEmail: ${orderData.clientEmail}\nPhone: ${orderData.clientPhone || 'Not provided'}\n\nAdditional Notes: ${orderData.extraNotes || 'None'}`;
                 const mailtoLink = `mailto:atechbuilderss@gmail.com?subject=${encodeURIComponent('Project Order: ' + orderData.projectName)}&body=${encodeURIComponent(body)}`;

@@ -49,9 +49,18 @@ app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('onrender.com') || origin.includes('vercel.app')) {
+        
+        const isAllowed = allowedOrigins.indexOf(origin) !== -1 || 
+                         origin.includes('onrender.com') || 
+                         origin.includes('vercel.app') || 
+                         origin.includes('netlify.app') ||
+                         origin.includes('localhost') ||
+                         origin.includes('127.0.0.1');
+
+        if (isAllowed) {
             callback(null, true);
         } else {
+            console.warn(`Blocked by CORS: ${origin}`);
             callback(new Error('Not allowed by CORS'));
         }
     },
@@ -87,7 +96,7 @@ app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 // ===== Request Logging =====
 app.use((req, res, next) => {
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    console.log(`[${timestamp}] ${req.method} ${req.path}`);
+    console.log(`[${timestamp}] ${req.method} ${req.path} - Origin: ${req.get('origin') || 'no-origin'}`);
     next();
 });
 
