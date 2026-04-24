@@ -56,8 +56,8 @@
                     const dx = n.x - m.x, dy = n.y - m.y;
                     const d = Math.sqrt(dx * dx + dy * dy);
                     if (d < DIST) {
-                        const a = (1 - d / DIST) * 0.12;
-                        ctx.strokeStyle = `rgba(0, 100, 255, ${a})`;
+                        const a = (1 - d / DIST) * 0.1;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${a})`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(n.x, n.y);
@@ -74,8 +74,8 @@
                         n.vx += (mdx / md) * 0.008;
                         n.vy += (mdy / md) * 0.008;
                         // Glow line from mouse to nearby particle
-                        const mop = (1 - md / 250) * 0.15;
-                        ctx.strokeStyle = `rgba(0, 100, 255, ${mop})`;
+                        const mop = (1 - md / 250) * 0.1;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${mop})`;
                         ctx.lineWidth = 0.3;
                         ctx.beginPath();
                         ctx.moveTo(n.x, n.y);
@@ -86,15 +86,15 @@
 
                 // Particle glow
                 const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 3);
-                grd.addColorStop(0, `rgba(0, 100, 255, ${op * 1.5})`);
-                grd.addColorStop(1, `rgba(0, 100, 255, 0)`);
+                grd.addColorStop(0, `rgba(255, 255, 255, ${op})`);
+                grd.addColorStop(1, `rgba(255, 255, 255, 0)`);
                 ctx.fillStyle = grd;
                 ctx.beginPath();
                 ctx.arc(n.x, n.y, n.r * 3, 0, Math.PI * 2);
                 ctx.fill();
 
                 // Core dot
-                ctx.fillStyle = `rgba(0, 100, 255, ${op * 2})`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${op * 1.5})`;
                 ctx.beginPath();
                 ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
                 ctx.fill();
@@ -135,11 +135,11 @@
         document.body.appendChild(container);
 
         const orbConfigs = [
-            { size: 400, x: '10%', y: '15%', color: 'rgba(77, 142, 255, 0.06)', dur: 18, delay: 0 },
-            { size: 300, x: '75%', y: '25%', color: 'rgba(167, 139, 250, 0.05)', dur: 22, delay: -5 },
-            { size: 350, x: '50%', y: '60%', color: 'rgba(110, 180, 255, 0.04)', dur: 25, delay: -10 },
-            { size: 250, x: '20%', y: '80%', color: 'rgba(167, 139, 250, 0.05)', dur: 20, delay: -8 },
-            { size: 200, x: '85%', y: '70%', color: 'rgba(77, 142, 255, 0.06)', dur: 15, delay: -3 },
+            { size: 400, x: '10%', y: '15%', color: 'rgba(56, 189, 248, 0.04)', dur: 18, delay: 0 },
+            { size: 300, x: '75%', y: '25%', color: 'rgba(167, 139, 250, 0.03)', dur: 22, delay: -5 },
+            { size: 350, x: '50%', y: '60%', color: 'rgba(56, 189, 248, 0.025)', dur: 25, delay: -10 },
+            { size: 250, x: '20%', y: '80%', color: 'rgba(167, 139, 250, 0.03)', dur: 20, delay: -8 },
+            { size: 200, x: '85%', y: '70%', color: 'rgba(56, 189, 248, 0.035)', dur: 15, delay: -3 },
         ];
 
         orbConfigs.forEach(cfg => {
@@ -293,7 +293,7 @@
             const s = document.createElement('div');
             Object.assign(s.style, {
                 position: 'absolute', inset: '0',
-                background: 'linear-gradient(105deg,transparent 40%,rgba(0,0,0,0.01) 45%,rgba(0,0,0,0.02) 50%,rgba(0,0,0,0.01) 55%,transparent 60%)',
+                background: 'linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.015) 45%,rgba(255,255,255,0.035) 50%,rgba(255,255,255,0.015) 55%,transparent 60%)',
                 backgroundSize: '250% 100%', backgroundPosition: '200% 0', borderRadius: 'inherit',
                 pointerEvents: 'none', transition: 'background-position 0.9s ease', zIndex: '1'
             });
@@ -322,7 +322,7 @@
         const b = document.createElement('div');
         Object.assign(b.style, {
             position: 'fixed', top: '0', left: '0', height: '2px', width: '0%',
-            background: 'linear-gradient(90deg, rgba(0,0,0,0.1), #000)',
+            background: 'linear-gradient(90deg, rgba(56, 189, 248, 0.3), #38bdf8)',
             zIndex: '10000', pointerEvents: 'none',
             transition: 'width 0.15s linear',
         });
