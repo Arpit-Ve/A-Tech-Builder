@@ -421,7 +421,7 @@
         }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
 
         document.querySelectorAll('.section, .reveal, .reveal-left').forEach(el => {
-            if (el.classList.contains('section')) {
+            if (el.classList.contains('section') && el.id !== 'home') {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.style.transition = 'all 1s var(--ease-expo)';

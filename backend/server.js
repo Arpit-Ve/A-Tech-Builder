@@ -20,15 +20,7 @@ const authRoutes = require('./routes/auth');
 
 const app = express();
 // ===== CORS =====
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key');
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200);
-    }
-    next();
-});
+// CORS is handled by the cors middleware below
 const PORT = process.env.PORT || 5000;
 
 // ===== Security Middleware =====
@@ -49,13 +41,22 @@ const allowedOrigins = [
     'http://localhost:3000',
     'https://a-tech-builder-git-main-arpit-ves-projects.vercel.app',
     'https://a-tech-builder.vercel.app',
+    'https://a-tech-builder-1.onrender.com',
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
 app.use(cors({
-    origin: true,
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1 || origin.includes('onrender.com') || origin.includes('vercel.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization', 'Accept'],
     credentials: true
 }));
 
