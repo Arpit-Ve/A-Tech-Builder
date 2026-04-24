@@ -20,32 +20,55 @@
     // TODO: Once you deploy your backend (e.g., on Render), paste its URL here
     const PRODUCTION_API_URL = 'https://a-tech-builder-1.onrender.com/api';
 
-    const API_BASE = isLocalhost
+    const API_BASE_INITIAL = isLocalhost
         ? (window.location.port === '5000' ? '/api' : 'http://localhost:5000/api')
         : PRODUCTION_API_URL;
+
+    // Use a dynamic base that can be updated if local fails
+    let activeAPI = API_BASE_INITIAL;
+    const getActiveAPI = () => activeAPI;
 
     let backendAvailable = false;
 
     // ===== Check Backend Availability =====
     async function checkBackend() {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-        try {
-            const res = await fetch(`${API_BASE}/health`, {
-                method: 'GET',
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            if (res.ok) {
-                backendAvailable = true;
-                console.log('✅ StackBuilder API connected');
+        console.log(`📡 Checking connectivity to: ${activeAPI}`);
+        const attempt = async (url) => {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            try {
+                const res = await fetch(`${url}/health`, { method: 'GET', signal: controller.signal });
+                clearTimeout(timeoutId);
+                return res.ok;
+            } catch (err) {
+                clearTimeout(timeoutId);
+                console.warn(`❌ Failed to reach: ${url} - ${err.message}`);
+                return false;
             }
-        } catch (err) {
-            clearTimeout(timeoutId);
-            backendAvailable = false;
-            console.warn('⚠️  StackBuilder API not available:', err.message);
+        };
+
+        // Try detected base first
+        if (await attempt(activeAPI)) {
+            backendAvailable = true;
+            console.log('✅ Connected to API');
+            return;
         }
+
+        // If local failed and we're not on production, try production as fallback
+        if (activeAPI !== PRODUCTION_API_URL) {
+            console.log(`🔄 Retrying with production URL: ${PRODUCTION_API_URL}`);
+            if (await attempt(PRODUCTION_API_URL)) {
+                // Switch to production URL for all subsequent calls
+                const oldBase = API_BASE;
+                activeAPI = PRODUCTION_API_URL; 
+                backendAvailable = true;
+                console.log('✅ Connected to Production API');
+                return;
+            }
+        }
+
+        backendAvailable = false;
+        console.error('🚫 No backend services reachable. Using mailto fallback.');
     }
 
     // ===== Toast Notification System =====
@@ -153,7 +176,7 @@
             const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s for form submit
 
             try {
-                const res = await fetch(`${API_BASE}/contact`, {
+                const res = await fetch(`${getActiveAPI()}/contact`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email, subject, message }),
@@ -317,7 +340,7 @@
             const timeoutId = setTimeout(() => controller.abort(), 20000); // 20s for orders
 
             try {
-                const res = await fetch(`${API_BASE}/orders`, {
+                const res = await fetch(`${getActiveAPI()}/orders`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(orderData),
