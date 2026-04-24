@@ -127,7 +127,7 @@
 
             // If backend is not available, fallback to mailto
             if (!backendAvailable) {
-                const mailtoLink = `mailto:vermaarpit627@gmail.com,anshbnsingh28@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+                const mailtoLink = `mailto:atechbuilderss@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
                 window.open(mailtoLink);
                 showToast('Opening email client (backend offline)', 'success');
                 return;
@@ -282,7 +282,7 @@
             // If backend is not available, fallback to mailto
             if (!backendAvailable) {
                 const body = `--- PROJECT ORDER ---\n\nServices Needed: ${orderData.services.join(', ')}\nProject Name: ${orderData.projectName}\nDescription: ${orderData.description}\nBudget: ${orderData.budget || 'Not specified'}\nTimeline: ${orderData.timeline || 'Not specified'}\n\n--- CLIENT INFO ---\n\nName: ${orderData.clientName}\nEmail: ${orderData.clientEmail}\nPhone: ${orderData.clientPhone || 'Not provided'}\n\nAdditional Notes: ${orderData.extraNotes || 'None'}`;
-                const mailtoLink = `mailto:vermaarpit627@gmail.com,anshbnsingh28@gmail.com?subject=${encodeURIComponent('Project Order: ' + orderData.projectName)}&body=${encodeURIComponent(body)}`;
+                const mailtoLink = `mailto:atechbuilderss@gmail.com?subject=${encodeURIComponent('Project Order: ' + orderData.projectName)}&body=${encodeURIComponent(body)}`;
                 window.open(mailtoLink);
                 showToast('Opening email client (backend offline)', 'success');
                 return;
