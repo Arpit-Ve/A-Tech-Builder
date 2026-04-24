@@ -409,17 +409,24 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    const el = entry.target;
+                    if (el.classList.contains('section')) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }
+                    el.classList.add('visible');
+                    observer.unobserve(el);
                 }
             });
         }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
 
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'all 1s var(--ease-expo)';
-            observer.observe(section);
+        document.querySelectorAll('.section, .reveal, .reveal-left').forEach(el => {
+            if (el.classList.contains('section')) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 1s var(--ease-expo)';
+            }
+            observer.observe(el);
         });
     }
 
