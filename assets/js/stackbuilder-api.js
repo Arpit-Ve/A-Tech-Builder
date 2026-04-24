@@ -28,18 +28,23 @@
 
     // ===== Check Backend Availability =====
     async function checkBackend() {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+
         try {
             const res = await fetch(`${API_BASE}/health`, {
                 method: 'GET',
-                signal: AbortSignal.timeout(8000)
+                signal: controller.signal
             });
+            clearTimeout(timeoutId);
             if (res.ok) {
                 backendAvailable = true;
                 console.log('✅ StackBuilder API connected');
             }
-        } catch {
+        } catch (err) {
+            clearTimeout(timeoutId);
             backendAvailable = false;
-            console.warn('⚠️  StackBuilder API not available — using mailto fallback');
+            console.warn('⚠️  StackBuilder API not available:', err.message);
         }
     }
 
@@ -144,12 +149,17 @@
             btn.disabled = true;
             showToast('Sending your message...', 'loading');
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s for form submit
+
             try {
                 const res = await fetch(`${API_BASE}/contact`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, subject, message })
+                    body: JSON.stringify({ name, email, subject, message }),
+                    signal: controller.signal
                 });
+                clearTimeout(timeoutId);
 
                 const data = await res.json();
 
@@ -303,12 +313,17 @@
             btn.disabled = true;
             showToast('Submitting your order...', 'loading');
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 20000); // 20s for orders
+
             try {
                 const res = await fetch(`${API_BASE}/orders`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderData)
+                    body: JSON.stringify(orderData),
+                    signal: controller.signal
                 });
+                clearTimeout(timeoutId);
 
                 const data = await res.json();
 
