@@ -103,6 +103,13 @@ app.use((req, res, next) => {
 // ===== Serve Frontend Static Files =====
 // Disable etags so browsers don't reuse the old cached CSP headers
 app.disable('etag');
+// ===== API Routes =====
+app.use('/api/contact', formLimiter, contactRoutes);
+app.use('/api/orders', formLimiter, orderRoutes);
+app.use('/api/health', healthRoutes);
+app.use('/api/auth', authRoutes);
+
+// ===== Serve Static Files =====
 app.use(express.static(path.join(__dirname, '..'), {
     etag: false,
     lastModified: false,
@@ -110,26 +117,21 @@ app.use(express.static(path.join(__dirname, '..'), {
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     }
 }));
-app.options('*', cors()); // Handle preflight requests
 
-// ===== API Routes =====
-app.use('/api/contact', formLimiter, contactRoutes);
-app.use('/api/orders', formLimiter, orderRoutes);
-app.use('/api/health', healthRoutes);
-app.use('/api/auth', authRoutes);
+// ===== Trailing Slash Redirect for Dashboard =====
+app.get('/dashboard', (req, res) => {
+    res.redirect(301, '/dashboard/');
+});
+
+// ===== Dashboard Routing (SPA Support) =====
+// This must be AFTER API routes and express.static
+app.get('/dashboard*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'dashboard', 'index.html'));
+});
 
 // ===== Root Route =====
 app.get('/', (req, res) => {
-    res.json({
-        success: true,
-        message: '🚀 A tech BuilderAPI is running!',
-        version: '1.0.0',
-        endpoints: {
-            health: 'GET /api/health',
-            contact: 'POST /api/contact',
-            orders: 'POST /api/orders'
-        }
-    });
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 // ===== 404 Handler =====
