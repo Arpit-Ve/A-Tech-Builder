@@ -58,8 +58,10 @@ async function sendMail({ to, subject, html, replyTo }) {
       console.log(`📧 Attempting to send via Resend to: ${to}`);
       const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
       
+      const fromDisplayName = arguments[0].fromName || "A'tech Builder Portfolio";
+      
       const { data, error } = await resendClient.emails.send({
-        from: `A'tech Builder Portfolio <${fromAddress}>`,
+        from: `${fromDisplayName} <${fromAddress}>`,
         to: Array.isArray(to) ? to : [to],
         subject,
         html,
@@ -82,9 +84,11 @@ async function sendMail({ to, subject, html, replyTo }) {
   // Try SMTP if Resend skipped or failed
   if (smtpTransporter) {
     try {
+      const fromName = arguments[0].fromName || "A'tech Builder Portfolio";
       console.log(`📧 Attempting to send via SMTP to: ${to}`);
+      
       const mailOptions = {
-        from: `"A'tech Builder Portfolio" <${process.env.SMTP_EMAIL}>`,
+        from: `"${fromName}" <${process.env.SMTP_EMAIL}>`,
         to,
         subject,
         html,
@@ -132,10 +136,11 @@ const baseStyle = `
 // ─── Get Recipients ───────────────────────────────────────────────────────────
 function getRecipients() {
   const envEmails = process.env.NOTIFY_EMAILS;
-  if (envEmails) {
+  if (envEmails && envEmails.trim() !== '') {
     return envEmails.split(',').map(e => e.trim()).filter(Boolean);
   }
-  return ['atechbuilderss@gmail.com']; // Fallback
+  // Ultimate fallback to ensure atechbuilderss@gmail.com always gets the leads
+  return ['atechbuilderss@gmail.com']; 
 }
 
 // ─── CONTACT notification ─────────────────────────────────────────────────────
@@ -163,6 +168,7 @@ async function sendContactNotification({ name, email, subject, message }) {
   try {
     await sendMail({
       to: RECIPIENTS,
+      fromName: `${name} (via Portfolio)`, // Better 'From' visibility
       subject: `📬 Portfolio Contact: ${subject || 'New Message'} — from ${name}`,
       html,
       replyTo: email,
@@ -210,6 +216,7 @@ async function sendOrderNotification(data) {
   try {
     return await sendMail({
       to: RECIPIENTS,
+      fromName: `${clientName} (Project Order)`, // Better 'From' visibility
       subject: `New Order: ${projectName} - from ${clientName}`,
       html,
       replyTo: clientEmail,
