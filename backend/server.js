@@ -42,6 +42,8 @@ const allowedOrigins = [
     'https://a-tech-builder-git-main-arpit-ves-projects.vercel.app',
     'https://a-tech-builder.vercel.app',
     'https://a-tech-builder-1.onrender.com',
+    'https://www.atechbuilder.site',
+    'https://atechbuilder.site',
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -54,6 +56,7 @@ app.use(cors({
                          origin.includes('onrender.com') || 
                          origin.includes('vercel.app') || 
                          origin.includes('netlify.app') ||
+                         origin.includes('atechbuilder.site') ||
                          origin.includes('localhost') ||
                          origin.includes('127.0.0.1');
 
