@@ -47,16 +47,16 @@ const allowedOrigins = [
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
-app.use(cors({
+const corsOptions = {
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl)
         if (!origin) return callback(null, true);
         
         const isAllowed = allowedOrigins.indexOf(origin) !== -1 || 
+                         origin.includes('atechbuilder.site') ||
                          origin.includes('onrender.com') || 
                          origin.includes('vercel.app') || 
                          origin.includes('netlify.app') ||
-                         origin.includes('atechbuilder.site') ||
                          origin.includes('localhost') ||
                          origin.includes('127.0.0.1');
 
@@ -69,10 +69,12 @@ app.use(cors({
     },
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization', 'Accept'],
-    credentials: true
-}));
+    credentials: true,
+    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
 
-app.options('*', cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 // ===== Rate Limiting =====
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
