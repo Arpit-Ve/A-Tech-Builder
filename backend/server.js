@@ -124,8 +124,12 @@ app.get('/dashboard', (req, res) => {
 });
 
 // ===== Dashboard Routing (SPA Support) =====
-// This must be AFTER API routes and express.static
-app.get('/dashboard*', (req, res) => {
+// This must be AFTER API routes but BEFORE express.static (or handle next)
+app.get('/dashboard*', (req, res, next) => {
+    // If it's a static asset request (has a file extension), skip to express.static
+    if (req.path.includes('.') && !req.path.endsWith('index.html')) {
+        return next();
+    }
     res.sendFile(path.join(__dirname, '..', 'dashboard', 'index.html'));
 });
 
