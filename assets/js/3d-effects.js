@@ -335,6 +335,20 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     });
 
+    // Service Card dynamic glide-ins
+    gsap.set('.service-card', { opacity: 0, y: 55 });
+    ScrollTrigger.batch('.service-card', {
+        start: 'top 88%',
+        onEnter: batch => gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.18,
+            duration: 1.4,
+            ease: 'power4.out',
+            overwrite: 'auto'
+        })
+    });
+
     // Contact Information Box & Form Glide-in
     gsap.set(['.contact-info', '.contact-form'], { opacity: 0, y: 50 });
     ScrollTrigger.create({
@@ -374,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 8. PERSPECTIVE 3D CARD HOVER TILT
     // ==========================================
-    const tiltCards = document.querySelectorAll('.team-card, .proj-card');
+    const tiltCards = document.querySelectorAll('.team-card, .proj-card, .service-card');
     tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();

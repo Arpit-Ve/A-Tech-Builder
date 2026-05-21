@@ -53,6 +53,7 @@
             <div class="nav-pill" id="navLinks">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#contact" class="nav-link nav-cta">Contact</a>
                 <a href="/dashboard/" class="nav-link nav-dash">Dashboard</a>
@@ -70,6 +71,7 @@
         <div class="mobile-menu-inner">
             <a href="#home" class="mobile-link">Home</a>
             <a href="#about" class="mobile-link">About</a>
+            <a href="#services" class="mobile-link">Services</a>
             <a href="#projects" class="mobile-link">Projects</a>
             <a href="#contact" class="mobile-link">Contact</a>
             <a href="/dashboard/" class="mobile-link">Dashboard</a>
@@ -134,24 +136,24 @@
                 <!-- Stats -->
                 <div class="hero-stats" data-anim="fade-up" data-delay="800">
                     <div class="stat-item">
-                        <span class="stat-num" data-count="12">0</span>
+                        <span class="stat-num" data-count="30">0</span>
                         <span class="stat-div"></span>
-                        <span class="stat-label">Projects Built</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-num" data-count="8">0</span>
-                        <span class="stat-div"></span>
-                        <span class="stat-label">Technologies</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-num" data-count="5">0</span>
-                        <span class="stat-div"></span>
-                        <span class="stat-label">Internships</span>
+                        <span class="stat-label">Projects Deployed</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-num" data-count="10">0</span>
                         <span class="stat-div"></span>
-                        <span class="stat-label">Certifications</span>
+                        <span class="stat-label">AI Agents Deployed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="12">0</span>
+                        <span class="stat-div"></span>
+                        <span class="stat-label">Tech Stack</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="5">0</span>
+                        <span class="stat-div"></span>
+                        <span class="stat-label">Happy Clients</span>
                     </div>
                 </div>
             </div>
@@ -249,6 +251,64 @@
                             <img src="assets/images/logo.png" alt="Portfolio" style="width:16px;height:16px;border-radius:4px;">
                         </a>
                     </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== SERVICES ====== -->
+    <section class="section section--alt" id="services">
+        <div class="orb orb--blue" style="top:10%;left:-20%;"></div>
+        <div class="container">
+            <header class="section-header" data-scroll-reveal>
+                <span class="sec-label">Our Expertise</span>
+                <h2 class="sec-title">Services We Offer</h2>
+                <p class="sec-sub">We design, build, and deploy intelligent custom solutions driven by state-of-the-art tech.</p>
+            </header>
+
+            <div class="services-grid">
+                <!-- S1: Web Dev -->
+                <article class="service-card" data-scroll-reveal>
+                    <div class="service-icon-wrap">
+                        <i data-lucide="globe"></i>
+                    </div>
+                    <h3 class="service-card-title">Website Development</h3>
+                    <p class="service-card-desc">
+                        Full-stack robust applications, corporate portals, and fluid landing pages built with high-performance responsive frameworks.
+                    </p>
+                </article>
+
+                <!-- S2: AI Agents -->
+                <article class="service-card" data-scroll-reveal>
+                    <div class="service-icon-wrap">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h3 class="service-card-title">AI &amp; ML Solutions</h3>
+                    <p class="service-card-desc">
+                        Custom AI agent deployments, predictive model pipelines, computer vision systems, and LLM integrations.
+                    </p>
+                </article>
+
+                <!-- S3: Automations -->
+                <article class="service-card" data-scroll-reveal>
+                    <div class="service-icon-wrap">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h3 class="service-card-title">Intelligent Automations</h3>
+                    <p class="service-card-desc">
+                        End-to-end background automation workers, API integrations, scraping systems, and business process automation scripting.
+                    </p>
+                </article>
+
+                <!-- S4: Data Analytics -->
+                <article class="service-card" data-scroll-reveal>
+                    <div class="service-icon-wrap">
+                        <i data-lucide="bar-chart-3"></i>
+                    </div>
+                    <h3 class="service-card-title">Data Analytics</h3>
+                    <p class="service-card-desc">
+                        Exploratory data analysis, interactive dashboard visualization, predictive modeling, and automated data pipelines.
+                    </p>
                 </article>
             </div>
         </div>
@@ -980,6 +1040,11 @@
         lucide.createIcons();
     })();
     </script>
+    <!-- ====== ANIMATION LIBRARIES ====== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+    
     <script src="assets/js/stackbuilder-api.js?v=1.2"></script>
     <script src="assets/js/3d-effects.js"></script>
 </body>
