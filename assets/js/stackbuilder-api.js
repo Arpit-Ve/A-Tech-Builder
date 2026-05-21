@@ -227,7 +227,7 @@
 
         // Re-attach service chip selection logic
         const selectedServices = new Set();
-        form.querySelectorAll('.service-chip').forEach(chip => {
+        form.querySelectorAll('.svc-chip').forEach(chip => {
             chip.addEventListener('click', () => {
                 chip.classList.toggle('selected');
                 const service = chip.getAttribute('data-service');
@@ -247,8 +247,8 @@
         };
 
         // Get step indicators from the modal (they're inside the form)
-        const stepIndicators = form.querySelectorAll('.form-step');
-        const stepLines = form.querySelectorAll('.form-step-line');
+        const stepIndicators = form.querySelectorAll('.step-node');
+        const stepLines = form.querySelectorAll('.step-line');
 
         function goToStep(n) {
             Object.values(steps).forEach(s => { if (s) s.classList.add('hidden'); });
@@ -361,7 +361,7 @@
                         btn.disabled = false;
                         form.reset();
                         selectedServices.clear();
-                        form.querySelectorAll('.service-chip').forEach(c => c.classList.remove('selected'));
+                        form.querySelectorAll('.svc-chip').forEach(c => c.classList.remove('selected'));
                         goToStep(1);
 
                         // Close modal
