@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. LENIS SMOOTH SCROLL INTEGRATION
     // ==========================================
     const lenis = new Lenis({
-        duration: 1.25,
+        duration: 1.35,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         smooth: true,
         smoothTouch: false,
-        touchMultiplier: 1.25
+        touchMultiplier: 1.2
     });
 
     function raf(time) {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 lenis.scrollTo(target, {
                     offset: -60,
-                    duration: 1.4,
+                    duration: 1.45,
                     immediate: false
                 });
             }
@@ -100,12 +100,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 3. PREMIUM HERO INTERACTION TIMELINE
+    // 3. CINEMATIC CURTAIN PRELOADER WIPE & HERO
     // ==========================================
     function initHeroAnimations() {
         // Initial setup for structural reveals
         gsap.set('.hero-badge', { opacity: 0, y: 30 });
-        gsap.set('.hero-title-main', { opacity: 0, y: 40 });
+        
+        // Initial setup for clip-path emergences
+        gsap.set('.hero-title-main', { 
+            opacity: 0, 
+            y: 45, 
+            clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' 
+        });
+        
         gsap.set('.hero-tagline', { opacity: 0, y: 20 });
         gsap.set('.hero-desc', { opacity: 0, y: 30 });
         gsap.set('.hero-actions .btn', { opacity: 0, y: 25 });
@@ -114,27 +121,54 @@ document.addEventListener('DOMContentLoaded', () => {
         const tl = gsap.timeline({
             defaults: {
                 ease: 'power4.out',
-                duration: 1.3
+                duration: 1.4
             }
         });
 
         tl.to('.hero-badge', { opacity: 1, y: 0 })
-          .to('.hero-title-main', { opacity: 1, y: 0 }, '-=0.9')
-          .to('.hero-tagline', { opacity: 1, y: 0 }, '-=1.0')
+          .to('.hero-title-main', { 
+              opacity: 1, 
+              y: 0, 
+              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' 
+          }, '-=0.9')
+          .to('.hero-tagline', { opacity: 1, y: 0 }, '-=1.1')
           .to('.hero-desc', { opacity: 1, y: 0 }, '-=0.9')
-          .to('.hero-actions .btn', { opacity: 1, y: 0, stagger: 0.15 }, '-=1.0')
-          .to('.hero-stats .stat-item', { opacity: 1, y: 0, stagger: 0.12 }, '-=1.1');
+          .to('.hero-actions .btn', { opacity: 1, y: 0, stagger: 0.15 }, '-=1.1')
+          .to('.hero-stats .stat-item', { opacity: 1, y: 0, stagger: 0.12 }, '-=1.2');
     }
 
-    // Run animations once preloader completes
+    // Dismiss preloader with a premium curtain wipe
     const preloader = document.getElementById('preloader');
     if (preloader) {
-        // Watch for the "done" class on preloader to kick off hero animation
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.attributeName === 'class' && preloader.classList.contains('done')) {
-                    setTimeout(initHeroAnimations, 100);
                     observer.disconnect();
+
+                    const exitTimeline = gsap.timeline({
+                        onComplete: () => {
+                            preloader.remove();
+                        }
+                    });
+
+                    // 1. Shrink and fade preloader logo/words
+                    exitTimeline.to('.preloader-inner', { 
+                        opacity: 0, 
+                        scale: 0.9, 
+                        y: -40, 
+                        duration: 0.65, 
+                        ease: 'power3.inOut' 
+                    })
+                    // 2. High-end screen wipe upward (curtain effect)
+                    .to(preloader, { 
+                        yPercent: -100, 
+                        duration: 1.3, 
+                        ease: 'power4.inOut' 
+                    }, '-=0.25')
+                    // 3. Stagger-start the hero entrance timeline
+                    .call(() => {
+                        initHeroAnimations();
+                    }, null, '-=0.85');
                 }
             });
         });
@@ -174,21 +208,103 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 5. STAGGERED SCROLL REVEALS (TRESMARES STYLE)
+    // 5. PARALLAX FLOATING ORBS & ATMOSPHERE SHIFTER
     // ==========================================
-    // Custom header reveal
+    // Ambient floating orbs parallax depth
+    gsap.to('.orb--1', {
+        y: -160,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.5
+        }
+    });
+
+    gsap.to('.orb--2', {
+        y: 160,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.5
+        }
+    });
+
+    gsap.to('.orb--3', {
+        y: -100,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.5
+        }
+    });
+
+    // Color morphing gradients on scrolling
+    window.addEventListener('scroll', () => {
+        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        
+        // Orb colors transition slowly from blue-teal to rich purple-indigo as user scrolls down!
+        const orb1 = document.querySelector('.orb--1');
+        const orb2 = document.querySelector('.orb--2');
+        
+        if (orb1) {
+            const r1 = Math.floor(60 + scrollPercent * 100);
+            const g1 = Math.floor(100 - scrollPercent * 40);
+            orb1.style.background = `rgba(${r1}, ${g1}, 255, 0.085)`;
+        }
+        if (orb2) {
+            const r2 = Math.floor(140 + scrollPercent * 70);
+            const g2 = Math.floor(80 - scrollPercent * 30);
+            orb2.style.background = `rgba(${r2}, ${g2}, 255, 0.075)`;
+        }
+    });
+
+    // ==========================================
+    // 6. SCROLL REVEALS & CLIP-PATH ELEGANCE
+    // ==========================================
+    // Section header emerges from a clip mask
     document.querySelectorAll('.section-header').forEach(header => {
-        gsap.from(header, {
-            opacity: 0,
-            y: 45,
-            duration: 1.4,
-            ease: 'power3.out',
+        const title = header.querySelector('.sec-title');
+        const subtitle = header.querySelector('.sec-sub');
+        const label = header.querySelector('.sec-label');
+
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: header,
                 start: 'top 85%',
                 toggleActions: 'play none none none'
             }
         });
+
+        if (label) {
+            gsap.set(label, { opacity: 0, y: 15 });
+            tl.to(label, { opacity: 1, y: 0, duration: 0.8 });
+        }
+
+        if (title) {
+            gsap.set(title, { 
+                opacity: 0, 
+                y: 35, 
+                clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' 
+            });
+            tl.to(title, { 
+                opacity: 1, 
+                y: 0, 
+                clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', 
+                duration: 1.3, 
+                ease: 'power4.out' 
+            }, '-=0.6');
+        }
+
+        if (subtitle) {
+            gsap.set(subtitle, { opacity: 0, y: 20 });
+            tl.to(subtitle, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, '-=0.9');
+        }
     });
 
     // Team Card dynamic glide-ins
@@ -231,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 6. SCROLL PARALLAX IMAGES (TRESMARES CAPITAL STYLE)
+    // 7. SCROLL PARALLAX IMAGES (TRESMARES CAPITAL STYLE)
     // ==========================================
     document.querySelectorAll('.proj-card').forEach(card => {
         const img = card.querySelector('.proj-img');
@@ -256,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 7. PERSPECTIVE 3D CARD HOVER TILT
+    // 8. PERSPECTIVE 3D CARD HOVER TILT
     // ==========================================
     const tiltCards = document.querySelectorAll('.team-card, .proj-card');
     tiltCards.forEach(card => {
@@ -293,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 8. OPTIMIZED PARTICLES CANVAS BINDING
+    // 9. OPTIMIZED PARTICLES CANVAS BINDING
     // ==========================================
     const canvas = document.getElementById('heroCanvas');
     if (canvas) {
