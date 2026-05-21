@@ -1,72 +1,72 @@
 /**
  * A'tech Builder — Premium Interaction & Animation Engine
  * Powered by GSAP, ScrollTrigger, Lenis Smooth Scroll
+ * Inspired by ultra-premium editorial motion systems
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     // ==========================================
-    // 1. DYNAMIC CURSOR INJECTION & LOGIC
+    // 1. UNIFIED CUSTOM CURSOR LOGIC
     // ==========================================
-    let cursor = document.querySelector('.custom-cursor');
-    let follower = document.querySelector('.custom-cursor-follower');
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
 
-    if (!cursor) {
-        cursor = document.createElement('div');
-        cursor.className = 'custom-cursor';
-        document.body.appendChild(cursor);
-    }
-    if (!follower) {
-        follower = document.createElement('div');
-        follower.className = 'custom-cursor-follower';
-        document.body.appendChild(follower);
-    }
+    if (dot && ring) {
+        // Set initial coordinates out of view
+        gsap.set([dot, ring], { xPercent: -50, yPercent: -50, x: -100, y: -100 });
 
-    // Set initial custom cursor location out of bounds
-    gsap.set([cursor, follower], { xPercent: -50, yPercent: -50, x: -100, y: -100 });
+        let mx = -100, my = -100;
+        window.addEventListener('mousemove', (e) => {
+            mx = e.clientX;
+            my = e.clientY;
 
-    window.addEventListener('mousemove', (e) => {
-        // Smooth follow coordinates
-        gsap.to(cursor, {
-            x: e.clientX,
-            y: e.clientY,
-            duration: 0.1,
-            ease: 'power3.out'
+            // Tight follow for the central dot
+            gsap.to(dot, {
+                x: mx,
+                y: my,
+                duration: 0.08,
+                ease: 'power2.out'
+            });
+
+            // Delayed smooth lag for the outer wireframe ring
+            gsap.to(ring, {
+                x: mx,
+                y: my,
+                duration: 0.32,
+                ease: 'power3.out'
+            });
         });
-        gsap.to(follower, {
-            x: e.clientX,
-            y: e.clientY,
-            duration: 0.35,
-            ease: 'power3.out'
-        });
-    });
 
-    // Handle cursor expansion on clickables
-    const hoverables = 'a, button, .service-chip, .team-card, .project-card, .filter-btn, .modal-close, .footer-social';
-    document.addEventListener('mouseover', (e) => {
-        if (e.target.closest(hoverables)) {
-            cursor.classList.add('hover');
-            follower.classList.add('hover');
-        }
-    });
-    document.addEventListener('mouseout', (e) => {
-        if (e.target.closest(hoverables)) {
-            cursor.classList.remove('hover');
-            follower.classList.remove('hover');
-        }
-    });
+        // Hover expanders for clickables
+        const hoverables = 'a, button, .svc-chip, .team-card, .proj-card, .soc-btn, .filter-pill, .icon-btn, .footer-soc';
+        
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest(hoverables)) {
+                ring.classList.add('enlarged');
+                dot.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest(hoverables)) {
+                ring.classList.remove('enlarged');
+                dot.classList.remove('hidden');
+            }
+        });
+    }
 
     // ==========================================
     // 2. LENIS SMOOTH SCROLL INTEGRATION
     // ==========================================
     const lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.25,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         smooth: true,
         smoothTouch: false,
-        touchMultiplier: 1.5
+        touchMultiplier: 1.25
     });
 
     function raf(time) {
@@ -75,14 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     requestAnimationFrame(raf);
 
-    // Sync ScrollTrigger with Lenis
+    // Synchronize ScrollTrigger with Lenis
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
     });
     gsap.ticker.lagSmoothing(0);
 
-    // Support hash link jumps smoothly
+    // Smooth anchor scrolls
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target) {
                 e.preventDefault();
                 lenis.scrollTo(target, {
-                    offset: -50,
-                    duration: 1.5,
+                    offset: -60,
+                    duration: 1.4,
                     immediate: false
                 });
             }
@@ -100,167 +100,181 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 3. PRELOADER & HERO TIMELINES
+    // 3. PREMIUM HERO INTERACTION TIMELINE
     // ==========================================
-    const preloader = document.getElementById('preloader');
-
     function initHeroAnimations() {
-        // Initial setup to prevent structural flash
-        gsap.set('.hero-badge', { opacity: 0, y: 25 });
-        gsap.set('.hero-title .line', { opacity: 0, y: 45 });
-        gsap.set('.hero-description', { opacity: 0, y: 25 });
-        gsap.set('.hero-buttons', { opacity: 0, y: 25 });
-        gsap.set('.hero-stats .hero-stat', { opacity: 0, y: 25 });
+        // Initial setup for structural reveals
+        gsap.set('.hero-badge', { opacity: 0, y: 30 });
+        gsap.set('.hero-title-main', { opacity: 0, y: 40 });
+        gsap.set('.hero-tagline', { opacity: 0, y: 20 });
+        gsap.set('.hero-desc', { opacity: 0, y: 30 });
+        gsap.set('.hero-actions .btn', { opacity: 0, y: 25 });
+        gsap.set('.hero-stats .stat-item', { opacity: 0, y: 30 });
 
         const tl = gsap.timeline({
             defaults: {
                 ease: 'power4.out',
-                duration: 1.2
+                duration: 1.3
             }
         });
 
-        tl.to('.hero-badge', { opacity: 1, y: 0, duration: 0.8 })
-          .to('.hero-title .line', { opacity: 1, y: 0, stagger: 0.15 }, '-=0.5')
-          .to('.hero-description', { opacity: 1, y: 0 }, '-=0.8')
-          .to('.hero-buttons', { opacity: 1, y: 0 }, '-=0.8')
-          .to('.hero-stats .hero-stat', { opacity: 1, y: 0, stagger: 0.1 }, '-=0.8')
-          .call(() => {
-              // Trigger stat counters dynamically
-              animateCounters();
-          }, null, '-=0.4');
+        tl.to('.hero-badge', { opacity: 1, y: 0 })
+          .to('.hero-title-main', { opacity: 1, y: 0 }, '-=0.9')
+          .to('.hero-tagline', { opacity: 1, y: 0 }, '-=1.0')
+          .to('.hero-desc', { opacity: 1, y: 0 }, '-=0.9')
+          .to('.hero-actions .btn', { opacity: 1, y: 0, stagger: 0.15 }, '-=1.0')
+          .to('.hero-stats .stat-item', { opacity: 1, y: 0, stagger: 0.12 }, '-=1.1');
     }
 
-    // Dismiss preloader and trigger entrance
-    window.addEventListener('load', () => {
-        if (preloader) {
-            setTimeout(() => {
-                preloader.classList.add('hidden');
-                setTimeout(initHeroAnimations, 900);
-            }, 500);
-        } else {
-            initHeroAnimations();
-        }
-    });
-
-    // ==========================================
-    // 4. STAT COUNTER SUB-TIMELINE
-    // ==========================================
-    function animateCounters() {
-        const counters = document.querySelectorAll('.hero-stat .number');
-        counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-count'), 10);
-            const obj = { val: 0 };
-            gsap.to(obj, {
-                val: target,
-                duration: 2.5,
-                ease: 'power3.out',
-                onUpdate: () => {
-                    counter.textContent = Math.floor(obj.val) + '+';
+    // Run animations once preloader completes
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // Watch for the "done" class on preloader to kick off hero animation
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class' && preloader.classList.contains('done')) {
+                    setTimeout(initHeroAnimations, 100);
+                    observer.disconnect();
                 }
             });
         });
+        observer.observe(preloader, { attributes: true });
+    } else {
+        initHeroAnimations();
     }
 
     // ==========================================
-    // 5. STAGGERED SCROLL-TRIGGER REVEALS
+    // 4. MAGNIFICENT MAGNETIC PULL EFFECT
     // ==========================================
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        gsap.to(section, {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
+    const magneticElements = document.querySelectorAll('.btn, .soc-btn, .svc-chip, .icon-btn, .nav-link, .footer-soc');
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - (rect.width / 2);
+            const y = e.clientY - rect.top - (rect.height / 2);
+
+            // Gently pull the element towards the cursor
+            gsap.to(el, {
+                x: x * 0.32,
+                y: y * 0.32,
+                duration: 0.35,
+                ease: 'power2.out'
+            });
+        });
+
+        el.addEventListener('mouseleave', () => {
+            // Elastic spring back to center
+            gsap.to(el, {
+                x: 0,
+                y: 0,
+                duration: 0.6,
+                ease: 'elastic.out(1, 0.36)'
+            });
+        });
+    });
+
+    // ==========================================
+    // 5. STAGGERED SCROLL REVEALS (TRESMARES STYLE)
+    // ==========================================
+    // Custom header reveal
+    document.querySelectorAll('.section-header').forEach(header => {
+        gsap.from(header, {
+            opacity: 0,
+            y: 45,
+            duration: 1.4,
             ease: 'power3.out',
             scrollTrigger: {
-                trigger: section,
-                start: 'top 80%',
+                trigger: header,
+                start: 'top 85%',
                 toggleActions: 'play none none none'
             }
         });
     });
 
-    // Stagger Team Cards
-    gsap.set('.team-card', { opacity: 0, y: 40 });
+    // Team Card dynamic glide-ins
+    gsap.set('.team-card', { opacity: 0, y: 55 });
     ScrollTrigger.batch('.team-card', {
-        start: 'top 85%',
+        start: 'top 88%',
         onEnter: batch => gsap.to(batch, {
             opacity: 1,
             y: 0,
-            stagger: 0.2,
-            duration: 1.2,
-            ease: 'power3.out',
+            stagger: 0.22,
+            duration: 1.4,
+            ease: 'power4.out',
             overwrite: 'auto'
         })
     });
 
-    // Stagger Project Cards
-    gsap.set('.project-card', { opacity: 0, y: 40 });
-    ScrollTrigger.batch('.project-card', {
-        start: 'top 85%',
+    // Project Card dynamic scale glide-ins
+    gsap.set('.proj-card', { opacity: 0, y: 55 });
+    ScrollTrigger.batch('.proj-card', {
+        start: 'top 88%',
         onEnter: batch => gsap.to(batch, {
             opacity: 1,
             y: 0,
-            stagger: 0.15,
-            duration: 1.2,
-            ease: 'power3.out',
+            stagger: 0.16,
+            duration: 1.4,
+            ease: 'power4.out',
             overwrite: 'auto'
         })
     });
 
-    // ==========================================
-    // 6. STICKY NAVBAR MORPH & LINK TRACKING
-    // ==========================================
-    const navbar = document.getElementById('navbar');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    // Sticky morph trigger
+    // Contact Information Box & Form Glide-in
+    gsap.set(['.contact-info', '.contact-form'], { opacity: 0, y: 50 });
     ScrollTrigger.create({
-        start: 'top -40px',
-        onEnter: () => navbar.classList.add('scrolled'),
-        onLeaveBack: () => navbar.classList.remove('scrolled')
+        trigger: '#contact',
+        start: 'top 80%',
+        onEnter: () => {
+            gsap.to('.contact-info', { opacity: 1, y: 0, duration: 1.3, ease: 'power3.out' });
+            gsap.to('.contact-form', { opacity: 1, y: 0, duration: 1.3, ease: 'power3.out', delay: 0.15 });
+        }
     });
 
-    // Anchor updates on scroll
-    const navSections = document.querySelectorAll('section[id]');
-    navSections.forEach(section => {
-        ScrollTrigger.create({
-            trigger: section,
-            start: 'top 45%',
-            end: 'bottom 45%',
-            onEnter: () => updateNavActive(section.getAttribute('id')),
-            onEnterBack: () => updateNavActive(section.getAttribute('id'))
-        });
-    });
+    // ==========================================
+    // 6. SCROLL PARALLAX IMAGES (TRESMARES CAPITAL STYLE)
+    // ==========================================
+    document.querySelectorAll('.proj-card').forEach(card => {
+        const img = card.querySelector('.proj-img');
+        if (img) {
+            // Apply initial scale to create a safe moving overflow border
+            gsap.set(img, { scale: 1.15 });
 
-    function updateNavActive(id) {
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${id}`) {
-                link.classList.add('active');
-            }
-        });
-    }
+            gsap.fromTo(img, 
+                { yPercent: -8 }, 
+                {
+                    yPercent: 8,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                }
+            );
+        }
+    });
 
     // ==========================================
     // 7. PERSPECTIVE 3D CARD HOVER TILT
     // ==========================================
-    const cards = document.querySelectorAll('.team-card, .project-card');
-    cards.forEach(card => {
+    const tiltCards = document.querySelectorAll('.team-card, .proj-card');
+    tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
-            const xc = ((x / rect.width) - 0.5) * 14;  // Max 14 degree tilt
-            const yc = ((y / rect.height) - 0.5) * -14;
+            const xc = ((x / rect.width) - 0.5) * 12;   // Max 12 degree tilt
+            const yc = ((y / rect.height) - 0.5) * -12;
 
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
+            card.style.setProperty('--glow-x', `${(x / rect.width) * 100}%`);
+            card.style.setProperty('--glow-y', `${(y / rect.height) * 100}%`);
 
             gsap.to(card, {
                 rotateX: yc,
                 rotateY: xc,
-                scale: 1.012,
+                scale: 1.015,
                 duration: 0.45,
                 ease: 'power3.out',
                 transformPerspective: 1200
@@ -279,9 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 8. PERFORMANCE OPTIMIZED NEURAL CANVAS
+    // 8. OPTIMIZED PARTICLES CANVAS BINDING
     // ==========================================
-    const canvas = document.getElementById('neuralCanvas');
+    const canvas = document.getElementById('heroCanvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let width = canvas.width = canvas.offsetWidth;
@@ -289,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let particles = [];
         let isCanvasActive = true;
 
-        // Automatically pause canvas loop when hero section is out of screen
+        // Auto sleeper: pause particle math loops if hero is completely out of viewport
         ScrollTrigger.create({
             trigger: '.hero',
             start: 'bottom top',
@@ -304,8 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.35;
-                this.vy = (Math.random() - 0.5) * 0.35;
+                this.vx = (Math.random() - 0.5) * 0.32;
+                this.vy = (Math.random() - 0.5) * 0.32;
                 this.radius = Math.random() * 1.5 + 0.5;
             }
 
@@ -327,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function initParticles() {
             particles = [];
-            const count = Math.min(60, Math.floor((width * height) / 12000));
+            const count = Math.min(65, Math.floor((width * height) / 12000));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
@@ -338,13 +352,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ctx.clearRect(0, 0, width, height);
 
-            // Update & Draw nodes
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
 
-            // Draw elastic connections
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -355,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.11 * (1 - dist / 120)})`;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - dist / 120)})`;
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
@@ -368,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initParticles();
         drawLoop();
 
-        // Handle resize events gracefully
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);

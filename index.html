@@ -788,31 +788,6 @@
             }
         }, 80);
 
-        // ── Custom Cursor ──────────────────────────────────────────
-        const dot = document.getElementById('cursorDot');
-        const ring = document.getElementById('cursorRing');
-        let rx = 0, ry = 0, mx = 0, my = 0;
-
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            dot.style.left = mx + 'px';
-            dot.style.top = my + 'px';
-        });
-
-        function animRing() {
-            rx += (mx - rx) * 0.12;
-            ry += (my - ry) * 0.12;
-            ring.style.left = rx + 'px';
-            ring.style.top = ry + 'px';
-            requestAnimationFrame(animRing);
-        }
-        animRing();
-
-        document.querySelectorAll('a, button, .proj-card, .team-card').forEach(el => {
-            el.addEventListener('mouseenter', () => { ring.classList.add('enlarged'); dot.classList.add('hidden'); });
-            el.addEventListener('mouseleave', () => { ring.classList.remove('enlarged'); dot.classList.remove('hidden'); });
-        });
-
         // ── Navbar ─────────────────────────────────────────────────
         const navbar = document.getElementById('navbar');
         const allNavLinks = document.querySelectorAll('.nav-link');
@@ -993,7 +968,6 @@
         const modal = document.getElementById('orderModal');
         const openBtn = document.getElementById('orderProjectBtn');
         const closeBtn = document.getElementById('modalClose');
-        const selectedServices = new Set();
 
         function openModal() { modal.classList.add('active'); document.body.classList.add('no-scroll'); lucide.createIcons(); }
         function closeModal() { modal.classList.remove('active'); document.body.classList.remove('no-scroll'); }
@@ -1002,41 +976,6 @@
         closeBtn.addEventListener('click', closeModal);
         modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-        // Service chips
-        document.querySelectorAll('.svc-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                chip.classList.toggle('selected');
-                const s = chip.dataset.service;
-                selectedServices.has(s) ? selectedServices.delete(s) : selectedServices.add(s);
-            });
-        });
-
-        // Step navigation
-        const steps = { 1: document.getElementById('orderStep1'), 2: document.getElementById('orderStep2'), 3: document.getElementById('orderStep3') };
-        const stepNodes = document.querySelectorAll('.step-node');
-        const stepLines = document.querySelectorAll('.step-line');
-
-        function goStep(n) {
-            Object.values(steps).forEach(s => s.classList.add('hidden'));
-            steps[n].classList.remove('hidden');
-            stepNodes.forEach((node, i) => node.classList.toggle('active', i + 1 <= n));
-            stepLines.forEach((line, i) => line.classList.toggle('active', i + 1 < n));
-            lucide.createIcons();
-        }
-
-        document.getElementById('toStep2').addEventListener('click', () => {
-            if (!selectedServices.size) {
-                const grid = document.getElementById('serviceChips');
-                grid.style.animation = 'shake 0.4s ease';
-                setTimeout(() => grid.style.animation = '', 400);
-                return;
-            }
-            goStep(2);
-        });
-        document.getElementById('toStep3').addEventListener('click', () => goStep(3));
-        document.getElementById('backToStep1').addEventListener('click', () => goStep(1));
-        document.getElementById('backToStep2').addEventListener('click', () => goStep(2));
 
         lucide.createIcons();
     })();
