@@ -7,9 +7,9 @@
 
 /* ── Variables ─────────────────────────────────────────────── */
 :root {
-    --bg:       #0a0b0f;
-    --bg-2:     #0d0f15;
-    --bg-3:     #12151e;
+    --bg:       #030510;
+    --bg-2:     #060814;
+    --bg-3:     #0a0d1a;
     --glass:    rgba(255,255,255,0.035);
     --glass-b:  rgba(255,255,255,0.055);
 
@@ -84,10 +84,16 @@ button { cursor:pointer; font-family:inherit; }
 .site-grid {
     position:fixed; inset:0; pointer-events:none; z-index:0;
     background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 120px 120px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    animation: gridScroll 20s linear infinite;
+}
+
+@keyframes gridScroll {
+    0%   { background-position: 0px 0px; }
+    100% { background-position: 0px 120px; }
 }
 
 /* ── Orbs ──────────────────────────────────────────────────── */
@@ -98,14 +104,14 @@ button { cursor:pointer; font-family:inherit; }
     transition: transform 0.1s linear;
 }
 .orb--1 { width:600px; height:600px; background:rgba(60,100,255,0.08); top:-10%; left:-15%; animation:orbDrift 18s ease-in-out infinite alternate; }
-.orb--2 { width:500px; height:500px; background:rgba(140,80,255,0.07); top:30%; right:-15%; animation:orbDrift 22s ease-in-out infinite alternate-reverse; }
-.orb--3 { width:400px; height:400px; background:rgba(255,255,255,0.03); bottom:-10%; left:40%; animation:orbDrift 14s ease-in-out infinite alternate; }
+.orb--2 { width:500px; height:500px; background:rgba(180,80,255,0.07); top:30%; right:-15%; animation:orbDrift 22s ease-in-out infinite alternate-reverse; }
+.orb--3 { width:400px; height:400px; background:rgba(0,255,180,0.04); bottom:-10%; left:40%; animation:orbDrift 14s ease-in-out infinite alternate; }
 .orb--blue   { background:rgba(60,130,255,0.1); width:500px; height:500px; }
-.orb--purple { background:rgba(150,80,255,0.08); width:500px; height:500px; }
+.orb--purple { background:rgba(180,80,255,0.08); width:500px; height:500px; }
 
 @keyframes orbDrift {
-    0%   { transform: translate(0,0) scale(1); }
-    100% { transform: translate(60px,-40px) scale(1.15); }
+    0%   { transform: translate(0,0) scale(1) rotate(0deg); }
+    100% { transform: translate(80px,-60px) scale(1.2) rotate(45deg); }
 }
 
 /* ── Custom Cursor ─────────────────────────────────────────── */
