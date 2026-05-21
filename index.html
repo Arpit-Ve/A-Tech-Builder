@@ -843,7 +843,7 @@
                 clearInterval(interval);
                 setTimeout(() => {
                     preloader.classList.add('done');
-                    setTimeout(() => preloader.remove(), 1200);
+                    // 3d-effects.js will handle the preloader GSAP exit animation and removal
                 }, 300);
             }
         }, 80);
@@ -875,93 +875,7 @@
             document.body.classList.remove('no-scroll');
         }));
 
-        // ── Hero Canvas — Neural net particles ────────────────────
-        const canvas = document.getElementById('heroCanvas');
-        const ctx = canvas.getContext('2d');
-        let W, H, nodes = [];
 
-        function resize() {
-            W = canvas.width = canvas.offsetWidth;
-            H = canvas.height = canvas.offsetHeight;
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-        class Node {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * W;
-                this.y = Math.random() * H;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.r = Math.random() * 1.5 + 0.5;
-                this.a = Math.random() * 0.4 + 0.05;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0 || this.x > W) this.vx *= -1;
-                if (this.y < 0 || this.y > H) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255,255,255,${this.a})`;
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 60; i++) nodes.push(new Node());
-
-        function drawCanvas() {
-            ctx.clearRect(0, 0, W, H);
-            nodes.forEach(n => { n.update(); n.draw(); });
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.strokeStyle = `rgba(255,255,255,${0.06 * (1 - dist / 120)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(drawCanvas);
-        }
-        drawCanvas();
-
-        // ── Hero entrance animations ───────────────────────────────
-        document.querySelectorAll('[data-anim]').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            const delay = parseInt(el.dataset.delay || 0);
-            setTimeout(() => {
-                el.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, delay + 400);
-        });
-
-        // ── Scroll Reveal ──────────────────────────────────────────
-        const revealObs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const delay = parseInt(el.dataset.scrollDelay || 0);
-                    setTimeout(() => el.classList.add('sr-visible'), delay);
-                    revealObs.unobserve(el);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('[data-scroll-reveal]').forEach(el => {
-            el.classList.add('sr-hidden');
-            revealObs.observe(el);
-        });
 
         // ── Counter Animation ──────────────────────────────────────
         const counterObs = new IntersectionObserver(entries => {
@@ -997,32 +911,7 @@
             });
         });
 
-        // ── Team card mouse glow ───────────────────────────────────
-        document.querySelectorAll('.team-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                card.style.setProperty('--glow-x', x + '%');
-                card.style.setProperty('--glow-y', y + '%');
-            });
-        });
 
-        // ── Parallax orbs ──────────────────────────────────────────
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    const sy = window.scrollY;
-                    document.querySelectorAll('.orb').forEach((orb, i) => {
-                        const speed = (i + 1) * 0.08;
-                        orb.style.transform = `translateY(${sy * speed}px)`;
-                    });
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }, { passive: true });
 
         // ── Modal ──────────────────────────────────────────────────
         const modal = document.getElementById('orderModal');

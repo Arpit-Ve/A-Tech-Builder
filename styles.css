@@ -175,7 +175,7 @@ button { cursor:pointer; font-family:inherit; }
     display:flex; align-items:center; justify-content:center;
     transition: opacity 0.8s var(--ease), visibility 0.8s;
 }
-.preloader.done { opacity:0; visibility:hidden; pointer-events:none; }
+.preloader.done { pointer-events:none; }
 .preloader-inner { display:flex; flex-direction:column; align-items:center; gap:28px; }
 .preloader-logo-wrap {
     width:56px; height:56px; border-radius:var(--r-md);
