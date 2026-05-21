@@ -12,12 +12,7 @@
     <title>A'tech Builder — AI & Web Development Portfolio</title>
     <link rel="icon" href="assets/images/logo.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
-    <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- GSAP & Smooth Scroll CDNs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@latest/bundled/lenis.min.js"></script>
     <script src="assets/js/stackbuilder-api.js"></script>
 </head>
 
@@ -25,140 +20,175 @@
 
     <!-- ====== PRELOADER ====== -->
     <div class="preloader" id="preloader">
-        <div class="preloader-content">
-            <img src="assets/images/logo.png" alt="Loading" class="preloader-logo">
-            <div class="preloader-bar">
-                <div class="preloader-fill"></div>
+        <div class="preloader-inner">
+            <div class="preloader-logo-wrap">
+                <img src="assets/images/logo.png" alt="Loading" class="preloader-logo">
             </div>
-            <div class="preloader-text">ASCENDING</div>
+            <div class="preloader-bar-wrap">
+                <div class="preloader-bar-track">
+                    <div class="preloader-bar-fill" id="preloaderFill"></div>
+                </div>
+                <div class="preloader-percent" id="preloaderPercent">0%</div>
+            </div>
+            <div class="preloader-wordmark">A'TECH BUILDER</div>
         </div>
-        <div class="preloader-shutter"></div>
+        <div class="preloader-curtain" id="preloaderCurtain"></div>
     </div>
 
-    <!-- Cursor Glow -->
-    <div class="cursor-glow"></div>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- Grid Background -->
-    <div class="grid-bg"></div>
-
-    <!-- Light Streak (White Shades Animation) -->
-    <div class="light-streak"></div>
+    <!-- Ambient BG -->
+    <div class="site-noise"></div>
+    <div class="site-grid"></div>
 
     <!-- ====== NAVBAR ====== -->
     <nav class="navbar" id="navbar">
-        <div class="container">
+        <div class="nav-inner">
             <a href="#home" class="nav-logo">
                 <img src="assets/images/logo.png" alt="A'tech Builder Logo">
                 <span>A'tech Builder</span>
             </a>
-            <div class="nav-links" id="navLinks">
-                <a href="#home" class="active">Home</a>
-                <a href="#about">About Us</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact" class="nav-cta">Contact</a>
-                <a href="/dashboard/" class="nav-cta"
-                    style="margin-left: 0.25rem;">Dashboard</a>
+            <div class="nav-pill" id="navLinks">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link nav-cta">Contact</a>
+                <a href="/dashboard/" class="nav-link nav-dash">Dashboard</a>
             </div>
-            <div class="nav-hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+                <span class="ham-line"></span>
+            </button>
         </div>
     </nav>
 
-    <!-- ====== HERO SECTION ====== -->
-    <section class="hero section" id="home">
-        <div class="bg-glow bg-glow--blue"></div>
-        <div class="bg-glow bg-glow--purple"></div>
-        <div class="particles-container" id="particles"></div>
-        <!-- Neural Network Canvas -->
-        <canvas id="neuralCanvas"></canvas>
-        <!-- Hero Orbital Rings -->
-        <div class="hero-orbitals">
-            <div class="orbital-ring"></div>
-            <div class="orbital-ring"></div>
-            <div class="orbital-ring"></div>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#projects" class="mobile-link">Projects</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+            <a href="/dashboard/" class="mobile-link">Dashboard</a>
+        </div>
+    </div>
+
+    <!-- ====== HERO ====== -->
+    <section class="hero" id="home">
+        <!-- Ambient orbs -->
+        <div class="orb orb--1"></div>
+        <div class="orb orb--2"></div>
+        <div class="orb orb--3"></div>
+
+        <!-- Particle Canvas -->
+        <canvas id="heroCanvas"></canvas>
+
+        <!-- Orbital rings -->
+        <div class="orbital-system">
+            <div class="orbital orbital--1"></div>
+            <div class="orbital orbital--2"></div>
+            <div class="orbital orbital--3"></div>
         </div>
 
-        <div class="container">
+        <div class="hero-wrap">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="dot"></span>
-                    Available for Projects & Collaborations
+                <!-- Badge -->
+                <div class="hero-badge" data-anim="fade-up" data-delay="0">
+                    <span class="badge-dot"></span>
+                    <span>Available for Projects &amp; Collaborations</span>
                 </div>
 
-                <h1 class="hero-title">
-                    <span class="line">We Are</span>
-                    <span class="line highlight">A'tech Builder</span>
-                    <span class="line" style="font-size:0.6em; color: var(--text-secondary); font-weight:400;">Turning
-                        ideas into intelligent solutions</span>
-                </h1>
+                <!-- Title -->
+                <div class="hero-title-wrap" data-anim="fade-up" data-delay="200">
+                    <p class="hero-eyebrow">We Are</p>
+                    <h1 class="hero-title">
+                        <span class="hero-title-main">A'tech Builder</span>
+                    </h1>
+                    <p class="hero-tagline">Turning ideas into intelligent solutions</p>
+                </div>
 
-                <p class="hero-description">
-                    A duo of passionate developers specializing in <strong>AI/ML</strong>, <strong>Data Science</strong>, and <strong>Web Development</strong>. We craft real-world solutions powered by cutting-edge technology.
+                <!-- Description -->
+                <p class="hero-desc" data-anim="fade-up" data-delay="400">
+                    A duo of passionate developers specializing in <em>AI/ML</em>, <em>Data Science</em>, and <em>Web Development</em>. We craft real-world solutions powered by cutting-edge technology.
                 </p>
 
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">
-                        <i data-lucide="rocket" style="width:18px;height:18px;"></i>
+                <!-- Buttons -->
+                <div class="hero-actions" data-anim="fade-up" data-delay="600">
+                    <a href="#projects" class="btn btn--white">
+                        <i data-lucide="rocket"></i>
                         View Our Work
                     </a>
-                    <button class="btn btn-order" id="orderProjectBtn">
-                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                    <button class="btn btn--outline" id="orderProjectBtn">
+                        <i data-lucide="shopping-cart"></i>
                         Order Project
                     </button>
-                    <a href="#contact" class="btn btn-secondary">
-                        <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                    <a href="#contact" class="btn btn--ghost">
+                        <i data-lucide="mail"></i>
                         Get In Touch
                     </a>
                 </div>
 
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="number" data-count="12">0</div>
-                        <div class="label">Projects Built</div>
+                <!-- Stats -->
+                <div class="hero-stats" data-anim="fade-up" data-delay="800">
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="12">0</span>
+                        <span class="stat-div"></span>
+                        <span class="stat-label">Projects Built</span>
                     </div>
-                    <div class="hero-stat">
-                        <div class="number" data-count="8">0</div>
-                        <div class="label">Technologies</div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="8">0</span>
+                        <span class="stat-div"></span>
+                        <span class="stat-label">Technologies</span>
                     </div>
-                    <div class="hero-stat">
-                        <div class="number" data-count="5">0</div>
-                        <div class="label">Internships</div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="5">0</span>
+                        <span class="stat-div"></span>
+                        <span class="stat-label">Internships</span>
                     </div>
-                    <div class="hero-stat">
-                        <div class="number" data-count="10">0</div>
-                        <div class="label">Certifications</div>
+                    <div class="stat-item">
+                        <span class="stat-num" data-count="10">0</span>
+                        <span class="stat-div"></span>
+                        <span class="stat-label">Certifications</span>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Scroll cue -->
+        <div class="scroll-cue">
+            <div class="scroll-cue-line"></div>
+            <span>Scroll</span>
+        </div>
     </section>
 
-    <div class="section-divider"></div>
-
-    <!-- ====== ABOUT / TEAM SECTION ====== -->
+    <!-- ====== ABOUT / TEAM ====== -->
     <section class="section" id="about">
-        <div class="bg-glow bg-glow--purple" style="top: 50%; right: -250px;"></div>
+        <div class="orb orb--purple" style="top:10%;right:-20%;"></div>
         <div class="container">
-            <div class="section-header reveal">
-                <span class="section-badge">👥 Our Team</span>
-                <h2 class="section-title">Meet the Builders</h2>
-                <p class="section-subtitle">Two driven BCA students combining our skills to build innovative solutions
-                    in AI, ML, and Web Development.</p>
-            </div>
+            <header class="section-header" data-scroll-reveal>
+                <span class="sec-label">Our Team</span>
+                <h2 class="sec-title">Meet the Builders</h2>
+                <p class="sec-sub">Two driven BCA students combining our skills to build innovative solutions in AI, ML, and Web Development.</p>
+            </header>
 
             <div class="team-grid">
-                <!-- Arpit Card -->
-                <div class="team-card reveal reveal-delay-1">
-                    <div class="team-card-header">
-                        <div class="team-avatar">
-                            <img src="assets/images/arpit.png" alt="Arpit Verma">
+                <!-- Arpit -->
+                <article class="team-card" data-scroll-reveal data-scroll-delay="0">
+                    <div class="team-card-glow"></div>
+                    <div class="team-card-top">
+                        <div class="team-avatar-ring">
+                            <img src="assets/images/arpit.png" alt="Arpit Verma" class="team-avatar">
                         </div>
-                        <div class="team-info">
-                            <h3>Arpit Verma</h3>
-                            <p class="team-role">Full-Stack Developer & AI/ML Engineer</p>
+                        <div class="team-meta">
+                            <h3 class="team-name">Arpit Verma</h3>
+                            <p class="team-role">Full-Stack Developer &amp; AI/ML Engineer</p>
+                            <div class="team-status">
+                                <span class="status-dot"></span>
+                                <span>Open to opportunities</span>
+                            </div>
                         </div>
                     </div>
                     <p class="team-bio">
@@ -168,31 +198,35 @@
                         technical skills in practical and innovative environments.
                     </p>
                     <div class="team-links">
-                        <a href="mailto:atechbuilderss@gmail.com" class="team-link" title="Email">
-                            <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                        <a href="mailto:atechbuilderss@gmail.com" class="icon-btn" title="Email">
+                            <i data-lucide="mail"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/arpit-verma-bca-graduate/" class="team-link" target="_blank"
-                            title="LinkedIn">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:18px;height:18px;filter: brightness(0) invert(1);">
+                        <a href="https://www.linkedin.com/in/arpit-verma-bca-graduate/" class="icon-btn" target="_blank" title="LinkedIn">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:16px;height:16px;filter:brightness(0)invert(1);">
                         </a>
-                        <a href="https://github.com/Arpit-Ve" class="team-link" target="_blank" title="GitHub">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:18px;height:18px;filter: brightness(0) invert(1);">
+                        <a href="https://github.com/Arpit-Ve" class="icon-btn" target="_blank" title="GitHub">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:16px;height:16px;filter:brightness(0)invert(1);">
                         </a>
-                        <a href="https://arpit-personal-portfolio.netlify.app/" class="team-link" target="_blank" title="Portfolio">
-                            <img src="assets/images/logo.png" alt="Portfolio" style="width:18px;height:18px;border-radius:4px;">
+                        <a href="https://arpit-personal-portfolio.netlify.app/" class="icon-btn" target="_blank" title="Portfolio">
+                            <img src="assets/images/logo.png" alt="Portfolio" style="width:16px;height:16px;border-radius:4px;">
                         </a>
                     </div>
-                </div>
+                </article>
 
-                <!-- Ansh Card -->
-                <div class="team-card reveal reveal-delay-2">
-                    <div class="team-card-header">
-                        <div class="team-avatar">
-                            <img src="assets/images/ansh.png" alt="Ansh Singh">
+                <!-- Ansh -->
+                <article class="team-card" data-scroll-reveal data-scroll-delay="150">
+                    <div class="team-card-glow"></div>
+                    <div class="team-card-top">
+                        <div class="team-avatar-ring">
+                            <img src="assets/images/ansh.png" alt="Ansh Singh" class="team-avatar">
                         </div>
-                        <div class="team-info">
-                            <h3>Ansh Singh</h3>
-                            <p class="team-role">AI Engineer & Data Scientist</p>
+                        <div class="team-meta">
+                            <h3 class="team-name">Ansh Singh</h3>
+                            <p class="team-role">AI Engineer &amp; Data Scientist</p>
+                            <div class="team-status">
+                                <span class="status-dot"></span>
+                                <span>Open to opportunities</span>
+                            </div>
                         </div>
                     </div>
                     <p class="team-bio">
@@ -202,389 +236,384 @@
                         predictive analytics, and AI-driven product development.
                     </p>
                     <div class="team-links">
-                        <a href="mailto:atechbuilderss@gmail.com" class="team-link" title="Email">
-                            <i data-lucide="mail" style="width:18px;height:18px;"></i>
+                        <a href="mailto:atechbuilderss@gmail.com" class="icon-btn" title="Email">
+                            <i data-lucide="mail"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/ansh-singh-472bb5360/" class="team-link" target="_blank" title="LinkedIn">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:18px;height:18px;filter: brightness(0) invert(1);">
+                        <a href="https://www.linkedin.com/in/ansh-singh-472bb5360/" class="icon-btn" target="_blank" title="LinkedIn">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:16px;height:16px;filter:brightness(0)invert(1);">
                         </a>
-                        <a href="https://github.com/anshsingh" class="team-link" target="_blank" title="GitHub">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:18px;height:18px;filter: brightness(0) invert(1);">
+                        <a href="https://github.com/anshsingh" class="icon-btn" target="_blank" title="GitHub">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:16px;height:16px;filter:brightness(0)invert(1);">
                         </a>
-                        <a href="https://anshsinghportfolio01.netlify.app/" class="team-link" target="_blank" title="Portfolio">
-                            <img src="assets/images/logo.png" alt="Portfolio" style="width:18px;height:18px;border-radius:4px;">
+                        <a href="https://anshsinghportfolio01.netlify.app/" class="icon-btn" target="_blank" title="Portfolio">
+                            <img src="assets/images/logo.png" alt="Portfolio" style="width:16px;height:16px;border-radius:4px;">
                         </a>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <div class="section-divider"></div>
-
-    <!-- ====== PROJECTS SECTION ====== -->
-    <section class="section" id="projects">
-        <div class="bg-glow bg-glow--blue" style="top: 20%; right: -200px;"></div>
-        <div class="bg-glow bg-glow--purple" style="bottom: 10%; left: -200px;"></div>
+    <!-- ====== PROJECTS ====== -->
+    <section class="section section--alt" id="projects">
+        <div class="orb orb--blue" style="top:15%;right:-15%;"></div>
+        <div class="orb orb--purple" style="bottom:10%;left:-15%;"></div>
         <div class="container">
-            <div class="section-header reveal">
-                <span class="section-badge">🚀 Our Work</span>
-                <h2 class="section-title">Featured Projects</h2>
-                <p class="section-subtitle">Real-world applications we've built using AI, ML, Data Science, and Web
-                    Technologies.</p>
-            </div>
+            <header class="section-header" data-scroll-reveal>
+                <span class="sec-label">Our Work</span>
+                <h2 class="sec-title">Featured Projects</h2>
+                <p class="sec-sub">Real-world applications built using AI, ML, Data Science, and Web Technologies.</p>
+            </header>
 
-            <div class="projects-filter" id="projectsFilter">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="ai">AI / ML</button>
-                <button class="filter-btn" data-filter="web">Web Dev</button>
-                <button class="filter-btn" data-filter="data">Data Science</button>
-                <button class="filter-btn" data-filter="arpit">By Arpit</button>
-                <button class="filter-btn" data-filter="ansh">By Ansh</button>
+            <!-- Filter -->
+            <div class="proj-filter" data-scroll-reveal>
+                <button class="filter-pill active" data-filter="all">All Projects</button>
+                <button class="filter-pill" data-filter="ai">AI / ML</button>
+                <button class="filter-pill" data-filter="web">Web Dev</button>
+                <button class="filter-pill" data-filter="data">Data Science</button>
+                <button class="filter-pill" data-filter="arpit">By Arpit</button>
+                <button class="filter-pill" data-filter="ansh">By Ansh</button>
             </div>
 
             <div class="projects-grid" id="projectsGrid">
 
-                <!-- Project 1: Face Mask Detection (Both) -->
-                <div class="project-card reveal" data-tags="ai arpit ansh">
-                    <div class="project-image">
-                        <img src="assets/images/project_facemask.png" alt="Face Mask Detection System">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-arpit">Arpit</span>
-                            <span class="project-person-badge badge-ansh">Ansh</span>
+                <!-- P1: Face Mask Detection -->
+                <article class="proj-card" data-tags="ai arpit ansh" data-scroll-reveal>
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_facemask.png" alt="Face Mask Detection System" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Arpit</span>
+                            <span class="person-badge">Ansh</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Face Mask Detection System</h3>
-                        <p class="project-desc">
-                            Built a real-time face mask detection system using TensorFlow, Keras, MobileNetV2 & OpenCV.
-                            Implements CNN for binary image classification with high accuracy, deployable in
-                            surveillance systems.
+                    <div class="proj-body">
+                        <h3 class="proj-title">Face Mask Detection System</h3>
+                        <p class="proj-desc">
+                            Built a real-time face mask detection system using TensorFlow, Keras, MobileNetV2 &amp; OpenCV.
+                            Implements CNN for binary image classification with high accuracy, deployable in surveillance systems.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">Keras</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">MobileNetV2</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">Tensorflow</span>
+                            <span class="tech-chip">Keras</span>
+                            <span class="tech-chip">OpenCV</span>
+                            <span class="tech-chip">MobileNetV2</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
-                            </a>
-                            <a href="#" class="project-link">
-                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> Live Demo
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="github"></i> View Code</a>
+                            <a href="#" class="proj-link"><i data-lucide="external-link"></i> Live Demo</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 2: Biblio AI (Arpit) -->
-                <div class="project-card reveal" data-tags="ai web arpit">
-                    <div class="project-image">
-                        <img src="assets/images/project_biblioai.png" alt="Biblio AI">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-arpit">Arpit</span>
+                <!-- P2: Biblio AI -->
+                <article class="proj-card proj-card--featured" data-tags="ai web arpit" data-scroll-reveal data-scroll-delay="100">
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_biblioai.png" alt="Biblio AI" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Arpit</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Biblio AI</h3>
-                        <p class="project-desc">
+                    <div class="proj-body">
+                        <h3 class="proj-title">Biblio AI</h3>
+                        <p class="proj-desc">
                             An AI-based book platform with recommendation features and planned API integration.
-                            Features an intelligent chatbot agent for user guidance, library management, and AI-powered
-                            tools.
+                            Features an intelligent chatbot agent for user guidance, library management, and AI-powered tools.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">AI/API</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">HTML</span>
+                            <span class="tech-chip">CSS</span>
+                            <span class="tech-chip">JavaScript</span>
+                            <span class="tech-chip">AI/API</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
-                            </a>
-                            <a href="#" class="project-link">
-                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> Live Demo
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="github"></i> View Code</a>
+                            <a href="#" class="proj-link"><i data-lucide="external-link"></i> Live Demo</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 3: AI Career Counsellor (Ansh) -->
-                <div class="project-card reveal" data-tags="ai ansh">
-                    <div class="project-image">
-                        <img src="assets/images/project_career.png" alt="AI Career Counsellor">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-ansh">Ansh</span>
+                <!-- P3: AI Career Counsellor -->
+                <article class="proj-card" data-tags="ai ansh" data-scroll-reveal data-scroll-delay="200">
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_career.png" alt="AI Career Counsellor" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Ansh</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">AI Career Counsellor</h3>
-                        <p class="project-desc">
+                    <div class="proj-body">
+                        <h3 class="proj-title">AI Career Counsellor</h3>
+                        <p class="proj-desc">
                             An AI-powered career counselling application using Python and NLP techniques,
                             integrating rule-based decision logic and language model prompting to analyse user profiles
                             and produce personalised career path recommendations.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">NLP</span>
-                            <span class="tech-tag">Rule-Based AI</span>
-                            <span class="tech-tag">LLM</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">NLP</span>
+                            <span class="tech-chip">Rule-Based AI</span>
+                            <span class="tech-chip">LLM</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="github"></i> View Code</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 4: Smart City Dashboard (Arpit) -->
-                <div class="project-card reveal" data-tags="data arpit">
-                    <div class="project-image">
-                        <img src="assets/images/project_smartcity.png" alt="Smart City Dashboard">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-arpit">Arpit</span>
+                <!-- P4: Smart City Dashboard -->
+                <article class="proj-card" data-tags="data arpit" data-scroll-reveal>
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_smartcity.png" alt="Smart City Dashboard" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Arpit</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Smart City Dashboard</h3>
-                        <p class="project-desc">
+                    <div class="proj-body">
+                        <h3 class="proj-title">Smart City Dashboard</h3>
+                        <p class="proj-desc">
                             A Power BI dashboard with real-time API data for weather and accident analysis.
                             Features interactive visualizations, KPI tracking, and dynamic data filtering
                             for city-wide infrastructure monitoring.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Power BI</span>
-                            <span class="tech-tag">API</span>
-                            <span class="tech-tag">Data Analysis</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">Power BI</span>
+                            <span class="tech-chip">API</span>
+                            <span class="tech-chip">Data Analysis</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> View Dashboard
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="external-link"></i> View Dashboard</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 5: AI Predictive Maintenance (Ansh) -->
-                <div class="project-card reveal" data-tags="ai data ansh">
-                    <div class="project-image">
-                        <img src="assets/images/project_predictive.png" alt="AI Predictive Maintenance System">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-ansh">Ansh</span>
+                <!-- P5: AI Predictive Maintenance -->
+                <article class="proj-card" data-tags="ai data ansh" data-scroll-reveal data-scroll-delay="100">
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_predictive.png" alt="AI Predictive Maintenance" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Ansh</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">AI Predictive Maintenance System</h3>
-                        <p class="project-desc">
-                            Built a predictive maintenance model using time series sensor data, applying feature
-                            engineering
+                    <div class="proj-body">
+                        <h3 class="proj-title">AI Predictive Maintenance System</h3>
+                        <p class="proj-desc">
+                            Built a predictive maintenance model using time series sensor data, applying feature engineering
                             and anomaly detection algorithms to flag failure patterns early.
                             Enabled proactive maintenance scheduling, reducing predicted equipment downtime risk.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Time Series</span>
-                            <span class="tech-tag">Scikit-learn</span>
-                            <span class="tech-tag">Anomaly Detection</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">Time Series</span>
+                            <span class="tech-chip">Scikit-learn</span>
+                            <span class="tech-chip">Anomaly Detection</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="github"></i> View Code</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 6: Cricket DRS (Ansh) -->
-                <div class="project-card reveal" data-tags="ai ansh">
-                    <div class="project-image">
-                        <img src="assets/images/project_drs.png" alt="Cricket Decision Review System">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-ansh">Ansh</span>
+                <!-- P6: Cricket DRS -->
+                <article class="proj-card" data-tags="ai ansh" data-scroll-reveal data-scroll-delay="200">
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_drs.png" alt="Cricket Decision Review System" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Ansh</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Cricket Decision Review System</h3>
-                        <p class="project-desc">
+                    <div class="proj-body">
+                        <h3 class="proj-title">Cricket Decision Review System</h3>
+                        <p class="proj-desc">
                             A simulation-based Python application replicating cricket's DRS workflow with multimedia
                             integration and logical decision-tree operations. Demonstrates software design and
                             problem-solving skills.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Multimedia</span>
-                            <span class="tech-tag">Decision Trees</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">Multimedia</span>
+                            <span class="tech-chip">Decision Trees</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="github"></i> View Code</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 7: Titanic EDA (Arpit) -->
-                <div class="project-card reveal" data-tags="data arpit">
-                    <div class="project-image">
-                        <img src="assets/images/project_smartcity.png" alt="Titanic Dataset EDA">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-arpit">Arpit</span>
+                <!-- P7: Titanic EDA -->
+                <article class="proj-card" data-tags="data arpit" data-scroll-reveal>
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_smartcity.png" alt="Titanic Dataset EDA" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Arpit</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">Titanic Dataset EDA</h3>
-                        <p class="project-desc">
+                    <div class="proj-body">
+                        <h3 class="proj-title">Titanic Dataset EDA</h3>
+                        <p class="proj-desc">
                             Performed comprehensive data cleaning, visualization, and feature engineering
-                            using Pandas & Matplotlib on the famous Titanic dataset. Extracted meaningful insights
+                            using Pandas &amp; Matplotlib on the famous Titanic dataset. Extracted meaningful insights
                             from survival patterns and passenger demographics.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Pandas</span>
-                            <span class="tech-tag">Matplotlib</span>
-                            <span class="tech-tag">EDA</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">Pandas</span>
+                            <span class="tech-chip">Matplotlib</span>
+                            <span class="tech-chip">EDA</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="github"></i> View Code</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 8: AI Classification Website (Arpit) -->
-                <div class="project-card reveal" data-tags="ai web arpit">
-                    <div class="project-image">
-                        <img src="assets/images/project_facemask.png" alt="AI Classification Website">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-arpit">Arpit</span>
+                <!-- P8: AI Classification -->
+                <article class="proj-card" data-tags="ai web arpit" data-scroll-reveal data-scroll-delay="100">
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_facemask.png" alt="AI Classification Website" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Arpit</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">AI Classification Website</h3>
-                        <p class="project-desc">
-                            Classified cattle & buffalo images using a low-code AI tool and deployed on web.
+                    <div class="proj-body">
+                        <h3 class="proj-title">AI Classification Website</h3>
+                        <p class="proj-desc">
+                            Classified cattle &amp; buffalo images using a low-code AI tool and deployed on web.
                             Combines computer vision with web deployment for a practical agricultural AI solution.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">AI</span>
-                            <span class="tech-tag">Low-Code</span>
-                            <span class="tech-tag">Web Deploy</span>
-                            <span class="tech-tag">Classification</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">AI</span>
+                            <span class="tech-chip">Low-Code</span>
+                            <span class="tech-chip">Web Deploy</span>
+                            <span class="tech-chip">Classification</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="external-link" style="width:16px;height:16px;"></i> Live Demo
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="external-link"></i> Live Demo</a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 9: Landing Page OctaNet (Arpit) -->
-                <div class="project-card reveal" data-tags="web arpit">
-                    <div class="project-image">
-                        <img src="assets/images/project_biblioai.png" alt="OctaNet Landing Page">
-                        <div class="project-image-overlay"></div>
-                        <div class="project-badges">
-                            <span class="project-person-badge badge-arpit">Arpit</span>
+                <!-- P9: OctaNet Landing Page -->
+                <article class="proj-card" data-tags="web arpit" data-scroll-reveal data-scroll-delay="200">
+                    <div class="proj-img-wrap">
+                        <img src="assets/images/project_biblioai.png" alt="OctaNet Landing Page" class="proj-img">
+                        <div class="proj-img-overlay"></div>
+                        <div class="proj-badges">
+                            <span class="person-badge">Arpit</span>
                         </div>
+                        <div class="proj-hover-cta">View Project →</div>
                     </div>
-                    <div class="project-body">
-                        <h3 class="project-title">OctaNet Landing Page</h3>
-                        <p class="project-desc">
-                            Designed a fully responsive landing page using HTML & CSS following corporate design
-                            standards.
+                    <div class="proj-body">
+                        <h3 class="proj-title">OctaNet Landing Page</h3>
+                        <p class="proj-desc">
+                            Designed a fully responsive landing page using HTML &amp; CSS following corporate design standards.
                             Focused on clean UI, responsive layout, and modern web design principles.
                         </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">Responsive</span>
+                        <div class="proj-tech">
+                            <span class="tech-chip">HTML</span>
+                            <span class="tech-chip">CSS</span>
+                            <span class="tech-chip">Responsive</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i data-lucide="github" style="width:16px;height:16px;"></i> View Code
-                            </a>
+                        <div class="proj-links">
+                            <a href="#" class="proj-link"><i data-lucide="github"></i> View Code</a>
                         </div>
                     </div>
-                </div>
+                </article>
+
             </div>
         </div>
     </section>
 
-    <div class="section-divider"></div>
-
-    <!-- ====== CONTACT SECTION ====== -->
-    <section class="section section--shade" id="contact">
-        <div class="bg-glow bg-glow--blue" style="top: -200px; left: 50%; transform: translateX(-50%);"></div>
+    <!-- ====== CONTACT ====== -->
+    <section class="section" id="contact">
+        <div class="orb orb--blue" style="top:-10%;left:50%;transform:translateX(-50%);"></div>
         <div class="container">
-            <div class="section-header reveal">
-                <span class="section-badge">📬 Let's Connect</span>
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle">Have a project idea or want to collaborate? We'd love to hear from you.</p>
-            </div>
+            <header class="section-header" data-scroll-reveal>
+                <span class="sec-label">Let's Connect</span>
+                <h2 class="sec-title">Get In Touch</h2>
+                <p class="sec-sub">Have a project idea or want to collaborate? We'd love to hear from you.</p>
+            </header>
 
-            <div class="contact-wrapper">
-                <div class="contact-info reveal">
-                    <h3>Contact Information</h3>
-                    <p>
+            <div class="contact-layout">
+                <!-- Info -->
+                <div class="contact-info" data-scroll-reveal>
+                    <h3 class="contact-heading">Contact Information</h3>
+                    <p class="contact-body">
                         We're always open to exciting opportunities, freelance projects, and collaboration.
                         Drop us a message and let's build something amazing together!
                     </p>
 
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-method-icon">
-                                <i data-lucide="mail" style="width:20px;height:20px;color:white;"></i>
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i data-lucide="mail"></i>
                             </div>
-                            <div class="contact-method-text">
+                            <div class="contact-card-text">
                                 <strong>Team Email</strong>
                                 <span>atechbuilderss@gmail.com</span>
                             </div>
                         </div>
-
-                        <div class="contact-method">
-
-                            <div class="contact-method-text">
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div class="contact-card-text">
                                 <strong>Location</strong>
                                 <span>Delhi NCR, India</span>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Social strip -->
+                    <div class="contact-socials">
+                        <a href="https://github.com/Arpit-Ve" class="soc-btn" target="_blank">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:18px;height:18px;filter:brightness(0)invert(1);">
+                            Arpit's GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/arpit-verma-bca-graduate/" class="soc-btn" target="_blank">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:18px;height:18px;filter:brightness(0)invert(1);">
+                            LinkedIn
+                        </a>
+                    </div>
                 </div>
 
-                <form class="contact-form reveal reveal-delay-1" id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="John Doe" required>
+                <!-- Form -->
+                <form class="contact-form" id="contactForm" data-scroll-reveal data-scroll-delay="150">
+                    <div class="form-row-2">
+                        <div class="form-field">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
-                    </div>
-                    <div class="form-group">
+                    <div class="form-field">
                         <label for="subject">Subject</label>
-                        <input type="text" class="form-control" id="subject" placeholder="Project Collaboration">
+                        <input type="text" id="subject" placeholder="Project Collaboration">
                     </div>
-                    <div class="form-group">
+                    <div class="form-field">
                         <label for="message">Message</label>
-                        <textarea class="form-control" id="message" placeholder="Tell us about your project..."
-                            required></textarea>
+                        <textarea id="message" placeholder="Tell us about your project..." required></textarea>
                     </div>
-                    <button type="submit" class="form-submit">
-                        <i data-lucide="send"
-                            style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:8px;"></i>
+                    <button type="submit" class="btn btn--white btn--full">
+                        <i data-lucide="send"></i>
                         Send Message
                     </button>
                 </form>
@@ -593,135 +622,93 @@
     </section>
 
     <!-- ====== FOOTER ====== -->
-    <footer class="footer">
+    <footer class="site-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
+            <div class="footer-row">
+                <div class="footer-brand">
                     <img src="assets/images/logo.png" alt="A'tech Builder">
-                    <span class="gradient-text">A'tech Builder</span>
+                    <span>A'tech Builder</span>
                 </div>
-                <p class="footer-text">© 2026 A'tech Builder. Built with ❤️ by Arpit Verma & Ansh Singh</p>
+                <p class="footer-copy">© 2026 A'tech Builder. Built with ❤️ by Arpit Verma &amp; Ansh Singh</p>
                 <div class="footer-socials">
-                    <a href="https://github.com/Arpit-Ve" class="footer-social" target="_blank" title="Arpit's GitHub">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:16px;height:16px;filter: brightness(0) invert(1);">
+                    <a href="https://github.com/Arpit-Ve" class="footer-soc" target="_blank" title="Arpit's GitHub">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:16px;height:16px;filter:brightness(0)invert(1);">
                     </a>
-                    <a href="https://www.linkedin.com/in/arpit-verma-bca-graduate/" class="footer-social" target="_blank"
-                        title="Arpit's LinkedIn">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:16px;height:16px;filter: brightness(0) invert(1);">
+                    <a href="https://www.linkedin.com/in/arpit-verma-bca-graduate/" class="footer-soc" target="_blank" title="Arpit's LinkedIn">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:16px;height:16px;filter:brightness(0)invert(1);">
                     </a>
-                    <a href="https://www.linkedin.com/in/ansh-singh-472bb5360/" class="footer-social" target="_blank"
-                        title="Ansh's LinkedIn">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:16px;height:16px;filter: brightness(0) invert(1);">
+                    <a href="https://www.linkedin.com/in/ansh-singh-472bb5360/" class="footer-soc" target="_blank" title="Ansh's LinkedIn">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="width:16px;height:16px;filter:brightness(0)invert(1);">
                     </a>
-                    <a href="mailto:atechbuilderss@gmail.com" class="footer-social" title="Email">
-                        <i data-lucide="mail" style="width:16px;height:16px;"></i>
+                    <a href="mailto:atechbuilderss@gmail.com" class="footer-soc" title="Email">
+                        <i data-lucide="mail"></i>
                     </a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- ====== ORDER PROJECT MODAL ====== -->
+    <!-- ====== ORDER MODAL ====== -->
     <div class="modal-overlay" id="orderModal">
-        <div class="modal-container">
-            <div class="modal-glow modal-glow--1"></div>
-            <div class="modal-glow modal-glow--2"></div>
-            <button class="modal-close" id="modalClose">
-                <i data-lucide="x" style="width:22px;height:22px;"></i>
+        <div class="modal-box">
+            <div class="modal-glow-1"></div>
+            <div class="modal-glow-2"></div>
+            <button class="modal-close-btn" id="modalClose">
+                <i data-lucide="x"></i>
             </button>
 
-            <div class="modal-header">
-                <span class="modal-badge">
-                    <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+            <div class="modal-head">
+                <span class="modal-eyebrow">
+                    <i data-lucide="sparkles"></i>
                     Start Your Project
                 </span>
                 <h2 class="modal-title">Order a Project</h2>
-                <p class="modal-subtitle">Tell us what you need and we'll bring your vision to life.</p>
+                <p class="modal-sub">Tell us what you need and we'll bring your vision to life.</p>
             </div>
 
             <form class="order-form" id="orderForm">
-                <!-- Step indicator -->
-                <div class="form-steps">
-                    <div class="form-step active" data-step="1">
-                        <span class="step-num">1</span>
-                        <span class="step-label">Service</span>
-                    </div>
-                    <div class="form-step-line"></div>
-                    <div class="form-step" data-step="2">
-                        <span class="step-num">2</span>
-                        <span class="step-label">Details</span>
-                    </div>
-                    <div class="form-step-line"></div>
-                    <div class="form-step" data-step="3">
-                        <span class="step-num">3</span>
-                        <span class="step-label">Contact</span>
-                    </div>
+                <div class="step-track">
+                    <div class="step-node active" data-step="1"><span class="step-n">1</span><span class="step-l">Service</span></div>
+                    <div class="step-line"></div>
+                    <div class="step-node" data-step="2"><span class="step-n">2</span><span class="step-l">Details</span></div>
+                    <div class="step-line"></div>
+                    <div class="step-node" data-step="3"><span class="step-n">3</span><span class="step-l">Contact</span></div>
                 </div>
 
-                <!-- Step 1: Service Selection -->
+                <!-- Step 1 -->
                 <div class="order-step" id="orderStep1">
-                    <label class="order-label">What do you need?</label>
-                    <p class="order-hint">Select one or more services</p>
-                    <div class="service-chips" id="serviceChips">
-                        <button type="button" class="service-chip" data-service="Website Development">
-                            <span class="chip-icon">🌐</span>
-                            <span class="chip-text">Website Development</span>
-                        </button>
-                        <button type="button" class="service-chip" data-service="Automations">
-                            <span class="chip-icon">⚙️</span>
-                            <span class="chip-text">Automations</span>
-                        </button>
-                        <button type="button" class="service-chip" data-service="Graphic Design">
-                            <span class="chip-icon">🎨</span>
-                            <span class="chip-text">Graphic Design</span>
-                        </button>
-                        <button type="button" class="service-chip" data-service="Video Editing">
-                            <span class="chip-icon">🎬</span>
-                            <span class="chip-text">Video Editing</span>
-                        </button>
-                        <button type="button" class="service-chip" data-service="AI / ML Solution">
-                            <span class="chip-icon">🤖</span>
-                            <span class="chip-text">AI / ML Solution</span>
-                        </button>
-                        <button type="button" class="service-chip" data-service="Data Analysis">
-                            <span class="chip-icon">📊</span>
-                            <span class="chip-text">Data Analysis</span>
-                        </button>
-                        <button type="button" class="service-chip" data-service="Mobile App">
-                            <span class="chip-icon">📱</span>
-                            <span class="chip-text">Mobile App</span>
-                        </button>
-                        <button type="button" class="service-chip" data-service="Other">
-                            <span class="chip-icon">✨</span>
-                            <span class="chip-text">Other</span>
-                        </button>
+                    <label class="step-label-main">What do you need?</label>
+                    <p class="step-hint">Select one or more services</p>
+                    <div class="service-grid" id="serviceChips">
+                        <button type="button" class="svc-chip" data-service="Website Development"><span>🌐</span>Website Development</button>
+                        <button type="button" class="svc-chip" data-service="Automations"><span>⚙️</span>Automations</button>
+                        <button type="button" class="svc-chip" data-service="Graphic Design"><span>🎨</span>Graphic Design</button>
+                        <button type="button" class="svc-chip" data-service="Video Editing"><span>🎬</span>Video Editing</button>
+                        <button type="button" class="svc-chip" data-service="AI / ML Solution"><span>🤖</span>AI / ML Solution</button>
+                        <button type="button" class="svc-chip" data-service="Data Analysis"><span>📊</span>Data Analysis</button>
+                        <button type="button" class="svc-chip" data-service="Mobile App"><span>📱</span>Mobile App</button>
+                        <button type="button" class="svc-chip" data-service="Other"><span>✨</span>Other</button>
                     </div>
-                    <div class="order-nav">
+                    <div class="step-nav">
                         <div></div>
-                        <button type="button" class="order-next-btn" id="toStep2">
-                            Next Step
-                            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
-                        </button>
+                        <button type="button" class="btn btn--white" id="toStep2">Next Step <i data-lucide="arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- Step 2: Project Details -->
+                <!-- Step 2 -->
                 <div class="order-step hidden" id="orderStep2">
-                    <div class="form-group">
-                        <label for="orderProjectName" class="order-label">Project Name</label>
-                        <input type="text" class="form-control" id="orderProjectName"
-                            placeholder="e.g. My Portfolio Redesign" required>
+                    <div class="form-field">
+                        <label for="orderProjectName">Project Name</label>
+                        <input type="text" id="orderProjectName" placeholder="e.g. My Portfolio Redesign" required>
                     </div>
-                    <div class="form-group">
-                        <label for="orderDescription" class="order-label">Describe Your Project</label>
-                        <textarea class="form-control" id="orderDescription"
-                            placeholder="What exactly do you need? Include features, style preferences, reference links..."
-                            required></textarea>
+                    <div class="form-field">
+                        <label for="orderDescription">Describe Your Project</label>
+                        <textarea id="orderDescription" placeholder="What exactly do you need? Include features, style preferences, reference links..." required></textarea>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="orderBudget" class="order-label">Budget Range</label>
-                            <select class="form-control" id="orderBudget">
+                    <div class="form-row-2">
+                        <div class="form-field">
+                            <label for="orderBudget">Budget Range</label>
+                            <select id="orderBudget">
                                 <option value="" disabled selected>Select budget</option>
                                 <option value="Under ₹5,000">Under ₹5,000</option>
                                 <option value="₹5,000 - ₹15,000">₹5,000 – ₹15,000</option>
@@ -730,9 +717,9 @@
                                 <option value="Let's Discuss">Let's Discuss</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="orderTimeline" class="order-label">Timeline</label>
-                            <select class="form-control" id="orderTimeline">
+                        <div class="form-field">
+                            <label for="orderTimeline">Timeline</label>
+                            <select id="orderTimeline">
                                 <option value="" disabled selected>Select timeline</option>
                                 <option value="ASAP">ASAP</option>
                                 <option value="1-2 Weeks">1–2 Weeks</option>
@@ -742,208 +729,317 @@
                             </select>
                         </div>
                     </div>
-                    <div class="order-nav">
-                        <button type="button" class="order-back-btn" id="backToStep1">
-                            <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-                            Back
-                        </button>
-                        <button type="button" class="order-next-btn" id="toStep3">
-                            Next Step
-                            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
-                        </button>
+                    <div class="step-nav">
+                        <button type="button" class="btn btn--ghost-sm" id="backToStep1"><i data-lucide="arrow-left"></i> Back</button>
+                        <button type="button" class="btn btn--white" id="toStep3">Next Step <i data-lucide="arrow-right"></i></button>
                     </div>
                 </div>
 
-                <!-- Step 3: Contact Info -->
+                <!-- Step 3 -->
                 <div class="order-step hidden" id="orderStep3">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="orderName" class="order-label">Your Name</label>
-                            <input type="text" class="form-control" id="orderName" placeholder="John Doe" required>
+                    <div class="form-row-2">
+                        <div class="form-field">
+                            <label for="orderName">Your Name</label>
+                            <input type="text" id="orderName" placeholder="John Doe" required>
                         </div>
-                        <div class="form-group">
-                            <label for="orderEmail" class="order-label">Your Email</label>
-                            <input type="email" class="form-control" id="orderEmail" placeholder="john@example.com"
-                                required>
+                        <div class="form-field">
+                            <label for="orderEmail">Your Email</label>
+                            <input type="email" id="orderEmail" placeholder="john@example.com" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="orderPhone" class="order-label">Phone Number <span
-                                class="optional-tag">(optional)</span></label>
-                        <input type="tel" class="form-control" id="orderPhone" placeholder="+91 XXXXX XXXXX">
+                    <div class="form-field">
+                        <label for="orderPhone">Phone Number <span class="opt-tag">(optional)</span></label>
+                        <input type="tel" id="orderPhone" placeholder="+91 XXXXX XXXXX">
                     </div>
-                    <div class="form-group">
-                        <label for="orderExtra" class="order-label">Anything Else? <span
-                                class="optional-tag">(optional)</span></label>
-                        <textarea class="form-control" id="orderExtra"
-                            placeholder="References, links, files to share..."></textarea>
+                    <div class="form-field">
+                        <label for="orderExtra">Anything Else? <span class="opt-tag">(optional)</span></label>
+                        <textarea id="orderExtra" placeholder="References, links, files to share..."></textarea>
                     </div>
-                    <div class="order-nav">
-                        <button type="button" class="order-back-btn" id="backToStep2">
-                            <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-                            Back
-                        </button>
-                        <button type="submit" class="order-submit-btn" id="orderSubmitBtn">
-                            <i data-lucide="send" style="width:18px;height:18px;"></i>
-                            Submit Order
-                        </button>
+                    <div class="step-nav">
+                        <button type="button" class="btn btn--ghost-sm" id="backToStep2"><i data-lucide="arrow-left"></i> Back</button>
+                        <button type="submit" class="btn btn--white" id="orderSubmitBtn"><i data-lucide="send"></i> Submit Order</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- ====== JAVASCRIPT ====== -->
+    <!-- ====== SCRIPTS ====== -->
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+    (() => {
+        'use strict';
 
-        // Disable old form handlers — API handled by stackbuilder-api.js
-        HTMLFormElement.prototype._addEventListener = HTMLFormElement.prototype.addEventListener;
-        
-        // ===== Mobile Navigation =====
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navLinks');
+        // ── Preloader ──────────────────────────────────────────────
+        const preloader = document.getElementById('preloader');
+        const fill = document.getElementById('preloaderFill');
+        const pct = document.getElementById('preloaderPercent');
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 18;
+            if (progress > 100) progress = 100;
+            fill.style.width = progress + '%';
+            pct.textContent = Math.floor(progress) + '%';
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    preloader.classList.add('done');
+                    setTimeout(() => preloader.remove(), 1200);
+                }, 300);
+            }
+        }, 80);
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('open');
+        // ── Custom Cursor ──────────────────────────────────────────
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let rx = 0, ry = 0, mx = 0, my = 0;
+
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            dot.style.left = mx + 'px';
+            dot.style.top = my + 'px';
         });
 
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('open');
-            });
+        function animRing() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
+            ring.style.left = rx + 'px';
+            ring.style.top = ry + 'px';
+            requestAnimationFrame(animRing);
+        }
+        animRing();
+
+        document.querySelectorAll('a, button, .proj-card, .team-card').forEach(el => {
+            el.addEventListener('mouseenter', () => { ring.classList.add('enlarged'); dot.classList.add('hidden'); });
+            el.addEventListener('mouseleave', () => { ring.classList.remove('enlarged'); dot.classList.remove('hidden'); });
         });
 
-        // ===== Particle Effect =====
-        const particlesContainer = document.getElementById('particles');
-        function createParticles() {
-            if (!particlesContainer) return;
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
-                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-                particle.style.animationDelay = (Math.random() * 10) + 's';
-                particle.style.opacity = Math.random() * 0.3 + 0.1;
+        // ── Navbar ─────────────────────────────────────────────────
+        const navbar = document.getElementById('navbar');
+        const allNavLinks = document.querySelectorAll('.nav-link');
 
-                const colors = ['#38bdf8', '#8b5cf6', '#ec4899', '#06b6d4'];
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+            // Active link
+            const sections = document.querySelectorAll('section[id]');
+            let cur = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+            allNavLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + cur));
+        }, { passive: true });
 
-                particlesContainer.appendChild(particle);
+        // ── Mobile Menu ────────────────────────────────────────────
+        const ham = document.getElementById('hamburger');
+        const mm = document.getElementById('mobileMenu');
+        ham.addEventListener('click', () => {
+            ham.classList.toggle('open');
+            mm.classList.toggle('open');
+            document.body.classList.toggle('no-scroll');
+        });
+        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+            ham.classList.remove('open');
+            mm.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+        }));
+
+        // ── Hero Canvas — Neural net particles ────────────────────
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+        let W, H, nodes = [];
+
+        function resize() {
+            W = canvas.width = canvas.offsetWidth;
+            H = canvas.height = canvas.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        class Node {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * W;
+                this.y = Math.random() * H;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.r = Math.random() * 1.5 + 0.5;
+                this.a = Math.random() * 0.4 + 0.05;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > W) this.vx *= -1;
+                if (this.y < 0 || this.y > H) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255,255,255,${this.a})`;
+                ctx.fill();
             }
         }
-        createParticles();
 
-        // ===== Projects Filter =====
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('#projectsGrid .project-card');
+        for (let i = 0; i < 60; i++) nodes.push(new Node());
 
-        filterBtns.forEach(btn => {
+        function drawCanvas() {
+            ctx.clearRect(0, 0, W, H);
+            nodes.forEach(n => { n.update(); n.draw(); });
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(255,255,255,${0.06 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(drawCanvas);
+        }
+        drawCanvas();
+
+        // ── Hero entrance animations ───────────────────────────────
+        document.querySelectorAll('[data-anim]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            const delay = parseInt(el.dataset.delay || 0);
+            setTimeout(() => {
+                el.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, delay + 400);
+        });
+
+        // ── Scroll Reveal ──────────────────────────────────────────
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const delay = parseInt(el.dataset.scrollDelay || 0);
+                    setTimeout(() => el.classList.add('sr-visible'), delay);
+                    revealObs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('[data-scroll-reveal]').forEach(el => {
+            el.classList.add('sr-hidden');
+            revealObs.observe(el);
+        });
+
+        // ── Counter Animation ──────────────────────────────────────
+        const counterObs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = parseInt(el.dataset.count);
+                let n = 0;
+                const inc = target / 50;
+                const t = setInterval(() => {
+                    n += inc;
+                    if (n >= target) { el.textContent = target + '+'; clearInterval(t); }
+                    else el.textContent = Math.floor(n) + '+';
+                }, 40);
+                counterObs.unobserve(el);
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.stat-num').forEach(el => counterObs.observe(el));
+
+        // ── Projects Filter ────────────────────────────────────────
+        document.querySelectorAll('.filter-pill').forEach(btn => {
             btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
-                const filter = btn.getAttribute('data-filter');
-
-                projectCards.forEach(card => {
-                    const tags = card.getAttribute('data-tags');
-                    if (filter === 'all' || tags.includes(filter)) {
-                        card.style.display = '';
-                        card.style.animation = 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-                    } else {
-                        card.style.display = 'none';
+                const f = btn.dataset.filter;
+                document.querySelectorAll('.proj-card').forEach(card => {
+                    const show = f === 'all' || card.dataset.tags.includes(f);
+                    card.style.display = show ? '' : 'none';
+                    if (show) {
+                        card.style.animation = 'projIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards';
                     }
                 });
             });
         });
 
-        // ===== Order Project Modal =====
-        const orderModal = document.getElementById('orderModal');
-        const orderProjectBtn = document.getElementById('orderProjectBtn');
-        const modalClose = document.getElementById('modalClose');
-        const orderForm = document.getElementById('orderForm');
+        // ── Team card mouse glow ───────────────────────────────────
+        document.querySelectorAll('.team-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--glow-x', x + '%');
+                card.style.setProperty('--glow-y', y + '%');
+            });
+        });
+
+        // ── Parallax orbs ──────────────────────────────────────────
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const sy = window.scrollY;
+                    document.querySelectorAll('.orb').forEach((orb, i) => {
+                        const speed = (i + 1) * 0.08;
+                        orb.style.transform = `translateY(${sy * speed}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // ── Modal ──────────────────────────────────────────────────
+        const modal = document.getElementById('orderModal');
+        const openBtn = document.getElementById('orderProjectBtn');
+        const closeBtn = document.getElementById('modalClose');
         const selectedServices = new Set();
 
-        // Open modal
-        orderProjectBtn.addEventListener('click', () => {
-            orderModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            lucide.createIcons();
-        });
+        function openModal() { modal.classList.add('active'); document.body.classList.add('no-scroll'); lucide.createIcons(); }
+        function closeModal() { modal.classList.remove('active'); document.body.classList.remove('no-scroll'); }
 
-        // Close modal
-        function closeModal() {
-            orderModal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        modalClose.addEventListener('click', closeModal);
-        orderModal.addEventListener('click', (e) => {
-            if (e.target === orderModal) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-        // Service chip selection
-        document.querySelectorAll('.service-chip').forEach(chip => {
+        // Service chips
+        document.querySelectorAll('.svc-chip').forEach(chip => {
             chip.addEventListener('click', () => {
                 chip.classList.toggle('selected');
-                const service = chip.getAttribute('data-service');
-                if (selectedServices.has(service)) {
-                    selectedServices.delete(service);
-                } else {
-                    selectedServices.add(service);
-                }
+                const s = chip.dataset.service;
+                selectedServices.has(s) ? selectedServices.delete(s) : selectedServices.add(s);
             });
         });
 
         // Step navigation
-        const steps = {
-            1: document.getElementById('orderStep1'),
-            2: document.getElementById('orderStep2'),
-            3: document.getElementById('orderStep3'),
-        };
-        const stepIndicators = document.querySelectorAll('.form-step');
-        const stepLines = document.querySelectorAll('.form-step-line');
+        const steps = { 1: document.getElementById('orderStep1'), 2: document.getElementById('orderStep2'), 3: document.getElementById('orderStep3') };
+        const stepNodes = document.querySelectorAll('.step-node');
+        const stepLines = document.querySelectorAll('.step-line');
 
-        function goToStep(n) {
+        function goStep(n) {
             Object.values(steps).forEach(s => s.classList.add('hidden'));
             steps[n].classList.remove('hidden');
-
-            stepIndicators.forEach((si, i) => {
-                if (i + 1 <= n) {
-                    si.classList.add('active');
-                } else {
-                    si.classList.remove('active');
-                }
-            });
-            stepLines.forEach((sl, i) => {
-                if (i + 1 < n) {
-                    sl.classList.add('active');
-                } else {
-                    sl.classList.remove('active');
-                }
-            });
-
+            stepNodes.forEach((node, i) => node.classList.toggle('active', i + 1 <= n));
+            stepLines.forEach((line, i) => line.classList.toggle('active', i + 1 < n));
             lucide.createIcons();
         }
 
         document.getElementById('toStep2').addEventListener('click', () => {
-            if (selectedServices.size === 0) {
-                const chips = document.getElementById('serviceChips');
-                chips.style.animation = 'shake 0.4s ease';
-                setTimeout(() => chips.style.animation = '', 400);
+            if (!selectedServices.size) {
+                const grid = document.getElementById('serviceChips');
+                grid.style.animation = 'shake 0.4s ease';
+                setTimeout(() => grid.style.animation = '', 400);
                 return;
             }
-            goToStep(2);
+            goStep(2);
         });
-        document.getElementById('toStep3').addEventListener('click', () => goToStep(3));
-        document.getElementById('backToStep1').addEventListener('click', () => goToStep(1));
-        document.getElementById('backToStep2').addEventListener('click', () => goToStep(2));
+        document.getElementById('toStep3').addEventListener('click', () => goStep(3));
+        document.getElementById('backToStep1').addEventListener('click', () => goStep(1));
+        document.getElementById('backToStep2').addEventListener('click', () => goStep(2));
+
+        lucide.createIcons();
+    })();
     </script>
     <script src="assets/js/stackbuilder-api.js?v=1.2"></script>
     <script src="assets/js/3d-effects.js"></script>
