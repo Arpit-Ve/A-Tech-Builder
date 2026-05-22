@@ -123,21 +123,6 @@ app.use(express.static(path.join(__dirname, '..'), {
     }
 }));
 
-// ===== Trailing Slash Redirect for Dashboard =====
-app.get('/dashboard', (req, res) => {
-    res.redirect(301, '/dashboard/');
-});
-
-// ===== Dashboard Routing (SPA Support) =====
-// This must be AFTER API routes but BEFORE express.static (or handle next)
-app.get('/dashboard*', (req, res, next) => {
-    // If it's a static asset request (has a file extension), skip to express.static
-    if (req.path.includes('.') && !req.path.endsWith('index.html')) {
-        return next();
-    }
-    res.sendFile(path.join(__dirname, '..', 'dashboard', 'index.html'));
-});
-
 // ===== Root Route =====
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'index.html'));
